@@ -1,0 +1,153 @@
+<!DOCTYPE html><html lang="en-GB" data-astro-cid-5hce7sga> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Your first workbook: a bar, a line and a filter | Tableau Field Notes</title><meta name="description" content="Your first Tableau workbook: connect a CSV, create a Sales field, build a bar and a line chart and add one filter that drives both sheets."><link rel="canonical" href="https://ankurnapa.github.io/tableau-field-notes/articles/first-workbook-harbour-goods/"><meta property="og:type" content="article"><meta property="og:site_name" content="Tableau Field Notes"><meta property="og:title" content="Your first workbook: a bar, a line and a filter"><meta property="og:description" content="Your first Tableau workbook: connect a CSV, create a Sales field, build a bar and a line chart and add one filter that drives both sheets."><meta property="og:url" content="https://ankurnapa.github.io/tableau-field-notes/articles/first-workbook-harbour-goods/"><meta property="og:image" content="https://ankurnapa.github.io/tableau-field-notes/og/first-workbook-harbour-goods.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="author" content="Ankur Napa"><script>
+      try { var t = localStorage.getItem('tfn-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+    </script><meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#16191d" media="(prefers-color-scheme: dark)"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><script async src="https://www.googletagmanager.com/gtag/js?id=G-1ZHW47YJDC"></script><script>(function(){const gaId = "G-1ZHW47YJDC";
+
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag('js', new Date());
+          gtag('config', gaId, { anonymize_ip: true });
+        })();</script><link rel="icon" type="image/svg+xml" href="/tableau-field-notes/logo.svg"><link rel="apple-touch-icon" href="/tableau-field-notes/apple-touch-icon.png"><link rel="stylesheet" href="/tableau-field-notes/_astro/about.CXXElhQ4.css">
+<style>.event-cta[data-astro-cid-bhhcqpt4]{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.25rem 2rem;align-items:center;background:var(--footer);color:#fff;border-radius:6px;padding:1.5rem 1.6rem;margin:2.5rem 0 0;border-top:4px solid;border-image:linear-gradient(to right,#4e79a7 0 20%,#f28e2b 20% 40%,#e15759 40% 60%,#76b7b2 60% 80%,#59a14f 80%) 1}.kicker[data-astro-cid-bhhcqpt4]{margin:0 0 .3rem;font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#9cc4ff}h2[data-astro-cid-bhhcqpt4]{color:#fff;font-size:1.3rem;margin:0 0 .35rem}.when[data-astro-cid-bhhcqpt4]{margin:0;color:#c7d9ef;font-size:.95rem}.acts[data-astro-cid-bhhcqpt4]{display:flex;flex-direction:column;align-items:stretch;gap:.6rem;text-align:center}.btn[data-astro-cid-bhhcqpt4].ghost{background:transparent;box-shadow:inset 0 0 0 1.5px #9cc4ff;color:#fff}.btn[data-astro-cid-bhhcqpt4].ghost:hover{background:#ffffff1f}.acts[data-astro-cid-bhhcqpt4] .more[data-astro-cid-bhhcqpt4]{color:#9cc4ff}.btn[data-astro-cid-bhhcqpt4]:focus-visible,.more[data-astro-cid-bhhcqpt4]:focus-visible{outline:2px solid #fff;outline-offset:3px}@media(max-width:44rem){.event-cta[data-astro-cid-bhhcqpt4]{grid-template-columns:1fr;padding:1.25rem 1.1rem}}
+</style>
+<link rel="stylesheet" href="/tableau-field-notes/_astro/_id_.D9IVC1gq.css"></head> <body data-astro-cid-5hce7sga> <a class="skip" href="#main" data-astro-cid-5hce7sga>Skip to content</a> <header class="site-head" data-astro-cid-5hce7sga> <div class="wrap bar" data-astro-cid-5hce7sga> <a class="brand" href="/tableau-field-notes/" aria-label="Tableau Field Notes home" data-astro-cid-5hce7sga> <img src="/tableau-field-notes/logo.svg" width="28" height="28" alt="" data-astro-cid-5hce7sga> <span data-astro-cid-5hce7sga>Tableau <strong data-astro-cid-5hce7sga>Field Notes</strong></span> </a> <nav id="site-nav" aria-label="Main" data-astro-cid-5hce7sga> <a href="/tableau-field-notes/" class="home" aria-label="Home" data-astro-cid-5hce7sga> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z" data-astro-cid-5hce7sga></path></svg> </a> <a href="/tableau-field-notes/roadmap/" data-astro-cid-5hce7sga>Roadmap</a><a href="/tableau-field-notes/certifications/" data-astro-cid-5hce7sga>Certifications</a><a href="/tableau-field-notes/chart-chooser/" data-astro-cid-5hce7sga>Which chart</a><a href="/tableau-field-notes/careers/" data-astro-cid-5hce7sga>Careers</a><a href="/tableau-field-notes/articles/" aria-current="page" data-astro-cid-5hce7sga>Articles</a><a href="/tableau-field-notes/community/" data-astro-cid-5hce7sga>Community</a><a href="/tableau-field-notes/resources/" data-astro-cid-5hce7sga>Resources</a><a href="/tableau-field-notes/beverage/" data-astro-cid-5hce7sga>Beer, whisky, wine</a><a href="/tableau-field-notes/events/" data-astro-cid-5hce7sga>Events</a><a href="/tableau-field-notes/about/" data-astro-cid-5hce7sga>About</a> <a class="nav-follow" href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>Follow on LinkedIn</a> </nav> <a class="find" href="/tableau-field-notes/search/" aria-label="Search" data-astro-cid-5hce7sga> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><circle cx="11" cy="11" r="7" data-astro-cid-5hce7sga></circle><path d="M20 20l-3.5-3.5" data-astro-cid-5hce7sga></path></svg> </a> <button class="theme" type="button" aria-label="Colour theme: auto" title="Colour theme" data-astro-cid-5hce7sga> <svg class="i-auto" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><circle cx="12" cy="12" r="9" data-astro-cid-5hce7sga></circle><path d="M12 3v18" data-astro-cid-5hce7sga></path><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" data-astro-cid-5hce7sga></path></svg> <svg class="i-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><circle cx="12" cy="12" r="4" data-astro-cid-5hce7sga></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" data-astro-cid-5hce7sga></path></svg> <svg class="i-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" data-astro-cid-5hce7sga></path></svg> <span class="theme-label" data-astro-cid-5hce7sga>Auto</span> </button> <a class="follow" href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>Follow</a> <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu" data-astro-cid-5hce7sga> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><path class="m-open" d="M4 7h16M4 12h16M4 17h16" data-astro-cid-5hce7sga></path><path class="m-close" d="M6 6l12 12M18 6L6 18" data-astro-cid-5hce7sga></path></svg> <span class="menu-label" data-astro-cid-5hce7sga>Menu</span> </button> </div> <div class="promo" data-astro-cid-5hce7sga> <div class="wrap promo-in" data-astro-cid-5hce7sga> <span class="promo-tag" data-astro-cid-5hce7sga>Next Tableau user group event, online:</span> <span class="promo-date" data-astro-cid-5hce7sga>Tue, 13 October 2026, 11:30 CDT</span> <span class="promo-title" title="Wisconsin TUG Presents: AI Insights &#38; Latest Extensions (Wisconsin Tableau User Group)" data-astro-cid-5hce7sga>Wisconsin TUG Presents: AI Insights &amp; Latest Extensions<span class="promo-group" data-astro-cid-5hce7sga> (Wisconsin Tableau User Group)</span></span> <a class="promo-map" href="/tableau-field-notes/events/#worldwide" data-astro-cid-5hce7sga>All events on the map</a> <a class="btn" href="https://usergroups.tableau.com/events/details/tableau-wisconsin-tableau-user-group-presents-wisconsin-tug-presents-ai-insights-amp-latest-extensions/" data-astro-cid-5hce7sga>Join free</a> </div> </div> </header> <main id="main" data-pagefind-body data-astro-cid-5hce7sga> <header class="head" data-astro-cid-eomsrdgo> <div class="wrap" data-astro-cid-eomsrdgo> <p class="back" data-astro-cid-eomsrdgo><a class="more" href="/tableau-field-notes/articles/" data-astro-cid-eomsrdgo>All articles</a></p> <h1 data-astro-cid-eomsrdgo>Your first workbook: a bar, a line and a filter</h1> <p class="lede" data-astro-cid-eomsrdgo>Connect a CSV of orders, write one calculation for sales, build a sorted bar chart by store and a monthly line chart, then add a filter that drives both. About forty minutes.</p> <p class="facts" data-astro-cid-eomsrdgo> <span class="meta" data-astro-cid-eomsrdgo>12 Oct 2026</span>  <span class="badge asof" data-astro-cid-eomsrdgo>Tableau as of October 2026</span> <span class="badge docs" data-astro-cid-eomsrdgo>Checked against Tableau Help</span> <span class="badge lvl" data-astro-cid-eomsrdgo>Level 1</span> <span class="sep" aria-hidden="true" data-astro-cid-eomsrdgo></span> <span class="byline" data-astro-cid-eomsrdgo><img class="avatar" src="/tableau-field-notes/ankur.jpg" alt="" width="28" height="28" data-astro-cid-eomsrdgo> Ankur Napa</span> <span class="sep" aria-hidden="true" data-astro-cid-eomsrdgo></span> <a class="pill" href="/tableau-field-notes/articles/?tag=Desktop" data-astro-cid-eomsrdgo>Desktop</a><a class="pill" href="/tableau-field-notes/articles/?tag=Certification" data-astro-cid-eomsrdgo>Certification</a> </p> </div> </header> <div class="wrap layout" data-astro-cid-eomsrdgo> <article class="body" data-astro-cid-eomsrdgo>  <h2 id="short-answer">Short answer</h2>
+<p>Connect the CSV with <strong>Connect</strong> > <strong>Text file</strong>, check the field types on the data source page, then create one calculated field, Sales, from quantity, price and discount. Build a bar chart with Store Id on Columns and SUM(Sales) on Rows, sorted high to low. Build a line chart with a continuous month of Order Date on Columns. Add Store Id as a filter, apply it to both sheets and show it. You will also meet the first messy data most real files carry: a duplicate row, a blank, a negative quantity, a store that does not exist and a date that cannot exist.</p>
+<h2 id="what-you-will-build">What you will build</h2>
+<p>A two-sheet workbook for Harbour Goods, a fictional retailer and distributor with six stores across India. Sheet one answers "which store sold most last quarter?" Sheet two answers "did sales rise or fall month by month?" One filter lets the reader drop a store from both answers at once.</p>
+<p>The data is <a href="/tableau-field-notes/samples/harbour-goods-orders.csv">harbour-goods-orders.csv</a>: 60 order rows from July to September 2026. Each row has an order ID, a date, a store, a product, a quantity, a unit price in rupees and a discount as a fraction, so 0.05 means five per cent. There is no sales column. You will make one.</p>
+<p>I chose a file with problems on purpose. Every orders export I have ever opened had at least one of them. A first workbook that pretends otherwise teaches the wrong habit.</p>
+<h2 id="before-you-start">Before you start</h2>
+<ul>
+<li><strong>Tableau Desktop.</strong> Any edition works: Public, Free or Professional. The <a href="/tableau-field-notes/articles/tableau-product-family/">Tableau family map</a> explains which to install.</li>
+<li><strong>The pill colours.</strong> If blue and green pills are new, read <a href="/tableau-field-notes/articles/dimensions-measures-blue-green/">Blue pills and green pills</a> first. It takes ten minutes.</li>
+<li><strong>Words used here.</strong> A <strong>workbook</strong> is the Tableau file. A <strong>sheet</strong> (or worksheet) is one viz inside it. A <strong>calculated field</strong> is a new column you define with a formula. A <strong>filter</strong> decides which rows take part.</li>
+</ul>
+<h2 id="steps">Steps</h2>
+<h3 id="1-connect-to-the-csv">1. Connect to the CSV</h3>
+<ol>
+<li>Open Tableau Desktop. On the start page, under <strong>Connect</strong> > <strong>To a File</strong>, select <strong>Text file</strong>.</li>
+<li>Pick <code>harbour-goods-orders.csv</code> and select <strong>Open</strong>.</li>
+<li>The <strong>data source page</strong> opens. The top shows the file as a table. The bottom shows a grid of the first rows.</li>
+<li>Top right, leave <strong>Connection</strong> set to <strong>Live</strong>. Live means Tableau reads the file every time. An <strong>Extract</strong> is a snapshot saved in Tableau's <code>.hyper</code> format; it is faster on big data and is what Tableau Public uses when you publish.</li>
+</ol>
+<h3 id="2-check-the-field-types">2. Check the field types</h3>
+<p>Each column header in the grid has a small icon. <strong>Abc</strong> means text, <strong>#</strong> means number and a calendar means date.</p>
+<ol>
+<li>Check that Order Date shows a calendar. If it shows Abc, select the icon and pick <strong>Date</strong>.</li>
+<li>Check that Quantity, Unit Price and Discount show <strong>#</strong>.</li>
+<li>Note that Tableau tidies the names. <code>order_date</code> becomes Order Date and <code>store_id</code> becomes Store Id. Your version may capitalise slightly differently. The field is the same.</li>
+</ol>
+<h3 id="3-create-the-sales-field">3. Create the Sales field</h3>
+<ol>
+<li>Select <strong>Sheet 1</strong> at the bottom left to open the worksheet.</li>
+<li>Select <strong>Analysis</strong> > <strong>Create Calculated Field</strong>.</li>
+<li>Name it <code>Sales</code> and type:</li>
+</ol>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">[Quantity] </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> [Unit Price] </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">1</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> [Discount])</span></span></code></pre>
+<ol start="4">
+<li>The message under the formula should read that the calculation is valid. Select <strong>OK</strong>.</li>
+<li>Sales appears in the Data pane with <strong>=#</strong> beside it, below the line with the other measures.</li>
+<li>Right-click (Control-click on Mac) <strong>Sales</strong> in the Data pane, select <strong>Default Properties</strong> > <strong>Number Format</strong>, pick <strong>Currency (Custom)</strong>, set decimals to 0 and the prefix to <code>₹</code>. Every view of Sales now shows rupees.</li>
+</ol>
+<h3 id="4-build-the-bar-chart">4. Build the bar chart</h3>
+<ol>
+<li>Rename the sheet: double-click the <strong>Sheet 1</strong> tab and type <code>Sales by store</code>.</li>
+<li>Drag <strong>Store Id</strong> to <strong>Columns</strong>.</li>
+<li>Drag <strong>Sales</strong> to <strong>Rows</strong>. The pill reads SUM(Sales) and is green. Tableau draws one bar per store.</li>
+<li>Select the <strong>Sort Descending</strong> button on the toolbar. The tallest bar moves left.</li>
+<li>Drag <strong>Sales</strong> again, this time onto <strong>Label</strong> on the Marks card. Each bar shows its value.</li>
+</ol>
+<h3 id="5-build-the-line-chart">5. Build the line chart</h3>
+<ol>
+<li>Select the <strong>New Worksheet</strong> tab at the bottom (the icon beside your sheet tab). Name it <code>Sales by month</code>.</li>
+<li>Drag <strong>Order Date</strong> to <strong>Columns</strong>. It arrives blue as YEAR(Order Date).</li>
+<li>Right-click the pill. The menu has two groups of date options. Pick <strong>Month</strong> in the lower group, the one whose example shows a month with a year. The pill turns green and reads MONTH(Order Date). That is a continuous date: a real timeline.</li>
+<li>Drag <strong>Sales</strong> to <strong>Rows</strong>. Tableau draws a line.</li>
+<li>Look at the bottom right of the view. A small indicator reads <strong>1 null</strong>. That is the order dated 2026-09-31. September has 30 days, so Tableau cannot place the row on a timeline.</li>
+</ol>
+<h3 id="6-add-a-filter-to-both-sheets">6. Add a filter to both sheets</h3>
+<ol>
+<li>Go back to <strong>Sales by store</strong>. Drag <strong>Store Id</strong> to the <strong>Filters</strong> shelf.</li>
+<li>In the dialog, clear the tick beside <strong>ST-099</strong> and select <strong>OK</strong>. ST-099 is not in the Harbour Goods store list; it is a keying error.</li>
+<li>Right-click the <strong>Store Id</strong> pill on Filters and select <strong>Apply to Worksheets</strong> > <strong>All Using This Data Source</strong>. The pill gains a small icon to show it is shared.</li>
+<li>Right-click the pill again and select <strong>Show Filter</strong>. A list of tick boxes appears on the right. The reader can now drop any store.</li>
+<li>Switch to <strong>Sales by month</strong>. The same filter is there and ST-099 is gone from the line too.</li>
+</ol>
+<h3 id="7-save-it">7. Save it</h3>
+<p>Select <strong>File</strong> > <strong>Save As</strong> and pick <strong>Tableau Packaged Workbook (.twbx)</strong>, which bundles the data with the workbook so someone else can open it. In Desktop Public Edition you can save locally the same way, or select <strong>File</strong> > <strong>Save to Tableau Public As</strong> when you are ready to publish. Anything on Tableau Public is visible to everyone.</p>
+<h2 id="check-it-worked">Check it worked</h2>
+<p>Before the ST-099 filter, the bar chart totals ₹156,270 and shows seven bars:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Store Id</th><th>Order rows</th><th>SUM(Sales)</th></tr></thead><tbody><tr><td>ST-003</td><td>15</td><td>39,774.00</td></tr><tr><td>ST-014</td><td>13</td><td>32,714.75</td></tr><tr><td>ST-019</td><td>11</td><td>32,640.90</td></tr><tr><td>ST-007</td><td>4</td><td>19,070.45</td></tr><tr><td>ST-011</td><td>9</td><td>18,930.35</td></tr><tr><td>ST-022</td><td>7</td><td>12,285.35</td></tr><tr><td>ST-099</td><td>1</td><td>854.05</td></tr></tbody></table>
+<p>After the filter, six bars total ₹155,416. The line chart shows July 68,683.50, August 43,961.60 and September 40,725.75, with ₹2,899 parked under the null date. The three months plus that null add back to the grand total.</p>
+<p>To check the total in Tableau, select <strong>Analysis</strong> > <strong>Totals</strong> > <strong>Show Row Grand Totals</strong> on the bar chart. A Grand Total bar appears.</p>
+<h2 id="where-this-breaks">Where this breaks</h2>
+<ul>
+<li><strong>HG-40017 appears twice.</strong> Two identical rows, one order. Tableau sums both, so ST-014 is ₹549 higher than it should be. Tableau will not warn you. COUNTD(Order Id) gives 59 orders against 60 rows; that gap is your clue.</li>
+<li><strong>HG-40056 has no quantity.</strong> Sales for that row is Null and SUM skips it. That is the right answer for a total but the wrong one for an average. The <a href="/tableau-field-notes/articles/first-calculated-fields/">calculated fields step</a> fixes it with ZN().</li>
+<li><strong>HG-40057 has a quantity of minus 2.</strong> Probably a return keyed into the sales file. It lowers ST-003 by ₹1,098. Whether it belongs is a business question, not a Tableau one.</li>
+<li><strong>The impossible date.</strong> If your Tableau version reads Order Date as text because of that row, change its type on the data source page. The null indicator is the safety net, not the fix.</li>
+<li><strong>Filter on the wrong sheet.</strong> A filter added to one sheet stays on that sheet unless you apply it to others. If two sheets disagree on a total, check the Filters shelf on each.</li>
+</ul>
+<h2 id="which-chart-when">Which chart when</h2>
+<p>A bar compares categories. A line shows change over time. When you are not sure, use the site's <a href="/tableau-field-notes/chart-chooser/">chart chooser</a>.</p>
+<h2 id="on-the-certification">On the certification</h2>
+<p>This walkthrough covers several objectives in the Tableau Desktop Foundations exam guide. From Domain 1: 1.1.1 (create a live connection), 1.1.2 (live against extract), 1.3.4 (change a field's data type) and 1.3.5 (change default properties such as number format). From Domain 2: 2.1.1 (bar chart), 2.1.2 (line chart), 2.2.4 (add a filter), 2.3.1 (add a sort), 2.3.5 (create a calculated field) and 2.3.7 (display totals).</p>
+<h2 id="next-on-the-roadmap">Next on the roadmap</h2>
+<p>The line chart used one date option out of a dozen. Next, learn why the others exist and when each is right: <a href="/tableau-field-notes/articles/dates-in-tableau/">Dates done right</a>.</p>
+<h2 id="on-the-brewhouse-floor">On the brewhouse floor</h2>
+<p>A brewery's packaging log has the same shape: date, line, product, cases packed. Sales by store becomes cases by packaging line. The line chart becomes cases per week. The messy rows look familiar too. A shift enters the same pallet twice, a blank where a case count should be and a minus number that was really a rework. Build the bar and the line first. Then ask the shift lead about the odd rows, because the chart shows you where to look but the floor knows why.</p>
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/examples_text.htm">Connect to a text file</a></li>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/calculations_calculatedfields_create.htm">Create a simple calculated field</a></li>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/buildexamples_bar.htm">Build a bar chart</a></li>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/buildexamples_line.htm">Build a line chart</a></li>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/filtering.htm">Filter data from your views</a></li>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/dates_continuous.htm">Continuous dates</a></li>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/publish_workbooks_tableaupublic.htm">Save workbooks to Tableau Public</a></li>
+<li><a href="https://help.salesforce.com/s/articleView?id=005298988&#x26;type=1&#x26;language=en_US">Salesforce Certified Tableau Desktop Foundations exam guide</a></li>
+</ul>  <section class="author" data-astro-cid-eomsrdgo> <img src="/tableau-field-notes/ankur.jpg" alt="" width="64" height="64" data-astro-cid-eomsrdgo> <div data-astro-cid-eomsrdgo> <p class="name" data-astro-cid-eomsrdgo>Ankur Napa</p> <p data-astro-cid-eomsrdgo>Brewer turned Tableau developer and 2026 Tableau Ambassador. Co-leads the <a href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-eomsrdgo>Bengaluru Tableau User Group</a> and the Tableau Newbies User Group.</p> </div> </section> <section class="event-cta" aria-labelledby="event-cta-h" data-astro-cid-bhhcqpt4> <div class="txt" data-astro-cid-bhhcqpt4> <p class="kicker" data-astro-cid-bhhcqpt4>Next Tableau user group event, online</p> <h2 id="event-cta-h" data-astro-cid-bhhcqpt4>Wisconsin TUG Presents: AI Insights &amp; Latest Extensions</h2> <p class="when" data-astro-cid-bhhcqpt4>Tue, 13 October 2026, 11:30 CDT with the Wisconsin Tableau User Group. Free to join.</p> </div> <div class="acts" data-astro-cid-bhhcqpt4> <a class="btn" href="https://usergroups.tableau.com/events/details/tableau-wisconsin-tableau-user-group-presents-wisconsin-tug-presents-ai-insights-amp-latest-extensions/" data-astro-cid-bhhcqpt4>Join free</a> <a class="btn ghost" href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-bhhcqpt4>Join the Bengaluru Tableau User Group</a> <a class="more" href="/tableau-field-notes/events/#worldwide" data-astro-cid-bhhcqpt4>All events on the map</a> </div> </section>  </article> <aside class="side" data-astro-cid-eomsrdgo> <nav class="box" aria-label="On this page" data-astro-cid-eomsrdgo> <p class="meta" data-astro-cid-eomsrdgo>On this page</p> <ol data-astro-cid-eomsrdgo><li data-astro-cid-eomsrdgo><a href="#short-answer" data-astro-cid-eomsrdgo>Short answer</a></li><li data-astro-cid-eomsrdgo><a href="#what-you-will-build" data-astro-cid-eomsrdgo>What you will build</a></li><li data-astro-cid-eomsrdgo><a href="#before-you-start" data-astro-cid-eomsrdgo>Before you start</a></li><li data-astro-cid-eomsrdgo><a href="#steps" data-astro-cid-eomsrdgo>Steps</a></li><li data-astro-cid-eomsrdgo><a href="#check-it-worked" data-astro-cid-eomsrdgo>Check it worked</a></li><li data-astro-cid-eomsrdgo><a href="#where-this-breaks" data-astro-cid-eomsrdgo>Where this breaks</a></li><li data-astro-cid-eomsrdgo><a href="#which-chart-when" data-astro-cid-eomsrdgo>Which chart when</a></li><li data-astro-cid-eomsrdgo><a href="#on-the-certification" data-astro-cid-eomsrdgo>On the certification</a></li><li data-astro-cid-eomsrdgo><a href="#next-on-the-roadmap" data-astro-cid-eomsrdgo>Next on the roadmap</a></li><li data-astro-cid-eomsrdgo><a href="#on-the-brewhouse-floor" data-astro-cid-eomsrdgo>On the brewhouse floor</a></li><li data-astro-cid-eomsrdgo><a href="#sources" data-astro-cid-eomsrdgo>Sources</a></li></ol> </nav> <div class="box" data-astro-cid-eomsrdgo> <p class="meta" data-astro-cid-eomsrdgo>On the roadmap</p> <ul data-astro-cid-eomsrdgo><li data-astro-cid-eomsrdgo><a href="/tableau-field-notes/roadmap/#level-1" data-astro-cid-eomsrdgo>Level 1: Your first workbook</a></li></ul> </div>  </aside> </div> </main> <footer class="site-foot" data-astro-cid-5hce7sga> <div class="wrap cols" data-astro-cid-5hce7sga> <section data-astro-cid-5hce7sga> <h2 data-astro-cid-5hce7sga>Follow the notes</h2> <p data-astro-cid-5hce7sga>New walkthroughs and a monthly note on what changed in Tableau, posted on LinkedIn first.</p> <p data-astro-cid-5hce7sga><a class="btn" href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>Follow on LinkedIn</a></p> </section> <section data-astro-cid-5hce7sga> <h2 data-astro-cid-5hce7sga>What is next</h2> <p data-astro-cid-5hce7sga>The next session is announced on the <a href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-5hce7sga>user group page</a>.</p> </section> <section data-astro-cid-5hce7sga> <h2 data-astro-cid-5hce7sga>Tools and more</h2> <ul class="next" data-astro-cid-5hce7sga> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/certifications/" data-astro-cid-5hce7sga>Road to Tableau certification</a></li> <li data-astro-cid-5hce7sga><a href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>LinkedIn</a></li> <li data-astro-cid-5hce7sga><a href="https://github.com/AnkurNapa" data-astro-cid-5hce7sga>GitHub</a></li> <li data-astro-cid-5hce7sga><a href="https://ankurnapa.github.io/" data-astro-cid-5hce7sga>Blog: beer, wine, whisky and AI</a></li> <li data-astro-cid-5hce7sga><a href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-5hce7sga>Bengaluru Tableau User Group</a></li> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/people/" data-astro-cid-5hce7sga>Tableau people to follow</a></li> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/beverage/" data-astro-cid-5hce7sga>Tableau in beer, whisky and wine</a></li> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/videos/" data-astro-cid-5hce7sga>Videos and user group recordings</a></li> <li data-astro-cid-5hce7sga><a href="https://ankurnapa.github.io/btug/" data-astro-cid-5hce7sga>Bengaluru Tableau User Group site</a></li> <li data-astro-cid-5hce7sga><a href="https://ankurnapa.github.io/fabric-field-notes/" data-astro-cid-5hce7sga>Fabric Field Notes, the sister site</a></li> </ul> </section> </div> <div class="legal" data-astro-cid-5hce7sga> <div class="wrap" data-astro-cid-5hce7sga> <p data-astro-cid-5hce7sga>Written by Ankur Napa for the Bengaluru Tableau User Group and everyone learning Tableau.</p> <p data-astro-cid-5hce7sga>Independent community site. Not affiliated with or endorsed by Tableau or Salesforce. Tableau is a trademark of Salesforce, Inc.</p> </div> </div> </footer> <script type="module">const a=["auto","light","dark"],t=document.querySelector(".theme"),c=t?.querySelector(".theme-label"),o=()=>{try{return localStorage.getItem("tfn-theme")||"auto"}catch{return"auto"}},r=e=>{e==="auto"?delete document.documentElement.dataset.theme:document.documentElement.dataset.theme=e,t&&(t.dataset.mode=e,t.setAttribute("aria-label",`Colour theme: ${e}`)),c&&(c.textContent=e[0].toUpperCase()+e.slice(1))};r(o());const n=document.querySelector(".menu-btn"),l=e=>{n?.setAttribute("aria-expanded",String(e)),n?.closest(".bar")?.classList.toggle("open",e)};n?.addEventListener("click",()=>l(n.getAttribute("aria-expanded")!=="true"));document.addEventListener("keydown",e=>{e.key==="Escape"&&l(!1)});t?.addEventListener("click",()=>{const e=a[(a.indexOf(o())+1)%a.length];try{e==="auto"?localStorage.removeItem("tfn-theme"):localStorage.setItem("tfn-theme",e)}catch{}r(e)});</script> </body></html> <script type="module">document.querySelectorAll(".body pre").forEach(e=>{const t=document.createElement("button");t.type="button",t.className="copy",t.textContent="Copy",t.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(e.innerText.replace(/Copy$/,"")),t.textContent="Copied"}catch{t.textContent="Select and copy"}setTimeout(()=>t.textContent="Copy",1600)}),e.append(t)});</script> 

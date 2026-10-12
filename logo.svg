@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Tableau Field Notes">
+  <rect x="6" y="12" width="36" height="14" rx="7" fill="#4E79A7"/>
+  <rect x="22" y="38" width="36" height="14" rx="7" fill="#59A14F"/>
+  <path d="M50 8v16M42 16h16" stroke="#F28E2B" stroke-width="5" stroke-linecap="round"/>
+  <path d="M14 40v10M9 45h10" stroke="#E15759" stroke-width="4" stroke-linecap="round"/>
+</svg>

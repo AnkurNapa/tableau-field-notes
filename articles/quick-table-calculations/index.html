@@ -1,0 +1,152 @@
+<!DOCTYPE html><html lang="en-GB" data-astro-cid-5hce7sga> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Quick table calculations: running total, share and growth | Tableau Field Notes</title><meta name="description" content="Add running totals, percent of total and year-over-year growth in Tableau with quick table calculations, then check them against expected numbers."><link rel="canonical" href="https://ankurnapa.github.io/tableau-field-notes/articles/quick-table-calculations/"><meta property="og:type" content="article"><meta property="og:site_name" content="Tableau Field Notes"><meta property="og:title" content="Quick table calculations: running total, share and growth"><meta property="og:description" content="Add running totals, percent of total and year-over-year growth in Tableau with quick table calculations, then check them against expected numbers."><meta property="og:url" content="https://ankurnapa.github.io/tableau-field-notes/articles/quick-table-calculations/"><meta property="og:image" content="https://ankurnapa.github.io/tableau-field-notes/og/quick-table-calculations.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="author" content="Ankur Napa"><script>
+      try { var t = localStorage.getItem('tfn-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+    </script><meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#16191d" media="(prefers-color-scheme: dark)"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><script async src="https://www.googletagmanager.com/gtag/js?id=G-1ZHW47YJDC"></script><script>(function(){const gaId = "G-1ZHW47YJDC";
+
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag('js', new Date());
+          gtag('config', gaId, { anonymize_ip: true });
+        })();</script><link rel="icon" type="image/svg+xml" href="/tableau-field-notes/logo.svg"><link rel="apple-touch-icon" href="/tableau-field-notes/apple-touch-icon.png"><link rel="stylesheet" href="/tableau-field-notes/_astro/about.CXXElhQ4.css">
+<style>.event-cta[data-astro-cid-bhhcqpt4]{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.25rem 2rem;align-items:center;background:var(--footer);color:#fff;border-radius:6px;padding:1.5rem 1.6rem;margin:2.5rem 0 0;border-top:4px solid;border-image:linear-gradient(to right,#4e79a7 0 20%,#f28e2b 20% 40%,#e15759 40% 60%,#76b7b2 60% 80%,#59a14f 80%) 1}.kicker[data-astro-cid-bhhcqpt4]{margin:0 0 .3rem;font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#9cc4ff}h2[data-astro-cid-bhhcqpt4]{color:#fff;font-size:1.3rem;margin:0 0 .35rem}.when[data-astro-cid-bhhcqpt4]{margin:0;color:#c7d9ef;font-size:.95rem}.acts[data-astro-cid-bhhcqpt4]{display:flex;flex-direction:column;align-items:stretch;gap:.6rem;text-align:center}.btn[data-astro-cid-bhhcqpt4].ghost{background:transparent;box-shadow:inset 0 0 0 1.5px #9cc4ff;color:#fff}.btn[data-astro-cid-bhhcqpt4].ghost:hover{background:#ffffff1f}.acts[data-astro-cid-bhhcqpt4] .more[data-astro-cid-bhhcqpt4]{color:#9cc4ff}.btn[data-astro-cid-bhhcqpt4]:focus-visible,.more[data-astro-cid-bhhcqpt4]:focus-visible{outline:2px solid #fff;outline-offset:3px}@media(max-width:44rem){.event-cta[data-astro-cid-bhhcqpt4]{grid-template-columns:1fr;padding:1.25rem 1.1rem}}
+</style>
+<link rel="stylesheet" href="/tableau-field-notes/_astro/_id_.D9IVC1gq.css"></head> <body data-astro-cid-5hce7sga> <a class="skip" href="#main" data-astro-cid-5hce7sga>Skip to content</a> <header class="site-head" data-astro-cid-5hce7sga> <div class="wrap bar" data-astro-cid-5hce7sga> <a class="brand" href="/tableau-field-notes/" aria-label="Tableau Field Notes home" data-astro-cid-5hce7sga> <img src="/tableau-field-notes/logo.svg" width="28" height="28" alt="" data-astro-cid-5hce7sga> <span data-astro-cid-5hce7sga>Tableau <strong data-astro-cid-5hce7sga>Field Notes</strong></span> </a> <nav id="site-nav" aria-label="Main" data-astro-cid-5hce7sga> <a href="/tableau-field-notes/" class="home" aria-label="Home" data-astro-cid-5hce7sga> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z" data-astro-cid-5hce7sga></path></svg> </a> <a href="/tableau-field-notes/roadmap/" data-astro-cid-5hce7sga>Roadmap</a><a href="/tableau-field-notes/certifications/" data-astro-cid-5hce7sga>Certifications</a><a href="/tableau-field-notes/chart-chooser/" data-astro-cid-5hce7sga>Which chart</a><a href="/tableau-field-notes/careers/" data-astro-cid-5hce7sga>Careers</a><a href="/tableau-field-notes/articles/" aria-current="page" data-astro-cid-5hce7sga>Articles</a><a href="/tableau-field-notes/community/" data-astro-cid-5hce7sga>Community</a><a href="/tableau-field-notes/resources/" data-astro-cid-5hce7sga>Resources</a><a href="/tableau-field-notes/beverage/" data-astro-cid-5hce7sga>Beer, whisky, wine</a><a href="/tableau-field-notes/events/" data-astro-cid-5hce7sga>Events</a><a href="/tableau-field-notes/about/" data-astro-cid-5hce7sga>About</a> <a class="nav-follow" href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>Follow on LinkedIn</a> </nav> <a class="find" href="/tableau-field-notes/search/" aria-label="Search" data-astro-cid-5hce7sga> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><circle cx="11" cy="11" r="7" data-astro-cid-5hce7sga></circle><path d="M20 20l-3.5-3.5" data-astro-cid-5hce7sga></path></svg> </a> <button class="theme" type="button" aria-label="Colour theme: auto" title="Colour theme" data-astro-cid-5hce7sga> <svg class="i-auto" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><circle cx="12" cy="12" r="9" data-astro-cid-5hce7sga></circle><path d="M12 3v18" data-astro-cid-5hce7sga></path><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" data-astro-cid-5hce7sga></path></svg> <svg class="i-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><circle cx="12" cy="12" r="4" data-astro-cid-5hce7sga></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" data-astro-cid-5hce7sga></path></svg> <svg class="i-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" data-astro-cid-5hce7sga></path></svg> <span class="theme-label" data-astro-cid-5hce7sga>Auto</span> </button> <a class="follow" href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>Follow</a> <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu" data-astro-cid-5hce7sga> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><path class="m-open" d="M4 7h16M4 12h16M4 17h16" data-astro-cid-5hce7sga></path><path class="m-close" d="M6 6l12 12M18 6L6 18" data-astro-cid-5hce7sga></path></svg> <span class="menu-label" data-astro-cid-5hce7sga>Menu</span> </button> </div> <div class="promo" data-astro-cid-5hce7sga> <div class="wrap promo-in" data-astro-cid-5hce7sga> <span class="promo-tag" data-astro-cid-5hce7sga>Next Tableau user group event, online:</span> <span class="promo-date" data-astro-cid-5hce7sga>Tue, 13 October 2026, 11:30 CDT</span> <span class="promo-title" title="Wisconsin TUG Presents: AI Insights &#38; Latest Extensions (Wisconsin Tableau User Group)" data-astro-cid-5hce7sga>Wisconsin TUG Presents: AI Insights &amp; Latest Extensions<span class="promo-group" data-astro-cid-5hce7sga> (Wisconsin Tableau User Group)</span></span> <a class="promo-map" href="/tableau-field-notes/events/#worldwide" data-astro-cid-5hce7sga>All events on the map</a> <a class="btn" href="https://usergroups.tableau.com/events/details/tableau-wisconsin-tableau-user-group-presents-wisconsin-tug-presents-ai-insights-amp-latest-extensions/" data-astro-cid-5hce7sga>Join free</a> </div> </div> </header> <main id="main" data-pagefind-body data-astro-cid-5hce7sga> <header class="head" data-astro-cid-eomsrdgo> <div class="wrap" data-astro-cid-eomsrdgo> <p class="back" data-astro-cid-eomsrdgo><a class="more" href="/tableau-field-notes/articles/" data-astro-cid-eomsrdgo>All articles</a></p> <h1 data-astro-cid-eomsrdgo>Quick table calculations: running total, share and growth</h1> <p class="lede" data-astro-cid-eomsrdgo>A quick table calculation is a calculation on the numbers already in your view. Add a running total, a percent of total and a year-over-year growth with two clicks each, then learn what each one is computed along.</p> <p class="facts" data-astro-cid-eomsrdgo> <span class="meta" data-astro-cid-eomsrdgo>12 Oct 2026</span>  <span class="badge asof" data-astro-cid-eomsrdgo>Tableau as of October 2026</span> <span class="badge docs" data-astro-cid-eomsrdgo>Checked against Tableau Help</span> <span class="badge lvl" data-astro-cid-eomsrdgo>Level 1</span> <span class="sep" aria-hidden="true" data-astro-cid-eomsrdgo></span> <span class="byline" data-astro-cid-eomsrdgo><img class="avatar" src="/tableau-field-notes/ankur.jpg" alt="" width="28" height="28" data-astro-cid-eomsrdgo> Ankur Napa</span> <span class="sep" aria-hidden="true" data-astro-cid-eomsrdgo></span> <a class="pill" href="/tableau-field-notes/articles/?tag=Desktop" data-astro-cid-eomsrdgo>Desktop</a><a class="pill" href="/tableau-field-notes/articles/?tag=Table%20calcs" data-astro-cid-eomsrdgo>Table calcs</a><a class="pill" href="/tableau-field-notes/articles/?tag=Certification" data-astro-cid-eomsrdgo>Certification</a> </p> </div> </header> <div class="wrap layout" data-astro-cid-eomsrdgo> <article class="body" data-astro-cid-eomsrdgo>  <h2 id="short-answer">Short answer</h2>
+<p>Right-click a green measure pill, point to <strong>Quick Table Calculation</strong> and pick one: <strong>Running Total</strong>, <strong>Difference</strong>, <strong>Percent Difference</strong>, <strong>Percent of Total</strong>, <strong>Rank</strong>, <strong>Percentile</strong>, <strong>Moving Average</strong>, <strong>YTD Total</strong>, <strong>Compound Growth Rate</strong>, <strong>Year Over Year Growth</strong> or <strong>YTD Growth</strong>. The pill gets a small triangle to show it is now a table calculation. The thing to understand is that a table calculation runs on the table of numbers Tableau has already drawn, after filters. It is computed along a direction, across or down. If that direction is wrong the answer is wrong without any error message.</p>
+<h2 id="what-you-will-build">What you will build</h2>
+<p>Three sheets for Harbour Goods, the fictional retailer used across this site:</p>
+<ol>
+<li>A running total of sales by month, January 2025 to September 2026.</li>
+<li>Each store's share of total sales.</li>
+<li>Quarter-by-quarter growth against the same quarter last year.</li>
+</ol>
+<p>The data is <a href="/tableau-field-notes/samples/dates-in-tableau.csv">dates-in-tableau.csv</a>: 148 clean orders over 21 months for the six Harbour Goods stores. You need a file with more than one year in it for year-on-year growth, which is why this walkthrough does not use the one-quarter sample.</p>
+<h2 id="before-you-start">Before you start</h2>
+<ul>
+<li>Tableau Desktop, any edition, connected to the CSV, with the Sales field created:</li>
+</ul>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">[Quantity] </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> [Unit Price] </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">1</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> [Discount])</span></span></code></pre>
+<ul>
+<li>You should know discrete date parts from continuous date values. If not, read <a href="/tableau-field-notes/articles/dates-in-tableau/">Dates done right</a> first.</li>
+<li>Two words. A <strong>table calculation</strong> is a calculation on the aggregated numbers in the view, not on the rows of data. <strong>Compute Using</strong> is the setting that tells it which direction to run in: <strong>Table (across)</strong>, <strong>Table (down)</strong>, a specific field or others.</li>
+</ul>
+<h2 id="steps">Steps</h2>
+<h3 id="1-running-total">1. Running total</h3>
+<ol>
+<li>Name a sheet <code>Running total</code>. Drag <strong>Order Date</strong> to <strong>Columns</strong>, right-click it and select <strong>Month</strong> in the lower group of the menu, so the pill is green and reads MONTH(Order Date).</li>
+<li>Drag <strong>Sales</strong> to <strong>Rows</strong>. You get a monthly line that goes up and down.</li>
+<li>Right-click <strong>SUM(Sales)</strong> on Rows and select <strong>Quick Table Calculation</strong> > <strong>Running Total</strong>.</li>
+<li>The line now only climbs. Each point is the sum of every month up to and including it. The pill shows a small triangle.</li>
+<li>Right-click the pill and select <strong>Edit Table Calculation</strong>. The dialog shows how it is computed: along <strong>Table (across)</strong>, which here means along the timeline. Close the dialog.</li>
+</ol>
+<h3 id="2-percent-of-total">2. Percent of total</h3>
+<ol>
+<li>New sheet: <code>Share by store</code>. Drag <strong>Store Id</strong> to <strong>Rows</strong> and <strong>Sales</strong> to <strong>Columns</strong>.</li>
+<li>Right-click <strong>SUM(Sales)</strong> and select <strong>Quick Table Calculation</strong> > <strong>Percent of Total</strong>.</li>
+<li>Drag <strong>Sales</strong> again onto <strong>Label</strong> on the Marks card, then right-click that label pill and apply <strong>Percent of Total</strong> to it as well. The bars now carry their share.</li>
+<li>Select the <strong>Sort Descending</strong> button on the toolbar.</li>
+</ol>
+<p>Now try a filter. Drag <strong>Store Id</strong> to <strong>Filters</strong> and untick two stores. The remaining shares grow and still add to 100 per cent. A quick table calculation runs after the filter, on what is left. If you want each store's share of the whole company even when stores are filtered out, you need a level of detail expression, which comes later on the roadmap.</p>
+<h3 id="3-year-over-year-growth">3. Year-over-year growth</h3>
+<ol>
+<li>New sheet: <code>Year on year</code>. Drag <strong>Order Date</strong> to <strong>Columns</strong>. It arrives as YEAR(Order Date), blue. Leave it.</li>
+<li>Drag <strong>Order Date</strong> again to <strong>Rows</strong>, right-click it and select <strong>Quarter</strong> from the upper group, so it is blue and reads QUARTER(Order Date).</li>
+<li>Drag <strong>Sales</strong> to <strong>Text</strong> on the Marks card. You have a small crosstab: quarters down, years across.</li>
+<li>Right-click <strong>SUM(Sales)</strong> on the Marks card and select <strong>Quick Table Calculation</strong> > <strong>Year Over Year Growth</strong>.</li>
+<li>The 2025 column goes blank: there is no 2024 to compare with. The 2026 column shows growth for Q1 to Q3. Q4 2026 is blank because it has not happened yet.</li>
+<li>Right-click the pill, select <strong>Format</strong> and set the numbers to <strong>Percentage</strong> with one decimal place if Tableau has not.</li>
+</ol>
+<h3 id="4-look-under-the-hood">4. Look under the hood</h3>
+<p>Right-click any table calculation pill and select <strong>Edit Table Calculation</strong>. You will see the calculation type, the direction it runs in and a preview highlight in the view. Change <strong>Compute Using</strong> on the year-on-year sheet to <strong>Table (down)</strong> and watch the numbers turn into nonsense: it now compares Q2 with Q1 inside the same year and calls it year on year. Set it back. That experiment is the most useful two minutes in this walkthrough.</p>
+<h2 id="check-it-worked">Check it worked</h2>
+<p>Computed from the CSV:</p>
+<p><strong>Running total</strong> (selected months)</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Month</th><th>Sales</th><th>Running total</th></tr></thead><tbody><tr><td>Jan 2025</td><td>13,504.70</td><td>13,504.70</td></tr><tr><td>Jun 2025</td><td>20,216.10</td><td>106,420.35</td></tr><tr><td>Dec 2025</td><td>9,151.15</td><td>224,580.90</td></tr><tr><td>Jun 2026</td><td>11,184.60</td><td>351,526.95</td></tr><tr><td>Sep 2026</td><td>30,876.65</td><td>427,667.25</td></tr></tbody></table>
+<p>The last point equals the grand total of the file, ₹427,667.25. If it does not, the running total is restarting somewhere.</p>
+<p><strong>Percent of total</strong>: ST-019 20.3, ST-022 19.5, ST-007 18.4, ST-003 16.1, ST-011 13.3 and ST-014 12.4 per cent. They add to 100.</p>
+<p><strong>Year over year growth</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Quarter</th><th>2025 sales</th><th>2026 sales</th><th>Growth</th></tr></thead><tbody><tr><td>Q1</td><td>50,376.90</td><td>69,658.60</td><td>38.3%</td></tr><tr><td>Q2</td><td>56,043.45</td><td>57,287.45</td><td>2.2%</td></tr><tr><td>Q3</td><td>59,029.40</td><td>76,140.30</td><td>29.0%</td></tr></tbody></table>
+<h2 id="where-this-breaks">Where this breaks</h2>
+<ul>
+<li><strong>Wrong direction, no error.</strong> A table calculation never warns you that it is running down when it should run across. Check one number by hand, every time.</li>
+<li><strong>Moving a pill changes the answer.</strong> Swap Rows and Columns and Table (across) now points the other way. Pin it to a field instead: in <strong>Edit Table Calculation</strong> pick <strong>Specific Dimensions</strong> and tick Order Date.</li>
+<li><strong>Filters change the base.</strong> Percent of total and rank recompute after filters. That is often what you want and sometimes not.</li>
+<li><strong>Missing periods.</strong> Year over year compares with the previous period in the table. If a quarter has no orders, it is not in the table. The comparison jumps to the wrong quarter. Gaps in the data are gaps in the calculation.</li>
+</ul>
+<h2 id="which-chart-when">Which chart when</h2>
+<p>A running total suits a line, a share suits a sorted bar and growth suits a crosstab or a bar with a zero line. For anything else, the site's <a href="/tableau-field-notes/chart-chooser/">chart chooser</a> suggests a form.</p>
+<h2 id="on-the-certification">On the certification</h2>
+<p>The Tableau Desktop Foundations exam guide lists 2.3.3, use a quick table calculation, under Exploring and Analyzing Data. This walkthrough also touches 2.1.9 (a crosstab to show specific values) and 2.3.1 (a computed sort). The deeper part, addressing and partitioning, is on the Data Analyst exam and the next level of the roadmap.</p>
+<h2 id="next-on-the-roadmap">Next on the roadmap</h2>
+<p>Next, put the stores on a map: <a href="/tableau-field-notes/articles/maps-geographic-roles/">Maps with geographic roles</a>. When you are ready for the hard part of table calculations, the Level 2 step on addressing and partitioning is on the <a href="/tableau-field-notes/roadmap/#level-2">roadmap</a>.</p>
+<h2 id="on-the-brewhouse-floor">On the brewhouse floor</h2>
+<p>A brewery tracks hectolitres brewed against an annual plan. A running total of monthly volume, laid over a straight line to the target, shows by July whether the year will land. Percent of total on volume by beer tells the owner that two brands carry most of the tanks. Year over year by quarter catches the summer lager slump before it becomes a winter cash problem. Same three clicks, a different cellar.</p>
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/calculations_tablecalculations_quick.htm">Transform values with quick table calculations</a></li>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/calculations_tablecalculations.htm">Transform values with table calculations</a></li>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/dates_levels.htm">Change date levels</a></li>
+<li><a href="https://help.salesforce.com/s/articleView?id=005298988&#x26;type=1&#x26;language=en_US">Salesforce Certified Tableau Desktop Foundations exam guide</a></li>
+</ul>  <section class="author" data-astro-cid-eomsrdgo> <img src="/tableau-field-notes/ankur.jpg" alt="" width="64" height="64" data-astro-cid-eomsrdgo> <div data-astro-cid-eomsrdgo> <p class="name" data-astro-cid-eomsrdgo>Ankur Napa</p> <p data-astro-cid-eomsrdgo>Brewer turned Tableau developer and 2026 Tableau Ambassador. Co-leads the <a href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-eomsrdgo>Bengaluru Tableau User Group</a> and the Tableau Newbies User Group.</p> </div> </section> <section class="event-cta" aria-labelledby="event-cta-h" data-astro-cid-bhhcqpt4> <div class="txt" data-astro-cid-bhhcqpt4> <p class="kicker" data-astro-cid-bhhcqpt4>Next Tableau user group event, online</p> <h2 id="event-cta-h" data-astro-cid-bhhcqpt4>Wisconsin TUG Presents: AI Insights &amp; Latest Extensions</h2> <p class="when" data-astro-cid-bhhcqpt4>Tue, 13 October 2026, 11:30 CDT with the Wisconsin Tableau User Group. Free to join.</p> </div> <div class="acts" data-astro-cid-bhhcqpt4> <a class="btn" href="https://usergroups.tableau.com/events/details/tableau-wisconsin-tableau-user-group-presents-wisconsin-tug-presents-ai-insights-amp-latest-extensions/" data-astro-cid-bhhcqpt4>Join free</a> <a class="btn ghost" href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-bhhcqpt4>Join the Bengaluru Tableau User Group</a> <a class="more" href="/tableau-field-notes/events/#worldwide" data-astro-cid-bhhcqpt4>All events on the map</a> </div> </section>  </article> <aside class="side" data-astro-cid-eomsrdgo> <nav class="box" aria-label="On this page" data-astro-cid-eomsrdgo> <p class="meta" data-astro-cid-eomsrdgo>On this page</p> <ol data-astro-cid-eomsrdgo><li data-astro-cid-eomsrdgo><a href="#short-answer" data-astro-cid-eomsrdgo>Short answer</a></li><li data-astro-cid-eomsrdgo><a href="#what-you-will-build" data-astro-cid-eomsrdgo>What you will build</a></li><li data-astro-cid-eomsrdgo><a href="#before-you-start" data-astro-cid-eomsrdgo>Before you start</a></li><li data-astro-cid-eomsrdgo><a href="#steps" data-astro-cid-eomsrdgo>Steps</a></li><li data-astro-cid-eomsrdgo><a href="#check-it-worked" data-astro-cid-eomsrdgo>Check it worked</a></li><li data-astro-cid-eomsrdgo><a href="#where-this-breaks" data-astro-cid-eomsrdgo>Where this breaks</a></li><li data-astro-cid-eomsrdgo><a href="#which-chart-when" data-astro-cid-eomsrdgo>Which chart when</a></li><li data-astro-cid-eomsrdgo><a href="#on-the-certification" data-astro-cid-eomsrdgo>On the certification</a></li><li data-astro-cid-eomsrdgo><a href="#next-on-the-roadmap" data-astro-cid-eomsrdgo>Next on the roadmap</a></li><li data-astro-cid-eomsrdgo><a href="#on-the-brewhouse-floor" data-astro-cid-eomsrdgo>On the brewhouse floor</a></li><li data-astro-cid-eomsrdgo><a href="#sources" data-astro-cid-eomsrdgo>Sources</a></li></ol> </nav> <div class="box" data-astro-cid-eomsrdgo> <p class="meta" data-astro-cid-eomsrdgo>On the roadmap</p> <ul data-astro-cid-eomsrdgo><li data-astro-cid-eomsrdgo><a href="/tableau-field-notes/roadmap/#level-1" data-astro-cid-eomsrdgo>Level 1: Quick table calculations</a></li></ul> </div>  </aside> </div> </main> <footer class="site-foot" data-astro-cid-5hce7sga> <div class="wrap cols" data-astro-cid-5hce7sga> <section data-astro-cid-5hce7sga> <h2 data-astro-cid-5hce7sga>Follow the notes</h2> <p data-astro-cid-5hce7sga>New walkthroughs and a monthly note on what changed in Tableau, posted on LinkedIn first.</p> <p data-astro-cid-5hce7sga><a class="btn" href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>Follow on LinkedIn</a></p> </section> <section data-astro-cid-5hce7sga> <h2 data-astro-cid-5hce7sga>What is next</h2> <p data-astro-cid-5hce7sga>The next session is announced on the <a href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-5hce7sga>user group page</a>.</p> </section> <section data-astro-cid-5hce7sga> <h2 data-astro-cid-5hce7sga>Tools and more</h2> <ul class="next" data-astro-cid-5hce7sga> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/certifications/" data-astro-cid-5hce7sga>Road to Tableau certification</a></li> <li data-astro-cid-5hce7sga><a href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>LinkedIn</a></li> <li data-astro-cid-5hce7sga><a href="https://github.com/AnkurNapa" data-astro-cid-5hce7sga>GitHub</a></li> <li data-astro-cid-5hce7sga><a href="https://ankurnapa.github.io/" data-astro-cid-5hce7sga>Blog: beer, wine, whisky and AI</a></li> <li data-astro-cid-5hce7sga><a href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-5hce7sga>Bengaluru Tableau User Group</a></li> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/people/" data-astro-cid-5hce7sga>Tableau people to follow</a></li> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/beverage/" data-astro-cid-5hce7sga>Tableau in beer, whisky and wine</a></li> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/videos/" data-astro-cid-5hce7sga>Videos and user group recordings</a></li> <li data-astro-cid-5hce7sga><a href="https://ankurnapa.github.io/btug/" data-astro-cid-5hce7sga>Bengaluru Tableau User Group site</a></li> <li data-astro-cid-5hce7sga><a href="https://ankurnapa.github.io/fabric-field-notes/" data-astro-cid-5hce7sga>Fabric Field Notes, the sister site</a></li> </ul> </section> </div> <div class="legal" data-astro-cid-5hce7sga> <div class="wrap" data-astro-cid-5hce7sga> <p data-astro-cid-5hce7sga>Written by Ankur Napa for the Bengaluru Tableau User Group and everyone learning Tableau.</p> <p data-astro-cid-5hce7sga>Independent community site. Not affiliated with or endorsed by Tableau or Salesforce. Tableau is a trademark of Salesforce, Inc.</p> </div> </div> </footer> <script type="module">const a=["auto","light","dark"],t=document.querySelector(".theme"),c=t?.querySelector(".theme-label"),o=()=>{try{return localStorage.getItem("tfn-theme")||"auto"}catch{return"auto"}},r=e=>{e==="auto"?delete document.documentElement.dataset.theme:document.documentElement.dataset.theme=e,t&&(t.dataset.mode=e,t.setAttribute("aria-label",`Colour theme: ${e}`)),c&&(c.textContent=e[0].toUpperCase()+e.slice(1))};r(o());const n=document.querySelector(".menu-btn"),l=e=>{n?.setAttribute("aria-expanded",String(e)),n?.closest(".bar")?.classList.toggle("open",e)};n?.addEventListener("click",()=>l(n.getAttribute("aria-expanded")!=="true"));document.addEventListener("keydown",e=>{e.key==="Escape"&&l(!1)});t?.addEventListener("click",()=>{const e=a[(a.indexOf(o())+1)%a.length];try{e==="auto"?localStorage.removeItem("tfn-theme"):localStorage.setItem("tfn-theme",e)}catch{}r(e)});</script> </body></html> <script type="module">document.querySelectorAll(".body pre").forEach(e=>{const t=document.createElement("button");t.type="button",t.className="copy",t.textContent="Copy",t.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(e.innerText.replace(/Copy$/,"")),t.textContent="Copied"}catch{t.textContent="Select and copy"}setTimeout(()=>t.textContent="Copy",1600)}),e.append(t)});</script> 

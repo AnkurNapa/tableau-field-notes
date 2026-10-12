@@ -1,0 +1,121 @@
+job_id,period,job_name,title,created_at,started_at,completed_at,finish_code,backgrounder
+90001,before,Refresh Extracts,Customer feedback,2026-09-14 02:00:00,2026-09-14 02:00:25,2026-09-14 02:05:25,0,bg-1
+90002,before,Refresh Extracts,Customer feedback 2,2026-09-14 02:00:00,2026-09-14 02:00:26,2026-09-14 02:01:26,0,bg-2
+90003,before,Refresh Extracts,Customer feedback 3,2026-09-14 02:00:00,2026-09-14 02:01:53,2026-09-14 02:03:53,0,bg-2
+90004,before,Refresh Extracts,Customer feedback 4,2026-09-14 02:00:00,2026-09-14 02:04:29,2026-09-14 02:06:29,0,bg-2
+90005,before,Refresh Extracts,Customer feedback 5,2026-09-14 02:00:00,2026-09-14 02:05:59,2026-09-14 02:07:59,0,bg-1
+90006,before,Refresh Extracts,Daily sales,2026-09-14 02:00:00,2026-09-14 02:06:38,2026-09-14 02:39:38,0,bg-2
+90007,before,Refresh Extracts,Daily sales 2,2026-09-14 02:00:00,2026-09-14 02:08:09,2026-09-14 02:14:09,0,bg-1
+90008,before,Refresh Extracts,Daily sales 3,2026-09-14 02:00:00,2026-09-14 02:14:31,2026-09-14 02:25:31,0,bg-1
+90009,before,Refresh Extracts,Daily sales 4,2026-09-14 02:00:00,2026-09-14 02:26:06,2026-09-14 02:34:06,0,bg-1
+90010,before,Refresh Extracts,Daily sales 5,2026-09-14 02:00:00,2026-09-14 02:34:15,2026-09-14 02:41:15,0,bg-1
+90011,before,Refresh Extracts,Delivery slots,2026-09-14 02:00:00,2026-09-14 02:39:46,2026-09-14 02:53:46,0,bg-2
+90012,before,Refresh Extracts,Delivery slots 2,2026-09-14 02:00:00,2026-09-14 02:41:39,2026-09-14 02:44:39,0,bg-1
+90013,before,Refresh Extracts,Delivery slots 3,2026-09-14 02:00:00,2026-09-14 02:45:12,2026-09-14 02:48:12,0,bg-1
+90014,before,Refresh Extracts,Delivery slots 4,2026-09-14 02:00:00,2026-09-14 02:48:35,2026-09-14 02:52:35,0,bg-1
+90015,before,Refresh Extracts,Delivery slots 5,2026-09-14 02:00:00,2026-09-14 02:53:04,2026-09-14 02:56:04,0,bg-1
+90016,before,Refresh Extracts,Footfall,2026-09-14 02:00:00,2026-09-14 02:54:13,2026-09-14 03:04:13,0,bg-2
+90017,before,Refresh Extracts,Footfall 2,2026-09-14 02:00:00,2026-09-14 02:56:10,2026-09-14 03:00:10,0,bg-1
+90018,before,Refresh Extracts,Footfall 3,2026-09-14 02:00:00,2026-09-14 03:00:44,2026-09-14 03:04:44,0,bg-1
+90019,before,Refresh Extracts,Footfall 4,2026-09-14 02:00:00,2026-09-14 03:04:40,2026-09-14 03:08:40,0,bg-2
+90020,before,Refresh Extracts,Footfall 5,2026-09-14 02:00:00,2026-09-14 03:04:59,2026-09-14 03:08:59,0,bg-1
+90021,before,Refresh Extracts,Inventory snapshot,2026-09-14 02:00:00,2026-09-14 03:08:52,2026-09-14 03:24:52,0,bg-2
+90022,before,Refresh Extracts,Inventory snapshot 2,2026-09-14 02:00:00,2026-09-14 03:09:35,2026-09-14 03:15:35,0,bg-1
+90023,before,Refresh Extracts,Inventory snapshot 3,2026-09-14 02:00:00,2026-09-14 03:15:43,2026-09-14 03:22:43,0,bg-1
+90024,before,Refresh Extracts,Inventory snapshot 4,2026-09-14 02:00:00,2026-09-14 03:23:01,2026-09-14 03:32:01,0,bg-1
+90025,before,Refresh Extracts,Inventory snapshot 5,2026-09-14 02:00:00,2026-09-14 03:25:15,2026-09-14 03:31:15,0,bg-2
+90026,before,Refresh Extracts,Orders (certified),2026-09-14 02:00:00,2026-09-14 03:31:28,2026-09-14 04:05:28,0,bg-2
+90027,before,Refresh Extracts,Orders (certified) 2,2026-09-14 02:00:00,2026-09-14 03:32:21,2026-09-14 03:42:21,0,bg-1
+90028,before,Refresh Extracts,Orders (certified) 3,2026-09-14 02:00:00,2026-09-14 03:42:51,2026-09-14 03:56:51,0,bg-1
+90029,before,Refresh Extracts,Orders (certified) 4,2026-09-14 02:00:00,2026-09-14 03:57:21,2026-09-14 04:06:21,0,bg-1
+90030,before,Refresh Extracts,Orders (certified) 5,2026-09-14 02:00:00,2026-09-14 04:06:04,2026-09-14 04:19:04,0,bg-2
+90031,before,Refresh Extracts,Product catalogue,2026-09-14 02:00:00,2026-09-14 04:06:31,2026-09-14 04:09:31,0,bg-1
+90032,before,Refresh Extracts,Product catalogue 2,2026-09-14 02:00:00,2026-09-14 04:09:46,2026-09-14 04:10:46,0,bg-1
+90033,before,Refresh Extracts,Product catalogue 3,2026-09-14 02:00:00,2026-09-14 04:11:19,2026-09-14 04:12:19,0,bg-1
+90034,before,Refresh Extracts,Product catalogue 4,2026-09-14 02:00:00,2026-09-14 04:12:49,2026-09-14 04:13:49,0,bg-1
+90035,before,Refresh Extracts,Product catalogue 5,2026-09-14 02:00:00,2026-09-14 04:14:29,2026-09-14 04:15:29,0,bg-1
+90036,before,Refresh Extracts,Promotions,2026-09-14 02:00:00,2026-09-14 04:15:51,2026-09-14 04:21:51,0,bg-1
+90037,before,Refresh Extracts,Promotions 2,2026-09-14 02:00:00,2026-09-14 04:19:17,2026-09-14 04:21:17,0,bg-2
+90038,before,Refresh Extracts,Promotions 3,2026-09-14 02:00:00,2026-09-14 04:21:49,2026-09-14 04:23:49,0,bg-2
+90039,before,Refresh Extracts,Promotions 4,2026-09-14 02:00:00,2026-09-14 04:22:31,2026-09-14 04:24:31,0,bg-1
+90040,before,Refresh Extracts,Promotions 5,2026-09-14 02:00:00,2026-09-14 04:24:11,2026-09-14 04:26:11,0,bg-2
+90041,before,Refresh Extracts,Returns,2026-09-14 02:00:00,2026-09-14 04:25:02,2026-09-14 04:32:02,0,bg-1
+90042,before,Refresh Extracts,Returns 2,2026-09-14 02:00:00,2026-09-14 04:26:38,2026-09-14 04:29:38,0,bg-2
+90043,before,Refresh Extracts,Returns 3,2026-09-14 02:00:00,2026-09-14 04:30:07,2026-09-14 04:34:07,0,bg-2
+90044,before,Refresh Extracts,Returns 4,2026-09-14 02:00:00,2026-09-14 04:32:21,2026-09-14 04:34:21,0,bg-1
+90045,before,Refresh Extracts,Returns 5,2026-09-14 02:00:00,2026-09-14 04:34:21,2026-09-14 04:37:21,0,bg-2
+90046,before,Refresh Extracts,Store targets,2026-09-14 02:00:00,2026-09-14 04:34:31,2026-09-14 04:38:31,0,bg-1
+90047,before,Refresh Extracts,Store targets 2,2026-09-14 02:00:00,2026-09-14 04:37:37,2026-09-14 04:38:37,0,bg-2
+90048,before,Refresh Extracts,Store targets 3,2026-09-14 02:00:00,2026-09-14 04:38:45,2026-09-14 04:39:45,0,bg-1
+90049,before,Refresh Extracts,Store targets 4,2026-09-14 02:00:00,2026-09-14 04:38:56,2026-09-14 04:39:56,0,bg-2
+90050,before,Refresh Extracts,Store targets 5,2026-09-14 02:00:00,2026-09-14 04:40:04,2026-09-14 04:41:04,0,bg-1
+90051,before,Refresh Extracts,Supplier lead times,2026-09-14 02:00:00,2026-09-14 04:40:01,2026-09-14 04:48:01,0,bg-2
+90052,before,Refresh Extracts,Supplier lead times 2,2026-09-14 02:00:00,2026-09-14 04:41:40,2026-09-14 04:43:40,0,bg-1
+90053,before,Refresh Extracts,Supplier lead times 3,2026-09-14 02:00:00,2026-09-14 04:43:56,2026-09-14 04:45:56,0,bg-1
+90054,before,Refresh Extracts,Supplier lead times 4,2026-09-14 02:00:00,2026-09-14 04:46:17,2026-09-14 04:48:17,0,bg-1
+90055,before,Refresh Extracts,Supplier lead times 5,2026-09-14 02:00:00,2026-09-14 04:48:24,2026-09-14 04:50:24,0,bg-2
+90056,before,Refresh Extracts,Workforce rota,2026-09-14 02:00:00,2026-09-14 04:48:22,2026-09-14 04:56:22,0,bg-1
+90057,before,Refresh Extracts,Workforce rota 2,2026-09-14 02:00:00,2026-09-14 04:50:38,2026-09-14 04:53:38,0,bg-2
+90058,before,Refresh Extracts,Workforce rota 3,2026-09-14 02:00:00,2026-09-14 04:54:09,2026-09-14 04:57:09,0,bg-2
+90059,before,Refresh Extracts,Workforce rota 4,2026-09-14 02:00:00,2026-09-14 04:57:01,2026-09-14 05:00:01,0,bg-1
+90060,before,Refresh Extracts,Workforce rota 5,2026-09-14 02:00:00,2026-09-14 04:57:37,2026-09-14 04:59:37,0,bg-2
+90061,after,Increment Extracts,Orders (certified),2026-09-21 02:00:00,2026-09-21 02:00:19,2026-09-21 02:06:19,0,bg-1
+90062,after,Refresh Extracts,Product catalogue 2,2026-09-21 02:00:00,2026-09-21 02:00:17,2026-09-21 02:01:17,0,bg-2
+90063,after,Refresh Extracts,Supplier lead times 3,2026-09-21 02:00:00,2026-09-21 02:01:37,2026-09-21 02:03:37,0,bg-2
+90064,after,Refresh Extracts,Workforce rota 4,2026-09-21 02:00:00,2026-09-21 02:04:07,2026-09-21 02:07:07,0,bg-2
+90065,after,Refresh Extracts,Orders (certified) 2,2026-09-21 02:15:00,2026-09-21 02:15:19,2026-09-21 02:26:19,0,bg-1
+90066,after,Refresh Extracts,Product catalogue 3,2026-09-21 02:15:00,2026-09-21 02:15:17,2026-09-21 02:16:17,0,bg-2
+90067,after,Refresh Extracts,Supplier lead times 4,2026-09-21 02:15:00,2026-09-21 02:16:55,2026-09-21 02:18:55,0,bg-2
+90068,after,Refresh Extracts,Workforce rota 5,2026-09-21 02:15:00,2026-09-21 02:19:31,2026-09-21 02:22:31,0,bg-2
+90069,after,Refresh Extracts,Delivery slots,2026-09-21 02:30:00,2026-09-21 02:30:27,2026-09-21 02:40:27,0,bg-2
+90070,after,Refresh Extracts,Orders (certified) 3,2026-09-21 02:30:00,2026-09-21 02:30:06,2026-09-21 02:40:06,0,bg-1
+90071,after,Refresh Extracts,Product catalogue 4,2026-09-21 02:30:00,2026-09-21 02:40:12,2026-09-21 02:41:12,0,bg-1
+90072,after,Refresh Extracts,Supplier lead times 5,2026-09-21 02:30:00,2026-09-21 02:40:49,2026-09-21 02:42:49,0,bg-2
+90073,after,Refresh Extracts,Delivery slots 2,2026-09-21 02:45:00,2026-09-21 02:45:35,2026-09-21 02:49:35,0,bg-1
+90074,after,Increment Extracts,Footfall,2026-09-21 02:45:00,2026-09-21 02:45:21,2026-09-21 02:47:21,0,bg-2
+90075,after,Refresh Extracts,Orders (certified) 4,2026-09-21 02:45:00,2026-09-21 02:47:38,2026-09-21 03:02:38,0,bg-2
+90076,after,Refresh Extracts,Product catalogue 5,2026-09-21 02:45:00,2026-09-21 02:50:02,2026-09-21 02:51:02,0,bg-1
+90077,after,Increment Extracts,Daily sales,2026-09-21 03:00:00,2026-09-21 03:00:33,2026-09-21 03:04:33,0,bg-1
+90078,after,Refresh Extracts,Delivery slots 3,2026-09-21 03:00:00,2026-09-21 03:03:05,2026-09-21 03:06:05,0,bg-2
+90079,after,Refresh Extracts,Footfall 2,2026-09-21 03:00:00,2026-09-21 03:05:01,2026-09-21 03:09:01,0,bg-1
+90080,after,Refresh Extracts,Orders (certified) 5,2026-09-21 03:00:00,2026-09-21 03:06:15,2026-09-21 03:22:15,0,bg-2
+90081,after,Refresh Extracts,Daily sales 2,2026-09-21 03:15:00,2026-09-21 03:15:19,2026-09-21 03:22:19,0,bg-1
+90082,after,Refresh Extracts,Delivery slots 4,2026-09-21 03:15:00,2026-09-21 03:22:26,2026-09-21 03:26:26,0,bg-2
+90083,after,Refresh Extracts,Footfall 3,2026-09-21 03:15:00,2026-09-21 03:22:38,2026-09-21 03:26:38,0,bg-1
+90084,after,Refresh Extracts,Store targets,2026-09-21 03:15:00,2026-09-21 03:27:01,2026-09-21 03:31:01,0,bg-2
+90085,after,Refresh Extracts,Daily sales 3,2026-09-21 03:30:00,2026-09-21 03:30:17,2026-09-21 03:39:17,0,bg-1
+90086,after,Refresh Extracts,Delivery slots 5,2026-09-21 03:30:00,2026-09-21 03:31:27,2026-09-21 03:35:27,0,bg-2
+90087,after,Refresh Extracts,Footfall 4,2026-09-21 03:30:00,2026-09-21 03:35:45,2026-09-21 03:38:45,0,bg-2
+90088,after,Refresh Extracts,Store targets 2,2026-09-21 03:30:00,2026-09-21 03:39:20,2026-09-21 03:41:20,0,bg-2
+90089,after,Refresh Extracts,Customer feedback,2026-09-21 03:45:00,2026-09-21 03:45:05,2026-09-21 03:51:05,0,bg-1
+90090,after,Refresh Extracts,Daily sales 4,2026-09-21 03:45:00,2026-09-21 03:45:35,2026-09-21 03:54:35,0,bg-2
+90091,after,Refresh Extracts,Footfall 5,2026-09-21 03:45:00,2026-09-21 03:51:32,2026-09-21 03:56:32,0,bg-1
+90092,after,Refresh Extracts,Store targets 3,2026-09-21 03:45:00,2026-09-21 03:54:45,2026-09-21 03:55:45,0,bg-2
+90093,after,Refresh Extracts,Customer feedback 2,2026-09-21 04:00:00,2026-09-21 04:00:12,2026-09-21 04:02:12,0,bg-2
+90094,after,Refresh Extracts,Daily sales 5,2026-09-21 04:00:00,2026-09-21 04:00:29,2026-09-21 04:11:29,0,bg-1
+90095,after,Refresh Extracts,Promotions,2026-09-21 04:00:00,2026-09-21 04:02:29,2026-09-21 04:09:29,0,bg-2
+90096,after,Refresh Extracts,Store targets 4,2026-09-21 04:00:00,2026-09-21 04:10:04,2026-09-21 04:12:04,0,bg-2
+90097,after,Refresh Extracts,Customer feedback 3,2026-09-21 04:15:00,2026-09-21 04:15:16,2026-09-21 04:16:16,0,bg-1
+90098,after,Refresh Extracts,Promotions 2,2026-09-21 04:15:00,2026-09-21 04:15:32,2026-09-21 04:17:32,0,bg-2
+90099,after,Refresh Extracts,Returns,2026-09-21 04:15:00,2026-09-21 04:16:42,2026-09-21 04:26:42,0,bg-1
+90100,after,Refresh Extracts,Store targets 5,2026-09-21 04:15:00,2026-09-21 04:17:42,2026-09-21 04:19:42,0,bg-2
+90101,after,Refresh Extracts,Customer feedback 4,2026-09-21 04:30:00,2026-09-21 04:30:30,2026-09-21 04:32:30,0,bg-2
+90102,after,Increment Extracts,Inventory snapshot,2026-09-21 04:30:00,2026-09-21 04:30:34,2026-09-21 04:34:34,0,bg-1
+90103,after,Refresh Extracts,Promotions 3,2026-09-21 04:30:00,2026-09-21 04:33:00,2026-09-21 04:35:00,0,bg-2
+90104,after,Refresh Extracts,Returns 2,2026-09-21 04:30:00,2026-09-21 04:34:44,2026-09-21 04:36:44,0,bg-1
+90105,after,Refresh Extracts,Customer feedback 5,2026-09-21 04:45:00,2026-09-21 04:45:15,2026-09-21 04:47:15,0,bg-2
+90106,after,Refresh Extracts,Inventory snapshot 2,2026-09-21 04:45:00,2026-09-21 04:45:15,2026-09-21 04:53:15,0,bg-1
+90107,after,Refresh Extracts,Promotions 4,2026-09-21 04:45:00,2026-09-21 04:47:28,2026-09-21 04:49:28,0,bg-2
+90108,after,Refresh Extracts,Returns 3,2026-09-21 04:45:00,2026-09-21 04:49:34,2026-09-21 04:51:34,0,bg-2
+90109,after,Refresh Extracts,Inventory snapshot 3,2026-09-21 05:00:00,2026-09-21 05:00:14,2026-09-21 05:07:14,0,bg-2
+90110,after,Refresh Extracts,Promotions 5,2026-09-21 05:00:00,2026-09-21 05:00:34,2026-09-21 05:02:34,0,bg-1
+90111,after,Refresh Extracts,Returns 4,2026-09-21 05:00:00,2026-09-21 05:02:48,2026-09-21 05:05:48,0,bg-1
+90112,after,Refresh Extracts,Inventory snapshot 4,2026-09-21 05:15:00,2026-09-21 05:15:35,2026-09-21 05:22:35,0,bg-1
+90113,after,Refresh Extracts,Returns 5,2026-09-21 05:15:00,2026-09-21 05:15:27,2026-09-21 05:18:27,0,bg-2
+90114,after,Refresh Extracts,Workforce rota,2026-09-21 05:15:00,2026-09-21 05:18:41,2026-09-21 05:28:41,0,bg-2
+90115,after,Refresh Extracts,Inventory snapshot 5,2026-09-21 05:30:00,2026-09-21 05:30:40,2026-09-21 05:37:40,0,bg-1
+90116,after,Refresh Extracts,Supplier lead times,2026-09-21 05:30:00,2026-09-21 05:30:40,2026-09-21 05:39:40,0,bg-2
+90117,after,Refresh Extracts,Workforce rota 2,2026-09-21 05:30:00,2026-09-21 05:37:53,2026-09-21 05:39:53,0,bg-1
+90118,after,Refresh Extracts,Product catalogue,2026-09-21 05:45:00,2026-09-21 05:45:06,2026-09-21 05:48:06,0,bg-2
+90119,after,Refresh Extracts,Supplier lead times 2,2026-09-21 05:45:00,2026-09-21 05:45:05,2026-09-21 05:47:05,0,bg-1
+90120,after,Refresh Extracts,Workforce rota 3,2026-09-21 05:45:00,2026-09-21 05:47:16,2026-09-21 05:50:16,0,bg-1

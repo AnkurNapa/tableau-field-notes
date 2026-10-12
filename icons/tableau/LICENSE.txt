@@ -1,0 +1,2 @@
+tableau.svg: Tableau logo mark path from Simple Icons (simple-icons@13.21.0, CC0 1.0). The Tableau logo is a trademark of Salesforce, Inc., used here only to identify Tableau products in diagrams.
+All other icons in this folder were drawn for Tableau Field Notes.

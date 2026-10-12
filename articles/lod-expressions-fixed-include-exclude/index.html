@@ -1,0 +1,164 @@
+<!DOCTYPE html><html lang="en-GB" data-astro-cid-5hce7sga> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>LOD expressions: FIXED, INCLUDE and EXCLUDE on one store table | Tableau Field Notes</title><meta name="description" content="Learn Tableau FIXED, INCLUDE and EXCLUDE LOD expressions on a retail sample, with expected numbers and the filter behaviour the Data Analyst exam tests."><link rel="canonical" href="https://ankurnapa.github.io/tableau-field-notes/articles/lod-expressions-fixed-include-exclude/"><meta property="og:type" content="article"><meta property="og:site_name" content="Tableau Field Notes"><meta property="og:title" content="LOD expressions: FIXED, INCLUDE and EXCLUDE on one store table"><meta property="og:description" content="Learn Tableau FIXED, INCLUDE and EXCLUDE LOD expressions on a retail sample, with expected numbers and the filter behaviour the Data Analyst exam tests."><meta property="og:url" content="https://ankurnapa.github.io/tableau-field-notes/articles/lod-expressions-fixed-include-exclude/"><meta property="og:image" content="https://ankurnapa.github.io/tableau-field-notes/og/lod-expressions-fixed-include-exclude.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="author" content="Ankur Napa"><script>
+      try { var t = localStorage.getItem('tfn-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+    </script><meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#16191d" media="(prefers-color-scheme: dark)"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><script async src="https://www.googletagmanager.com/gtag/js?id=G-1ZHW47YJDC"></script><script>(function(){const gaId = "G-1ZHW47YJDC";
+
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag('js', new Date());
+          gtag('config', gaId, { anonymize_ip: true });
+        })();</script><link rel="icon" type="image/svg+xml" href="/tableau-field-notes/logo.svg"><link rel="apple-touch-icon" href="/tableau-field-notes/apple-touch-icon.png"><link rel="stylesheet" href="/tableau-field-notes/_astro/about.CXXElhQ4.css">
+<style>.event-cta[data-astro-cid-bhhcqpt4]{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.25rem 2rem;align-items:center;background:var(--footer);color:#fff;border-radius:6px;padding:1.5rem 1.6rem;margin:2.5rem 0 0;border-top:4px solid;border-image:linear-gradient(to right,#4e79a7 0 20%,#f28e2b 20% 40%,#e15759 40% 60%,#76b7b2 60% 80%,#59a14f 80%) 1}.kicker[data-astro-cid-bhhcqpt4]{margin:0 0 .3rem;font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#9cc4ff}h2[data-astro-cid-bhhcqpt4]{color:#fff;font-size:1.3rem;margin:0 0 .35rem}.when[data-astro-cid-bhhcqpt4]{margin:0;color:#c7d9ef;font-size:.95rem}.acts[data-astro-cid-bhhcqpt4]{display:flex;flex-direction:column;align-items:stretch;gap:.6rem;text-align:center}.btn[data-astro-cid-bhhcqpt4].ghost{background:transparent;box-shadow:inset 0 0 0 1.5px #9cc4ff;color:#fff}.btn[data-astro-cid-bhhcqpt4].ghost:hover{background:#ffffff1f}.acts[data-astro-cid-bhhcqpt4] .more[data-astro-cid-bhhcqpt4]{color:#9cc4ff}.btn[data-astro-cid-bhhcqpt4]:focus-visible,.more[data-astro-cid-bhhcqpt4]:focus-visible{outline:2px solid #fff;outline-offset:3px}@media(max-width:44rem){.event-cta[data-astro-cid-bhhcqpt4]{grid-template-columns:1fr;padding:1.25rem 1.1rem}}
+</style>
+<link rel="stylesheet" href="/tableau-field-notes/_astro/_id_.D9IVC1gq.css"></head> <body data-astro-cid-5hce7sga> <a class="skip" href="#main" data-astro-cid-5hce7sga>Skip to content</a> <header class="site-head" data-astro-cid-5hce7sga> <div class="wrap bar" data-astro-cid-5hce7sga> <a class="brand" href="/tableau-field-notes/" aria-label="Tableau Field Notes home" data-astro-cid-5hce7sga> <img src="/tableau-field-notes/logo.svg" width="28" height="28" alt="" data-astro-cid-5hce7sga> <span data-astro-cid-5hce7sga>Tableau <strong data-astro-cid-5hce7sga>Field Notes</strong></span> </a> <nav id="site-nav" aria-label="Main" data-astro-cid-5hce7sga> <a href="/tableau-field-notes/" class="home" aria-label="Home" data-astro-cid-5hce7sga> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z" data-astro-cid-5hce7sga></path></svg> </a> <a href="/tableau-field-notes/roadmap/" data-astro-cid-5hce7sga>Roadmap</a><a href="/tableau-field-notes/certifications/" data-astro-cid-5hce7sga>Certifications</a><a href="/tableau-field-notes/chart-chooser/" data-astro-cid-5hce7sga>Which chart</a><a href="/tableau-field-notes/careers/" data-astro-cid-5hce7sga>Careers</a><a href="/tableau-field-notes/articles/" aria-current="page" data-astro-cid-5hce7sga>Articles</a><a href="/tableau-field-notes/community/" data-astro-cid-5hce7sga>Community</a><a href="/tableau-field-notes/resources/" data-astro-cid-5hce7sga>Resources</a><a href="/tableau-field-notes/beverage/" data-astro-cid-5hce7sga>Beer, whisky, wine</a><a href="/tableau-field-notes/events/" data-astro-cid-5hce7sga>Events</a><a href="/tableau-field-notes/about/" data-astro-cid-5hce7sga>About</a> <a class="nav-follow" href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>Follow on LinkedIn</a> </nav> <a class="find" href="/tableau-field-notes/search/" aria-label="Search" data-astro-cid-5hce7sga> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><circle cx="11" cy="11" r="7" data-astro-cid-5hce7sga></circle><path d="M20 20l-3.5-3.5" data-astro-cid-5hce7sga></path></svg> </a> <button class="theme" type="button" aria-label="Colour theme: auto" title="Colour theme" data-astro-cid-5hce7sga> <svg class="i-auto" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><circle cx="12" cy="12" r="9" data-astro-cid-5hce7sga></circle><path d="M12 3v18" data-astro-cid-5hce7sga></path><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" data-astro-cid-5hce7sga></path></svg> <svg class="i-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><circle cx="12" cy="12" r="4" data-astro-cid-5hce7sga></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" data-astro-cid-5hce7sga></path></svg> <svg class="i-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" data-astro-cid-5hce7sga></path></svg> <span class="theme-label" data-astro-cid-5hce7sga>Auto</span> </button> <a class="follow" href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>Follow</a> <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu" data-astro-cid-5hce7sga> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><path class="m-open" d="M4 7h16M4 12h16M4 17h16" data-astro-cid-5hce7sga></path><path class="m-close" d="M6 6l12 12M18 6L6 18" data-astro-cid-5hce7sga></path></svg> <span class="menu-label" data-astro-cid-5hce7sga>Menu</span> </button> </div> <div class="promo" data-astro-cid-5hce7sga> <div class="wrap promo-in" data-astro-cid-5hce7sga> <span class="promo-tag" data-astro-cid-5hce7sga>Next Tableau user group event, online:</span> <span class="promo-date" data-astro-cid-5hce7sga>Tue, 13 October 2026, 11:30 CDT</span> <span class="promo-title" title="Wisconsin TUG Presents: AI Insights &#38; Latest Extensions (Wisconsin Tableau User Group)" data-astro-cid-5hce7sga>Wisconsin TUG Presents: AI Insights &amp; Latest Extensions<span class="promo-group" data-astro-cid-5hce7sga> (Wisconsin Tableau User Group)</span></span> <a class="promo-map" href="/tableau-field-notes/events/#worldwide" data-astro-cid-5hce7sga>All events on the map</a> <a class="btn" href="https://usergroups.tableau.com/events/details/tableau-wisconsin-tableau-user-group-presents-wisconsin-tug-presents-ai-insights-amp-latest-extensions/" data-astro-cid-5hce7sga>Join free</a> </div> </div> </header> <main id="main" data-pagefind-body data-astro-cid-5hce7sga> <header class="head" data-astro-cid-eomsrdgo> <div class="wrap" data-astro-cid-eomsrdgo> <p class="back" data-astro-cid-eomsrdgo><a class="more" href="/tableau-field-notes/articles/" data-astro-cid-eomsrdgo>All articles</a></p> <h1 data-astro-cid-eomsrdgo>LOD expressions: FIXED, INCLUDE and EXCLUDE on one store table</h1> <p class="lede" data-astro-cid-eomsrdgo>Build a store by category table, then use FIXED, EXCLUDE and INCLUDE to answer three questions the view alone cannot. Finish with the filter test that catches most LOD mistakes.</p> <p class="facts" data-astro-cid-eomsrdgo> <span class="meta" data-astro-cid-eomsrdgo>12 Oct 2026</span>  <span class="badge asof" data-astro-cid-eomsrdgo>Tableau as of October 2026</span> <span class="badge docs" data-astro-cid-eomsrdgo>Checked against Tableau Help</span> <span class="badge lvl" data-astro-cid-eomsrdgo>Level 2</span> <span class="sep" aria-hidden="true" data-astro-cid-eomsrdgo></span> <span class="byline" data-astro-cid-eomsrdgo><img class="avatar" src="/tableau-field-notes/ankur.jpg" alt="" width="28" height="28" data-astro-cid-eomsrdgo> Ankur Napa</span> <span class="sep" aria-hidden="true" data-astro-cid-eomsrdgo></span> <a class="pill" href="/tableau-field-notes/articles/?tag=Desktop" data-astro-cid-eomsrdgo>Desktop</a><a class="pill" href="/tableau-field-notes/articles/?tag=LOD" data-astro-cid-eomsrdgo>LOD</a><a class="pill" href="/tableau-field-notes/articles/?tag=Certification" data-astro-cid-eomsrdgo>Certification</a> </p> </div> </header> <div class="wrap layout" data-astro-cid-eomsrdgo> <article class="body" data-astro-cid-eomsrdgo>  <h2 id="short-answer">Short answer</h2>
+<p>A level of detail (LOD) expression computes an aggregate at a grain you name, not the grain of the view. <strong>FIXED</strong> names the grain outright and ignores the view. <strong>INCLUDE</strong> adds a dimension to the view's grain. <strong>EXCLUDE</strong> removes one. The part that trips people up is filters: FIXED is computed before ordinary dimension filters, so it ignores them unless you add the filter to context. INCLUDE and EXCLUDE are computed after dimension filters, so they respect them. Know that one sentence and you will get most exam questions on LODs right.</p>
+<h2 id="what-you-will-build">What you will build</h2>
+<p>One worksheet with Harbour Goods stores and product categories. You will add:</p>
+<ul>
+<li>a FIXED store total, so each category can show its share of its own store;</li>
+<li>the same share written with EXCLUDE, to see where the two agree and where they part company;</li>
+<li>an INCLUDE expression that answers "what does an average product sell in each region?";</li>
+<li>a Category filter that breaks one of them on purpose.</li>
+</ul>
+<h2 id="before-you-start">Before you start</h2>
+<ul>
+<li>Tableau Desktop 2024.2 or later, or Tableau Public (the free desktop app connects to text files too).</li>
+<li>Three files: <a href="/tableau-field-notes/samples/harbour-goods-orders-clean.csv">the cleaned Harbour Goods orders</a>, <a href="/tableau-field-notes/samples/harbour-goods-products.csv">the products list</a> and <a href="/tableau-field-notes/samples/harbour-goods-stores.csv">the store registry</a>. The cleaned orders file is the original 60-row sample with its five deliberate faults removed (a duplicate, a blank quantity, a negative quantity, the unknown store ST-099 and the impossible date 31 September). It has 55 orders.</li>
+<li>Connect: <strong>Connect > To a File > Text file</strong>, pick the orders file, then drag the products and stores files from the left pane onto the canvas next to it. Tableau relates them on <code>product_id</code> and <code>store_id</code>. It also tidies field names, so <code>store_id</code> shows as <strong>Store Id</strong> and <code>unit_price</code> as <strong>Unit Price</strong>. If your version keeps the raw names, use those in the calculations below.</li>
+</ul>
+<p>Create the base measure with <strong>Analysis > Create Calculated Field</strong>, name it <strong>Sales</strong>:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">[Quantity] </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> [Unit Price] </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">1</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> [Discount])</span></span></code></pre>
+<h2 id="steps">Steps</h2>
+<h3 id="1-build-the-store-by-category-table">1. Build the store by category table</h3>
+<ol>
+<li>Drag <strong>Store Id</strong> to Rows, then <strong>Category</strong> to Rows to its right. Both are discrete (blue).</li>
+<li>Drag <strong>Sales</strong> onto <strong>Text</strong> on the Marks card. It lands as SUM(Sales).</li>
+<li>Select <strong>Analysis > Totals > Add All Subtotals</strong> so each store shows its total.</li>
+</ol>
+<p>You now have 21 rows. Chennai (ST-007) and Mumbai (ST-011) have only three categories each because neither sold anything in one category this quarter. Missing rows matter later.</p>
+<h3 id="2-add-a-fixed-store-total">2. Add a FIXED store total</h3>
+<p>Create a calculated field called <strong>Store Sales (FIXED)</strong>:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{FIXED [Store Id] : </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">SUM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">([Sales])}</span></span></code></pre>
+<p>Drag it into the view and drop it on the numbers already there. Tableau switches to Measure Names and Measure Values so both columns show. Look at the number Tableau shows for ST-003 Electronics. It says 163,488, which is four times the store's real total of 40,872.</p>
+<p>That is not a bug. A FIXED expression returns a value for every underlying row. The default SUM adds it up once per row. ST-003 Electronics has four order rows, so the store total is counted four times. Right-click the pill and change the aggregation with <strong>Measure (Sum) > Minimum</strong>. Now every ST-003 row shows 40,872.</p>
+<p>Make the share:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">//</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Category share of store (FIXED)</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">SUM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">([Sales]) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">/</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> MIN</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">([Store Sales (FIXED)])</span></span></code></pre>
+<p>Format it as a percentage with one decimal place (right-click the field in the Data pane, <strong>Default Properties > Number Format > Percentage</strong>).</p>
+<h3 id="3-write-the-same-share-with-exclude">3. Write the same share with EXCLUDE</h3>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">//</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Category share of store (EXCLUDE)</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">SUM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">([Sales]) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">/</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> SUM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">({EXCLUDE [Category] : </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">SUM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">([Sales])})</span></span></code></pre>
+<p>EXCLUDE says: take the view's grain, which is Store Id and Category, drop Category and compute at the store grain. INCLUDE and EXCLUDE results are always measures and are computed for each mark, not each row, so SUM is safe here. Put both shares side by side. They match on every row.</p>
+<h3 id="4-ask-an-include-question">4. Ask an INCLUDE question</h3>
+<p>Open a new sheet. Put <strong>Region</strong> on Rows. The question is how much a typical product sells in each region. AVG(Sales) answers a different question, the average order line.</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">//</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Average sales per product</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">AVG</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">({</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">INCLUDE</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> [Product Id] : </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">SUM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">([Sales])})</span></span></code></pre>
+<p>INCLUDE adds Product Id to the view's grain, sums Sales per region and product, then the outer AVG averages those product totals within each region.</p>
+<h3 id="5-break-it-with-a-filter">5. Break it with a filter</h3>
+<p>Go back to the store table. Drag <strong>Category</strong> to Filters and keep only <strong>Kitchen</strong>.</p>
+<p>The EXCLUDE share jumps to 100% on every row. The dimension filter ran first, so the store total it divides by is now Kitchen only. The FIXED share stays where it was, because FIXED ran before the filter and still divides by the whole store.</p>
+<p>Which one is right depends on the question. "What share of each store is Kitchen?" wants FIXED. "What share of the filtered view is this row?" wants EXCLUDE.</p>
+<p>Now right-click the Category filter pill and select <strong>Add to Context</strong>. The pill turns grey. Context filters run before FIXED, so the FIXED share now reads 100% too.</p>
+<h2 id="check-it-worked">Check it worked</h2>
+<p>Totals for the 55 clean orders: SUM(Sales) is 153,065.80 and there are 103 units.</p>
+<p>Store totals from <strong>Store Sales (FIXED)</strong> with MIN aggregation:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Store Id</th><th>City</th><th>Store Sales (FIXED)</th></tr></thead><tbody><tr><td>ST-003</td><td>Bengaluru</td><td>40,872.00</td></tr><tr><td>ST-019</td><td>Delhi</td><td>32,640.90</td></tr><tr><td>ST-014</td><td>Pune</td><td>29,266.75</td></tr><tr><td>ST-007</td><td>Chennai</td><td>19,070.45</td></tr><tr><td>ST-011</td><td>Mumbai</td><td>18,930.35</td></tr><tr><td>ST-022</td><td>Kolkata</td><td>12,285.35</td></tr></tbody></table>
+<p>Category shares for Bengaluru (ST-003), both calculations: Electronics 35.6%, Outdoor 34.3%, Kitchen 17.1% and Home 13.0%.</p>
+<p>Average sales per product by region from step 4, with AVG(Sales) per order line for contrast:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Region</th><th>Products sold</th><th>Average sales per product</th><th>AVG(Sales) per order line</th></tr></thead><tbody><tr><td>South</td><td>7</td><td>8,563.21</td><td>3,330.14</td></tr><tr><td>North</td><td>5</td><td>6,528.18</td><td>2,967.35</td></tr><tr><td>West</td><td>8</td><td>6,024.64</td><td>2,536.69</td></tr><tr><td>East</td><td>5</td><td>2,457.07</td><td>1,755.05</td></tr></tbody></table>
+<p>With the Kitchen filter as an ordinary dimension filter, the FIXED share shows: ST-019 40.6%, ST-007 39.3%, ST-022 25.7%, ST-011 19.3%, ST-003 17.1% and ST-014 11.3%. The EXCLUDE share shows 100% on all six. After <strong>Add to Context</strong>, both show 100%.</p>
+<h2 id="where-this-breaks">Where this breaks</h2>
+<ul>
+<li><strong>SUM on a FIXED field.</strong> The 163,488 in step 2 is the most common LOD bug in real workbooks. When the FIXED grain is coarser than the view, wrap it in MIN, MAX or AVG, or move the division into the LOD itself.</li>
+<li><strong>Forgetting the filter order.</strong> FIXED ignores dimension filters but respects context, data source and extract filters. A dashboard filter that should change a FIXED number needs <strong>Add to Context</strong>, or a rewrite as INCLUDE or EXCLUDE.</li>
+<li><strong>Missing rows.</strong> INCLUDE averages only products that sold. A product with no orders in a region is not a zero in the average, it is absent. Pad with a product list if zeros should count.</li>
+<li><strong>Too many FIXED fields.</strong> Each one can add a subquery. Workbook Optimizer flags a high number of LOD calculations for that reason.</li>
+<li><strong>Unsupported sources.</strong> Cubes and a few older connectors do not support LODs at all. Check the source before promising an LOD-based design.</li>
+</ul>
+<h2 id="next-on-the-roadmap">Next on the roadmap</h2>
+<p>LODs set the grain. Table calculations work on what is already in the view. The exam tests the difference hard: <a href="/tableau-field-notes/articles/table-calcs-addressing-partitioning/">Table calcs: addressing and partitioning</a>. The filter behaviour you saw in step 5 is one slice of the full <a href="/tableau-field-notes/articles/tableau-order-of-operations/">order of operations</a>.</p>
+<h2 id="on-the-brewhouse-floor">On the brewhouse floor</h2>
+<p>A brewery wants each beer's share of the brewhouse output. A FIXED expression on brew date gives the day's total volume, so every batch shows its share of that day. Filter to one beer and the share should stay honest, which is exactly the FIXED behaviour above. INCLUDE on batch answers "how big is an average batch of this beer?" without letting a single 20 hl batch and two 5 hl top-ups pass for three equal brews. The <a href="https://ankurnapa.github.io/2023/tableau-brewery-production-yield-dashboard/">brewery production and yield dashboard</a> uses the same pattern for yield per brew.</p>
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/calculations_calculatedfields_lod.htm">Create level of detail expressions in Tableau</a></li>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/calculations_calculatedfields_lod_overview.htm">Overview: level of detail expressions</a></li>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/order_of_operations.htm">Tableau's order of operations</a></li>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/filtering_context.htm">Use context filters</a></li>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/wbo_overview.htm">Workbook Optimizer guidelines</a></li>
+<li><a href="https://trailhead.salesforce.com/content/learn/modules/cert-prep-tableau-data-analyst/get-started-with-tableau-data-analyst-certification-prep">Salesforce Certified Tableau Data Analyst prep on Trailhead</a></li>
+</ul>  <section class="author" data-astro-cid-eomsrdgo> <img src="/tableau-field-notes/ankur.jpg" alt="" width="64" height="64" data-astro-cid-eomsrdgo> <div data-astro-cid-eomsrdgo> <p class="name" data-astro-cid-eomsrdgo>Ankur Napa</p> <p data-astro-cid-eomsrdgo>Brewer turned Tableau developer and 2026 Tableau Ambassador. Co-leads the <a href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-eomsrdgo>Bengaluru Tableau User Group</a> and the Tableau Newbies User Group.</p> </div> </section> <section class="event-cta" aria-labelledby="event-cta-h" data-astro-cid-bhhcqpt4> <div class="txt" data-astro-cid-bhhcqpt4> <p class="kicker" data-astro-cid-bhhcqpt4>Next Tableau user group event, online</p> <h2 id="event-cta-h" data-astro-cid-bhhcqpt4>Wisconsin TUG Presents: AI Insights &amp; Latest Extensions</h2> <p class="when" data-astro-cid-bhhcqpt4>Tue, 13 October 2026, 11:30 CDT with the Wisconsin Tableau User Group. Free to join.</p> </div> <div class="acts" data-astro-cid-bhhcqpt4> <a class="btn" href="https://usergroups.tableau.com/events/details/tableau-wisconsin-tableau-user-group-presents-wisconsin-tug-presents-ai-insights-amp-latest-extensions/" data-astro-cid-bhhcqpt4>Join free</a> <a class="btn ghost" href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-bhhcqpt4>Join the Bengaluru Tableau User Group</a> <a class="more" href="/tableau-field-notes/events/#worldwide" data-astro-cid-bhhcqpt4>All events on the map</a> </div> </section>  </article> <aside class="side" data-astro-cid-eomsrdgo> <nav class="box" aria-label="On this page" data-astro-cid-eomsrdgo> <p class="meta" data-astro-cid-eomsrdgo>On this page</p> <ol data-astro-cid-eomsrdgo><li data-astro-cid-eomsrdgo><a href="#short-answer" data-astro-cid-eomsrdgo>Short answer</a></li><li data-astro-cid-eomsrdgo><a href="#what-you-will-build" data-astro-cid-eomsrdgo>What you will build</a></li><li data-astro-cid-eomsrdgo><a href="#before-you-start" data-astro-cid-eomsrdgo>Before you start</a></li><li data-astro-cid-eomsrdgo><a href="#steps" data-astro-cid-eomsrdgo>Steps</a></li><li data-astro-cid-eomsrdgo><a href="#check-it-worked" data-astro-cid-eomsrdgo>Check it worked</a></li><li data-astro-cid-eomsrdgo><a href="#where-this-breaks" data-astro-cid-eomsrdgo>Where this breaks</a></li><li data-astro-cid-eomsrdgo><a href="#next-on-the-roadmap" data-astro-cid-eomsrdgo>Next on the roadmap</a></li><li data-astro-cid-eomsrdgo><a href="#on-the-brewhouse-floor" data-astro-cid-eomsrdgo>On the brewhouse floor</a></li><li data-astro-cid-eomsrdgo><a href="#sources" data-astro-cid-eomsrdgo>Sources</a></li></ol> </nav> <div class="box" data-astro-cid-eomsrdgo> <p class="meta" data-astro-cid-eomsrdgo>On the roadmap</p> <ul data-astro-cid-eomsrdgo><li data-astro-cid-eomsrdgo><a href="/tableau-field-notes/roadmap/#level-2" data-astro-cid-eomsrdgo>Level 2: LOD expressions</a></li></ul> </div>  </aside> </div> </main> <footer class="site-foot" data-astro-cid-5hce7sga> <div class="wrap cols" data-astro-cid-5hce7sga> <section data-astro-cid-5hce7sga> <h2 data-astro-cid-5hce7sga>Follow the notes</h2> <p data-astro-cid-5hce7sga>New walkthroughs and a monthly note on what changed in Tableau, posted on LinkedIn first.</p> <p data-astro-cid-5hce7sga><a class="btn" href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>Follow on LinkedIn</a></p> </section> <section data-astro-cid-5hce7sga> <h2 data-astro-cid-5hce7sga>What is next</h2> <p data-astro-cid-5hce7sga>The next session is announced on the <a href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-5hce7sga>user group page</a>.</p> </section> <section data-astro-cid-5hce7sga> <h2 data-astro-cid-5hce7sga>Tools and more</h2> <ul class="next" data-astro-cid-5hce7sga> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/certifications/" data-astro-cid-5hce7sga>Road to Tableau certification</a></li> <li data-astro-cid-5hce7sga><a href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>LinkedIn</a></li> <li data-astro-cid-5hce7sga><a href="https://github.com/AnkurNapa" data-astro-cid-5hce7sga>GitHub</a></li> <li data-astro-cid-5hce7sga><a href="https://ankurnapa.github.io/" data-astro-cid-5hce7sga>Blog: beer, wine, whisky and AI</a></li> <li data-astro-cid-5hce7sga><a href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-5hce7sga>Bengaluru Tableau User Group</a></li> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/people/" data-astro-cid-5hce7sga>Tableau people to follow</a></li> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/beverage/" data-astro-cid-5hce7sga>Tableau in beer, whisky and wine</a></li> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/videos/" data-astro-cid-5hce7sga>Videos and user group recordings</a></li> <li data-astro-cid-5hce7sga><a href="https://ankurnapa.github.io/btug/" data-astro-cid-5hce7sga>Bengaluru Tableau User Group site</a></li> <li data-astro-cid-5hce7sga><a href="https://ankurnapa.github.io/fabric-field-notes/" data-astro-cid-5hce7sga>Fabric Field Notes, the sister site</a></li> </ul> </section> </div> <div class="legal" data-astro-cid-5hce7sga> <div class="wrap" data-astro-cid-5hce7sga> <p data-astro-cid-5hce7sga>Written by Ankur Napa for the Bengaluru Tableau User Group and everyone learning Tableau.</p> <p data-astro-cid-5hce7sga>Independent community site. Not affiliated with or endorsed by Tableau or Salesforce. Tableau is a trademark of Salesforce, Inc.</p> </div> </div> </footer> <script type="module">const a=["auto","light","dark"],t=document.querySelector(".theme"),c=t?.querySelector(".theme-label"),o=()=>{try{return localStorage.getItem("tfn-theme")||"auto"}catch{return"auto"}},r=e=>{e==="auto"?delete document.documentElement.dataset.theme:document.documentElement.dataset.theme=e,t&&(t.dataset.mode=e,t.setAttribute("aria-label",`Colour theme: ${e}`)),c&&(c.textContent=e[0].toUpperCase()+e.slice(1))};r(o());const n=document.querySelector(".menu-btn"),l=e=>{n?.setAttribute("aria-expanded",String(e)),n?.closest(".bar")?.classList.toggle("open",e)};n?.addEventListener("click",()=>l(n.getAttribute("aria-expanded")!=="true"));document.addEventListener("keydown",e=>{e.key==="Escape"&&l(!1)});t?.addEventListener("click",()=>{const e=a[(a.indexOf(o())+1)%a.length];try{e==="auto"?localStorage.removeItem("tfn-theme"):localStorage.setItem("tfn-theme",e)}catch{}r(e)});</script> </body></html> <script type="module">document.querySelectorAll(".body pre").forEach(e=>{const t=document.createElement("button");t.type="button",t.className="copy",t.textContent="Copy",t.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(e.innerText.replace(/Copy$/,"")),t.textContent="Copied"}catch{t.textContent="Select and copy"}setTimeout(()=>t.textContent="Copy",1600)}),e.append(t)});</script> 

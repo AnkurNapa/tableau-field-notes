@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="en-GB" data-astro-cid-5hce7sga> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Maps with geographic roles: symbol, filled and unknown places | Tableau Field Notes</title><meta name="description" content="Build Tableau symbol and filled maps from city and state fields, fix unknown or ambiguous locations and fall back to latitude and longitude."><link rel="canonical" href="https://ankurnapa.github.io/tableau-field-notes/articles/maps-geographic-roles/"><meta property="og:type" content="article"><meta property="og:site_name" content="Tableau Field Notes"><meta property="og:title" content="Maps with geographic roles: symbol, filled and unknown places"><meta property="og:description" content="Build Tableau symbol and filled maps from city and state fields, fix unknown or ambiguous locations and fall back to latitude and longitude."><meta property="og:url" content="https://ankurnapa.github.io/tableau-field-notes/articles/maps-geographic-roles/"><meta property="og:image" content="https://ankurnapa.github.io/tableau-field-notes/og/maps-geographic-roles.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="author" content="Ankur Napa"><script>
+      try { var t = localStorage.getItem('tfn-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+    </script><meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#16191d" media="(prefers-color-scheme: dark)"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><script async src="https://www.googletagmanager.com/gtag/js?id=G-1ZHW47YJDC"></script><script>(function(){const gaId = "G-1ZHW47YJDC";
+
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag('js', new Date());
+          gtag('config', gaId, { anonymize_ip: true });
+        })();</script><link rel="icon" type="image/svg+xml" href="/tableau-field-notes/logo.svg"><link rel="apple-touch-icon" href="/tableau-field-notes/apple-touch-icon.png"><link rel="stylesheet" href="/tableau-field-notes/_astro/about.CXXElhQ4.css">
+<style>.event-cta[data-astro-cid-bhhcqpt4]{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.25rem 2rem;align-items:center;background:var(--footer);color:#fff;border-radius:6px;padding:1.5rem 1.6rem;margin:2.5rem 0 0;border-top:4px solid;border-image:linear-gradient(to right,#4e79a7 0 20%,#f28e2b 20% 40%,#e15759 40% 60%,#76b7b2 60% 80%,#59a14f 80%) 1}.kicker[data-astro-cid-bhhcqpt4]{margin:0 0 .3rem;font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#9cc4ff}h2[data-astro-cid-bhhcqpt4]{color:#fff;font-size:1.3rem;margin:0 0 .35rem}.when[data-astro-cid-bhhcqpt4]{margin:0;color:#c7d9ef;font-size:.95rem}.acts[data-astro-cid-bhhcqpt4]{display:flex;flex-direction:column;align-items:stretch;gap:.6rem;text-align:center}.btn[data-astro-cid-bhhcqpt4].ghost{background:transparent;box-shadow:inset 0 0 0 1.5px #9cc4ff;color:#fff}.btn[data-astro-cid-bhhcqpt4].ghost:hover{background:#ffffff1f}.acts[data-astro-cid-bhhcqpt4] .more[data-astro-cid-bhhcqpt4]{color:#9cc4ff}.btn[data-astro-cid-bhhcqpt4]:focus-visible,.more[data-astro-cid-bhhcqpt4]:focus-visible{outline:2px solid #fff;outline-offset:3px}@media(max-width:44rem){.event-cta[data-astro-cid-bhhcqpt4]{grid-template-columns:1fr;padding:1.25rem 1.1rem}}
+</style>
+<link rel="stylesheet" href="/tableau-field-notes/_astro/_id_.D9IVC1gq.css"></head> <body data-astro-cid-5hce7sga> <a class="skip" href="#main" data-astro-cid-5hce7sga>Skip to content</a> <header class="site-head" data-astro-cid-5hce7sga> <div class="wrap bar" data-astro-cid-5hce7sga> <a class="brand" href="/tableau-field-notes/" aria-label="Tableau Field Notes home" data-astro-cid-5hce7sga> <img src="/tableau-field-notes/logo.svg" width="28" height="28" alt="" data-astro-cid-5hce7sga> <span data-astro-cid-5hce7sga>Tableau <strong data-astro-cid-5hce7sga>Field Notes</strong></span> </a> <nav id="site-nav" aria-label="Main" data-astro-cid-5hce7sga> <a href="/tableau-field-notes/" class="home" aria-label="Home" data-astro-cid-5hce7sga> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z" data-astro-cid-5hce7sga></path></svg> </a> <a href="/tableau-field-notes/roadmap/" data-astro-cid-5hce7sga>Roadmap</a><a href="/tableau-field-notes/certifications/" data-astro-cid-5hce7sga>Certifications</a><a href="/tableau-field-notes/chart-chooser/" data-astro-cid-5hce7sga>Which chart</a><a href="/tableau-field-notes/careers/" data-astro-cid-5hce7sga>Careers</a><a href="/tableau-field-notes/articles/" aria-current="page" data-astro-cid-5hce7sga>Articles</a><a href="/tableau-field-notes/community/" data-astro-cid-5hce7sga>Community</a><a href="/tableau-field-notes/resources/" data-astro-cid-5hce7sga>Resources</a><a href="/tableau-field-notes/beverage/" data-astro-cid-5hce7sga>Beer, whisky, wine</a><a href="/tableau-field-notes/events/" data-astro-cid-5hce7sga>Events</a><a href="/tableau-field-notes/about/" data-astro-cid-5hce7sga>About</a> <a class="nav-follow" href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>Follow on LinkedIn</a> </nav> <a class="find" href="/tableau-field-notes/search/" aria-label="Search" data-astro-cid-5hce7sga> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><circle cx="11" cy="11" r="7" data-astro-cid-5hce7sga></circle><path d="M20 20l-3.5-3.5" data-astro-cid-5hce7sga></path></svg> </a> <button class="theme" type="button" aria-label="Colour theme: auto" title="Colour theme" data-astro-cid-5hce7sga> <svg class="i-auto" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><circle cx="12" cy="12" r="9" data-astro-cid-5hce7sga></circle><path d="M12 3v18" data-astro-cid-5hce7sga></path><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" data-astro-cid-5hce7sga></path></svg> <svg class="i-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><circle cx="12" cy="12" r="4" data-astro-cid-5hce7sga></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" data-astro-cid-5hce7sga></path></svg> <svg class="i-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" data-astro-cid-5hce7sga></path></svg> <span class="theme-label" data-astro-cid-5hce7sga>Auto</span> </button> <a class="follow" href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>Follow</a> <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu" data-astro-cid-5hce7sga> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><path class="m-open" d="M4 7h16M4 12h16M4 17h16" data-astro-cid-5hce7sga></path><path class="m-close" d="M6 6l12 12M18 6L6 18" data-astro-cid-5hce7sga></path></svg> <span class="menu-label" data-astro-cid-5hce7sga>Menu</span> </button> </div> <div class="promo" data-astro-cid-5hce7sga> <div class="wrap promo-in" data-astro-cid-5hce7sga> <span class="promo-tag" data-astro-cid-5hce7sga>Next Tableau user group event, online:</span> <span class="promo-date" data-astro-cid-5hce7sga>Tue, 13 October 2026, 11:30 CDT</span> <span class="promo-title" title="Wisconsin TUG Presents: AI Insights &#38; Latest Extensions (Wisconsin Tableau User Group)" data-astro-cid-5hce7sga>Wisconsin TUG Presents: AI Insights &amp; Latest Extensions<span class="promo-group" data-astro-cid-5hce7sga> (Wisconsin Tableau User Group)</span></span> <a class="promo-map" href="/tableau-field-notes/events/#worldwide" data-astro-cid-5hce7sga>All events on the map</a> <a class="btn" href="https://usergroups.tableau.com/events/details/tableau-wisconsin-tableau-user-group-presents-wisconsin-tug-presents-ai-insights-amp-latest-extensions/" data-astro-cid-5hce7sga>Join free</a> </div> </div> </header> <main id="main" data-pagefind-body data-astro-cid-5hce7sga> <header class="head" data-astro-cid-eomsrdgo> <div class="wrap" data-astro-cid-eomsrdgo> <p class="back" data-astro-cid-eomsrdgo><a class="more" href="/tableau-field-notes/articles/" data-astro-cid-eomsrdgo>All articles</a></p> <h1 data-astro-cid-eomsrdgo>Maps with geographic roles: symbol, filled and unknown places</h1> <p class="lede" data-astro-cid-eomsrdgo>Give a field a geographic role and Tableau can put it on a map. Build a symbol map of store sales and a filled map by state, fix the places Tableau does not recognise and keep latitude and longitude as the fallback.</p> <p class="facts" data-astro-cid-eomsrdgo> <span class="meta" data-astro-cid-eomsrdgo>12 Oct 2026</span>  <span class="badge asof" data-astro-cid-eomsrdgo>Tableau as of October 2026</span> <span class="badge docs" data-astro-cid-eomsrdgo>Checked against Tableau Help</span> <span class="badge lvl" data-astro-cid-eomsrdgo>Level 1</span> <span class="sep" aria-hidden="true" data-astro-cid-eomsrdgo></span> <span class="byline" data-astro-cid-eomsrdgo><img class="avatar" src="/tableau-field-notes/ankur.jpg" alt="" width="28" height="28" data-astro-cid-eomsrdgo> Ankur Napa</span> <span class="sep" aria-hidden="true" data-astro-cid-eomsrdgo></span> <a class="pill" href="/tableau-field-notes/articles/?tag=Desktop" data-astro-cid-eomsrdgo>Desktop</a><a class="pill" href="/tableau-field-notes/articles/?tag=Certification" data-astro-cid-eomsrdgo>Certification</a> </p> </div> </header> <div class="wrap layout" data-astro-cid-eomsrdgo> <article class="body" data-astro-cid-eomsrdgo>  <h2 id="short-answer">Short answer</h2>
+<p>Tableau maps a field when it has a <strong>geographic role</strong>: City, State/Province, Country/Region, Postcode and a few more. Assign the role from the Data pane, double-click the field and Tableau draws a map from its own built-in place names. Use a <strong>symbol map</strong> (sized circles at points) for totals and a <strong>filled map</strong> (shaded areas) for rates or shares. When a name does not match, Tableau shows an "unknown" count in the corner of the view. Fix it with <strong>Map</strong> > <strong>Edit Locations</strong>. Keep latitude and longitude columns in your data as the fallback that always works.</p>
+<h2 id="what-you-will-build">What you will build</h2>
+<p>Two maps for Harbour Goods, the fictional retailer used across this site:</p>
+<ol>
+<li>A symbol map with one circle per store city, sized by sales.</li>
+<li>A filled map shading each state by its sales.</li>
+</ol>
+<p>You will join two files. The orders are the shared <a href="/tableau-field-notes/samples/harbour-goods-orders.csv">harbour-goods-orders.csv</a>: 60 rows from July to September 2026. The locations are <a href="/tableau-field-notes/samples/maps-geographic-roles.csv">maps-geographic-roles.csv</a>: one row per store with city, state, country, region, latitude and longitude. The coordinates are approximate city points chosen for the walkthrough, not store addresses.</p>
+<h2 id="before-you-start">Before you start</h2>
+<ul>
+<li>Tableau Desktop, any edition. Map tiles load from the internet, so you need a connection.</li>
+<li>Save both CSVs in the same folder, so Tableau lists them together.</li>
+<li>The Sales calculation from <a href="/tableau-field-notes/articles/first-workbook-harbour-goods/">Your first workbook</a>.</li>
+<li>Three words. A <strong>geographic role</strong> tells Tableau a field holds place names it should look up. <strong>Geocoding</strong> is the look-up itself: turning a name into a point or a shape. A <strong>relationship</strong> links two tables on a shared field, here Store Id, without flattening them into one.</li>
+</ul>
+<h2 id="steps">Steps</h2>
+<h3 id="1-connect-and-relate-the-two-files">1. Connect and relate the two files</h3>
+<ol>
+<li>Select <strong>Connect</strong> > <strong>To a File</strong> > <strong>Text file</strong> and open <code>harbour-goods-orders.csv</code>.</li>
+<li>On the data source page, the left pane lists the other files in the folder. Drag <code>maps-geographic-roles.csv</code> onto the canvas next to the orders table.</li>
+<li>A line, the relationship, joins the two. Tableau opens a panel to set the matching fields. Check that it reads Store Id = Store Id. If Tableau picked something else, change both sides to Store Id.</li>
+<li>Open <strong>Sheet 1</strong> and create the Sales calculated field:</li>
+</ol>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">[Quantity] </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> [Unit Price] </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">1</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> [Discount])</span></span></code></pre>
+<h3 id="2-assign-geographic-roles">2. Assign geographic roles</h3>
+<ol>
+<li>In the Data pane, expand the locations table. Tableau may already show a small globe beside City, State and Country. That globe means a geographic role is set.</li>
+<li>If City has no globe, select the <strong>Abc</strong> icon beside it and pick <strong>Geographic Role</strong> > <strong>City</strong>.</li>
+<li>Do the same for State (<strong>State/Province</strong>) and Country (<strong>Country/Region</strong>).</li>
+<li>Check Latitude and Longitude. Tableau usually assigns their roles from the names. If not, use <strong>Geographic Role</strong> > <strong>Latitude</strong> and <strong>Longitude</strong>. These roles only work on number fields.</li>
+<li>Notice two new measures in the Data pane: Latitude (generated) and Longitude (generated). Tableau adds them once any field has a role. They are its own coordinates for the place names.</li>
+</ol>
+<h3 id="3-build-the-symbol-map">3. Build the symbol map</h3>
+<ol>
+<li>Double-click <strong>City</strong>. Tableau puts Longitude (generated) on Columns, Latitude (generated) on Rows and City on Detail. Dots appear over India.</li>
+<li>Look at the bottom right of the view. If an indicator shows a number of <strong>unknown</strong> locations, go to step 4 before you continue.</li>
+<li>Drag <strong>Sales</strong> to <strong>Size</strong> on the Marks card. Bigger circle, more sales. Drag <strong>Store Name</strong> to <strong>Label</strong>.</li>
+<li>Change the Marks card dropdown from <strong>Automatic</strong> to <strong>Circle</strong> if Tableau chose another shape.</li>
+</ol>
+<h3 id="4-fix-unknown-or-ambiguous-places">4. Fix unknown or ambiguous places</h3>
+<p>Tableau's City role covers cities worldwide with a population of 15,000 or more. Matching still fails for two reasons.</p>
+<ul>
+<li><strong>Unrecognised.</strong> Tableau does not know the spelling. Older and newer city names, such as Bengaluru and Bangalore, are the usual culprits in Indian data.</li>
+<li><strong>Ambiguous.</strong> The name exists in more than one place. There is a Delhi in India and more than one in the United States.</li>
+</ul>
+<p>To fix either:</p>
+<ol>
+<li>Select the unknown indicator at the bottom right and choose <strong>Edit Locations</strong>. If there is no indicator, use <strong>Map</strong> > <strong>Edit Locations</strong>.</li>
+<li>Under <strong>Geographic Roles</strong>, set <strong>Country/Region</strong> to <strong>From field</strong> and pick <strong>Country</strong>. That alone resolves most ambiguous cities.</li>
+<li>In the <strong>Match Values to Locations</strong> list, any row still marked <strong>Unrecognized</strong> can be fixed by selecting the cell and typing a name Tableau knows, or by choosing <strong>Enter Latitude and Longitude</strong>.</li>
+<li>Select <strong>OK</strong>.</li>
+</ol>
+<p>One more unknown is not a geocoding problem. ST-099, the store ID that is not in the Harbour Goods registry, has no row in the locations file. Its sales have no city at all. Depending on your version it shows as a null or unknown location. Filter it out, or better, fix it at the source.</p>
+<h3 id="5-build-the-filled-map">5. Build the filled map</h3>
+<ol>
+<li>Create a new sheet. Double-click <strong>State</strong>. Tableau draws dots or shapes depending on the version.</li>
+<li>Set the Marks card dropdown to <strong>Map</strong>. The states fill.</li>
+<li>Drag <strong>Sales</strong> to <strong>Color</strong>. Darker means more sales.</li>
+<li>If a state stays empty, check the unknown indicator. Delhi is the one to watch: Tableau may expect a different name for the National Capital Territory. Use <strong>Edit Locations</strong> to match it to whatever name Tableau offers.</li>
+</ol>
+<h3 id="6-the-latitude-and-longitude-fallback">6. The latitude and longitude fallback</h3>
+<p>If geocoding fights you, plot your own coordinates. Create a sheet, drag <strong>Longitude</strong> to <strong>Columns</strong> and <strong>Latitude</strong> to <strong>Rows</strong>, then drag <strong>Store Id</strong> to <strong>Detail</strong>. Tableau draws a point per store from your numbers, with no name matching at all. It is the most reliable map in this walkthrough and the one I use for any site list.</p>
+<h2 id="check-it-worked">Check it worked</h2>
+<p>Computed from the CSV, before you filter ST-099:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>City</th><th>State</th><th>SUM(Sales)</th></tr></thead><tbody><tr><td>Bengaluru</td><td>Karnataka</td><td>39,774.00</td></tr><tr><td>Pune</td><td>Maharashtra</td><td>32,714.75</td></tr><tr><td>Delhi</td><td>Delhi</td><td>32,640.90</td></tr><tr><td>Chennai</td><td>Tamil Nadu</td><td>19,070.45</td></tr><tr><td>Mumbai</td><td>Maharashtra</td><td>18,930.35</td></tr><tr><td>Kolkata</td><td>West Bengal</td><td>12,285.35</td></tr><tr><td>(no location)</td><td></td><td>854.05</td></tr></tbody></table>
+<p>On the filled map, Maharashtra is darkest at ₹51,645.10, because it holds two stores. Bengaluru is the biggest circle on the symbol map.</p>
+<h2 id="where-this-breaks">Where this breaks</h2>
+<ul>
+<li><strong>Filled maps of totals mislead.</strong> Maharashtra is darkest because it has two stores, not because its stores sell more. A filled map suits a rate or a share: sales per store, discount rate, growth. Use a symbol map for raw totals.</li>
+<li><strong>Big areas shout.</strong> A large state with a small number looks more important than a small one with a big number. Readers see area first.</li>
+<li><strong>Offline maps.</strong> Background map tiles come from a map service. With no internet the view may show points on a blank background.</li>
+<li><strong>Too many points.</strong> Thousands of overlapping circles hide each other. A <strong>Density</strong> mark type (a heat map of where points cluster) is better. The exam lists it as a chart type to know.</li>
+<li><strong>Custom areas.</strong> Sales territories or delivery zones are not in Tableau's place list. Group states into territories, or bring a spatial file. Both are beyond a first map.</li>
+</ul>
+<h2 id="which-chart-when">Which chart when</h2>
+<p>A map is right only when location is the question. If the question is "which store sold most", a sorted bar answers it faster. The site's <a href="/tableau-field-notes/chart-chooser/">chart chooser</a> walks through the choice.</p>
+<h2 id="on-the-certification">On the certification</h2>
+<p>The Tableau Desktop Foundations exam guide covers this in 1.3.3 (assign a geographic role to a data field), 2.1.4 (create a map using geographic data) and 2.1.8 (create a density map). Relating the two files touches 1.2.1 (add relationships to a data source).</p>
+<h2 id="next-on-the-roadmap">Next on the roadmap</h2>
+<p>You have bars, lines, a crosstab and maps. Next, put them on one page that a manager can use: <a href="/tableau-field-notes/articles/first-dashboard-filter-action/">Your first dashboard</a>.</p>
+<h2 id="on-the-brewhouse-floor">On the brewhouse floor</h2>
+<p>A brewery's distribution map is the same build. The account list carries the town and state for each bar or shop that pours the beer. The depletions file carries litres sold. A symbol map sized by litres shows where the beer actually moves. A filled map shaded by growth shows which states are warming up. Ask the sales team for each account's coordinates once, because half the outlets will sit in towns too small for Tableau's place list. I worked a fuller version of this in <a href="https://ankurnapa.github.io/2023/tableau-geospatial-sales-maps/">Mapping beer sales by market</a>.</p>
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/maps_geographicroles.htm">Assign geographic roles</a></li>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/maps_editlocation.htm">Edit unknown or ambiguous locations</a></li>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/maps_howto_choropleth.htm">Create filled (choropleth) maps</a></li>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/maps_build.htm">Build a simple map</a></li>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/viewparts_marks_marktypes.htm">Change the type of mark in the view</a></li>
+<li><a href="https://help.salesforce.com/s/articleView?id=005298988&#x26;type=1&#x26;language=en_US">Salesforce Certified Tableau Desktop Foundations exam guide</a></li>
+<li><a href="https://ankurnapa.github.io/2023/tableau-geospatial-sales-maps/">Mapping beer sales by market (Ankur's blog)</a></li>
+</ul>  <section class="author" data-astro-cid-eomsrdgo> <img src="/tableau-field-notes/ankur.jpg" alt="" width="64" height="64" data-astro-cid-eomsrdgo> <div data-astro-cid-eomsrdgo> <p class="name" data-astro-cid-eomsrdgo>Ankur Napa</p> <p data-astro-cid-eomsrdgo>Brewer turned Tableau developer and 2026 Tableau Ambassador. Co-leads the <a href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-eomsrdgo>Bengaluru Tableau User Group</a> and the Tableau Newbies User Group.</p> </div> </section> <section class="event-cta" aria-labelledby="event-cta-h" data-astro-cid-bhhcqpt4> <div class="txt" data-astro-cid-bhhcqpt4> <p class="kicker" data-astro-cid-bhhcqpt4>Next Tableau user group event, online</p> <h2 id="event-cta-h" data-astro-cid-bhhcqpt4>Wisconsin TUG Presents: AI Insights &amp; Latest Extensions</h2> <p class="when" data-astro-cid-bhhcqpt4>Tue, 13 October 2026, 11:30 CDT with the Wisconsin Tableau User Group. Free to join.</p> </div> <div class="acts" data-astro-cid-bhhcqpt4> <a class="btn" href="https://usergroups.tableau.com/events/details/tableau-wisconsin-tableau-user-group-presents-wisconsin-tug-presents-ai-insights-amp-latest-extensions/" data-astro-cid-bhhcqpt4>Join free</a> <a class="btn ghost" href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-bhhcqpt4>Join the Bengaluru Tableau User Group</a> <a class="more" href="/tableau-field-notes/events/#worldwide" data-astro-cid-bhhcqpt4>All events on the map</a> </div> </section>  </article> <aside class="side" data-astro-cid-eomsrdgo> <nav class="box" aria-label="On this page" data-astro-cid-eomsrdgo> <p class="meta" data-astro-cid-eomsrdgo>On this page</p> <ol data-astro-cid-eomsrdgo><li data-astro-cid-eomsrdgo><a href="#short-answer" data-astro-cid-eomsrdgo>Short answer</a></li><li data-astro-cid-eomsrdgo><a href="#what-you-will-build" data-astro-cid-eomsrdgo>What you will build</a></li><li data-astro-cid-eomsrdgo><a href="#before-you-start" data-astro-cid-eomsrdgo>Before you start</a></li><li data-astro-cid-eomsrdgo><a href="#steps" data-astro-cid-eomsrdgo>Steps</a></li><li data-astro-cid-eomsrdgo><a href="#check-it-worked" data-astro-cid-eomsrdgo>Check it worked</a></li><li data-astro-cid-eomsrdgo><a href="#where-this-breaks" data-astro-cid-eomsrdgo>Where this breaks</a></li><li data-astro-cid-eomsrdgo><a href="#which-chart-when" data-astro-cid-eomsrdgo>Which chart when</a></li><li data-astro-cid-eomsrdgo><a href="#on-the-certification" data-astro-cid-eomsrdgo>On the certification</a></li><li data-astro-cid-eomsrdgo><a href="#next-on-the-roadmap" data-astro-cid-eomsrdgo>Next on the roadmap</a></li><li data-astro-cid-eomsrdgo><a href="#on-the-brewhouse-floor" data-astro-cid-eomsrdgo>On the brewhouse floor</a></li><li data-astro-cid-eomsrdgo><a href="#sources" data-astro-cid-eomsrdgo>Sources</a></li></ol> </nav> <div class="box" data-astro-cid-eomsrdgo> <p class="meta" data-astro-cid-eomsrdgo>On the roadmap</p> <ul data-astro-cid-eomsrdgo><li data-astro-cid-eomsrdgo><a href="/tableau-field-notes/roadmap/#level-1" data-astro-cid-eomsrdgo>Level 1: Maps with geographic roles</a></li></ul> </div>  </aside> </div> </main> <footer class="site-foot" data-astro-cid-5hce7sga> <div class="wrap cols" data-astro-cid-5hce7sga> <section data-astro-cid-5hce7sga> <h2 data-astro-cid-5hce7sga>Follow the notes</h2> <p data-astro-cid-5hce7sga>New walkthroughs and a monthly note on what changed in Tableau, posted on LinkedIn first.</p> <p data-astro-cid-5hce7sga><a class="btn" href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>Follow on LinkedIn</a></p> </section> <section data-astro-cid-5hce7sga> <h2 data-astro-cid-5hce7sga>What is next</h2> <p data-astro-cid-5hce7sga>The next session is announced on the <a href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-5hce7sga>user group page</a>.</p> </section> <section data-astro-cid-5hce7sga> <h2 data-astro-cid-5hce7sga>Tools and more</h2> <ul class="next" data-astro-cid-5hce7sga> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/certifications/" data-astro-cid-5hce7sga>Road to Tableau certification</a></li> <li data-astro-cid-5hce7sga><a href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>LinkedIn</a></li> <li data-astro-cid-5hce7sga><a href="https://github.com/AnkurNapa" data-astro-cid-5hce7sga>GitHub</a></li> <li data-astro-cid-5hce7sga><a href="https://ankurnapa.github.io/" data-astro-cid-5hce7sga>Blog: beer, wine, whisky and AI</a></li> <li data-astro-cid-5hce7sga><a href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-5hce7sga>Bengaluru Tableau User Group</a></li> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/people/" data-astro-cid-5hce7sga>Tableau people to follow</a></li> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/beverage/" data-astro-cid-5hce7sga>Tableau in beer, whisky and wine</a></li> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/videos/" data-astro-cid-5hce7sga>Videos and user group recordings</a></li> <li data-astro-cid-5hce7sga><a href="https://ankurnapa.github.io/btug/" data-astro-cid-5hce7sga>Bengaluru Tableau User Group site</a></li> <li data-astro-cid-5hce7sga><a href="https://ankurnapa.github.io/fabric-field-notes/" data-astro-cid-5hce7sga>Fabric Field Notes, the sister site</a></li> </ul> </section> </div> <div class="legal" data-astro-cid-5hce7sga> <div class="wrap" data-astro-cid-5hce7sga> <p data-astro-cid-5hce7sga>Written by Ankur Napa for the Bengaluru Tableau User Group and everyone learning Tableau.</p> <p data-astro-cid-5hce7sga>Independent community site. Not affiliated with or endorsed by Tableau or Salesforce. Tableau is a trademark of Salesforce, Inc.</p> </div> </div> </footer> <script type="module">const a=["auto","light","dark"],t=document.querySelector(".theme"),c=t?.querySelector(".theme-label"),o=()=>{try{return localStorage.getItem("tfn-theme")||"auto"}catch{return"auto"}},r=e=>{e==="auto"?delete document.documentElement.dataset.theme:document.documentElement.dataset.theme=e,t&&(t.dataset.mode=e,t.setAttribute("aria-label",`Colour theme: ${e}`)),c&&(c.textContent=e[0].toUpperCase()+e.slice(1))};r(o());const n=document.querySelector(".menu-btn"),l=e=>{n?.setAttribute("aria-expanded",String(e)),n?.closest(".bar")?.classList.toggle("open",e)};n?.addEventListener("click",()=>l(n.getAttribute("aria-expanded")!=="true"));document.addEventListener("keydown",e=>{e.key==="Escape"&&l(!1)});t?.addEventListener("click",()=>{const e=a[(a.indexOf(o())+1)%a.length];try{e==="auto"?localStorage.removeItem("tfn-theme"):localStorage.setItem("tfn-theme",e)}catch{}r(e)});</script> </body></html> <script type="module">document.querySelectorAll(".body pre").forEach(e=>{const t=document.createElement("button");t.type="button",t.className="copy",t.textContent="Copy",t.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(e.innerText.replace(/Copy$/,"")),t.textContent="Copied"}catch{t.textContent="Select and copy"}setTimeout(()=>t.textContent="Copy",1600)}),e.append(t)});</script> 

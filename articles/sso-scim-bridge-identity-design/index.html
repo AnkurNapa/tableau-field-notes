@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="en-GB" data-astro-cid-5hce7sga> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Identity, SSO and private data | Tableau Field Notes</title><meta name="description" content="Design Tableau sign-in with SAML or OIDC, provision users and groups with SCIM and reach private data from Tableau Cloud through Tableau Bridge pools."><link rel="canonical" href="https://ankurnapa.github.io/tableau-field-notes/articles/sso-scim-bridge-identity-design/"><meta property="og:type" content="article"><meta property="og:site_name" content="Tableau Field Notes"><meta property="og:title" content="Identity, SSO and private data"><meta property="og:description" content="Design Tableau sign-in with SAML or OIDC, provision users and groups with SCIM and reach private data from Tableau Cloud through Tableau Bridge pools."><meta property="og:url" content="https://ankurnapa.github.io/tableau-field-notes/articles/sso-scim-bridge-identity-design/"><meta property="og:image" content="https://ankurnapa.github.io/tableau-field-notes/og/sso-scim-bridge-identity-design.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="author" content="Ankur Napa"><script>
+      try { var t = localStorage.getItem('tfn-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+    </script><meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#16191d" media="(prefers-color-scheme: dark)"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><script async src="https://www.googletagmanager.com/gtag/js?id=G-1ZHW47YJDC"></script><script>(function(){const gaId = "G-1ZHW47YJDC";
+
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag('js', new Date());
+          gtag('config', gaId, { anonymize_ip: true });
+        })();</script><link rel="icon" type="image/svg+xml" href="/tableau-field-notes/logo.svg"><link rel="apple-touch-icon" href="/tableau-field-notes/apple-touch-icon.png"><link rel="stylesheet" href="/tableau-field-notes/_astro/about.CXXElhQ4.css">
+<style>.event-cta[data-astro-cid-bhhcqpt4]{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.25rem 2rem;align-items:center;background:var(--footer);color:#fff;border-radius:6px;padding:1.5rem 1.6rem;margin:2.5rem 0 0;border-top:4px solid;border-image:linear-gradient(to right,#4e79a7 0 20%,#f28e2b 20% 40%,#e15759 40% 60%,#76b7b2 60% 80%,#59a14f 80%) 1}.kicker[data-astro-cid-bhhcqpt4]{margin:0 0 .3rem;font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#9cc4ff}h2[data-astro-cid-bhhcqpt4]{color:#fff;font-size:1.3rem;margin:0 0 .35rem}.when[data-astro-cid-bhhcqpt4]{margin:0;color:#c7d9ef;font-size:.95rem}.acts[data-astro-cid-bhhcqpt4]{display:flex;flex-direction:column;align-items:stretch;gap:.6rem;text-align:center}.btn[data-astro-cid-bhhcqpt4].ghost{background:transparent;box-shadow:inset 0 0 0 1.5px #9cc4ff;color:#fff}.btn[data-astro-cid-bhhcqpt4].ghost:hover{background:#ffffff1f}.acts[data-astro-cid-bhhcqpt4] .more[data-astro-cid-bhhcqpt4]{color:#9cc4ff}.btn[data-astro-cid-bhhcqpt4]:focus-visible,.more[data-astro-cid-bhhcqpt4]:focus-visible{outline:2px solid #fff;outline-offset:3px}@media(max-width:44rem){.event-cta[data-astro-cid-bhhcqpt4]{grid-template-columns:1fr;padding:1.25rem 1.1rem}}
+</style>
+<link rel="stylesheet" href="/tableau-field-notes/_astro/_id_.D9IVC1gq.css"></head> <body data-astro-cid-5hce7sga> <a class="skip" href="#main" data-astro-cid-5hce7sga>Skip to content</a> <header class="site-head" data-astro-cid-5hce7sga> <div class="wrap bar" data-astro-cid-5hce7sga> <a class="brand" href="/tableau-field-notes/" aria-label="Tableau Field Notes home" data-astro-cid-5hce7sga> <img src="/tableau-field-notes/logo.svg" width="28" height="28" alt="" data-astro-cid-5hce7sga> <span data-astro-cid-5hce7sga>Tableau <strong data-astro-cid-5hce7sga>Field Notes</strong></span> </a> <nav id="site-nav" aria-label="Main" data-astro-cid-5hce7sga> <a href="/tableau-field-notes/" class="home" aria-label="Home" data-astro-cid-5hce7sga> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z" data-astro-cid-5hce7sga></path></svg> </a> <a href="/tableau-field-notes/roadmap/" data-astro-cid-5hce7sga>Roadmap</a><a href="/tableau-field-notes/certifications/" data-astro-cid-5hce7sga>Certifications</a><a href="/tableau-field-notes/chart-chooser/" data-astro-cid-5hce7sga>Which chart</a><a href="/tableau-field-notes/careers/" data-astro-cid-5hce7sga>Careers</a><a href="/tableau-field-notes/articles/" aria-current="page" data-astro-cid-5hce7sga>Articles</a><a href="/tableau-field-notes/community/" data-astro-cid-5hce7sga>Community</a><a href="/tableau-field-notes/resources/" data-astro-cid-5hce7sga>Resources</a><a href="/tableau-field-notes/beverage/" data-astro-cid-5hce7sga>Beer, whisky, wine</a><a href="/tableau-field-notes/events/" data-astro-cid-5hce7sga>Events</a><a href="/tableau-field-notes/about/" data-astro-cid-5hce7sga>About</a> <a class="nav-follow" href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>Follow on LinkedIn</a> </nav> <a class="find" href="/tableau-field-notes/search/" aria-label="Search" data-astro-cid-5hce7sga> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><circle cx="11" cy="11" r="7" data-astro-cid-5hce7sga></circle><path d="M20 20l-3.5-3.5" data-astro-cid-5hce7sga></path></svg> </a> <button class="theme" type="button" aria-label="Colour theme: auto" title="Colour theme" data-astro-cid-5hce7sga> <svg class="i-auto" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><circle cx="12" cy="12" r="9" data-astro-cid-5hce7sga></circle><path d="M12 3v18" data-astro-cid-5hce7sga></path><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" data-astro-cid-5hce7sga></path></svg> <svg class="i-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><circle cx="12" cy="12" r="4" data-astro-cid-5hce7sga></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" data-astro-cid-5hce7sga></path></svg> <svg class="i-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" data-astro-cid-5hce7sga></path></svg> <span class="theme-label" data-astro-cid-5hce7sga>Auto</span> </button> <a class="follow" href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>Follow</a> <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu" data-astro-cid-5hce7sga> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><path class="m-open" d="M4 7h16M4 12h16M4 17h16" data-astro-cid-5hce7sga></path><path class="m-close" d="M6 6l12 12M18 6L6 18" data-astro-cid-5hce7sga></path></svg> <span class="menu-label" data-astro-cid-5hce7sga>Menu</span> </button> </div> <div class="promo" data-astro-cid-5hce7sga> <div class="wrap promo-in" data-astro-cid-5hce7sga> <span class="promo-tag" data-astro-cid-5hce7sga>Next Tableau user group event, online:</span> <span class="promo-date" data-astro-cid-5hce7sga>Tue, 13 October 2026, 11:30 CDT</span> <span class="promo-title" title="Wisconsin TUG Presents: AI Insights &#38; Latest Extensions (Wisconsin Tableau User Group)" data-astro-cid-5hce7sga>Wisconsin TUG Presents: AI Insights &amp; Latest Extensions<span class="promo-group" data-astro-cid-5hce7sga> (Wisconsin Tableau User Group)</span></span> <a class="promo-map" href="/tableau-field-notes/events/#worldwide" data-astro-cid-5hce7sga>All events on the map</a> <a class="btn" href="https://usergroups.tableau.com/events/details/tableau-wisconsin-tableau-user-group-presents-wisconsin-tug-presents-ai-insights-amp-latest-extensions/" data-astro-cid-5hce7sga>Join free</a> </div> </div> </header> <main id="main" data-pagefind-body data-astro-cid-5hce7sga> <header class="head" data-astro-cid-eomsrdgo> <div class="wrap" data-astro-cid-eomsrdgo> <p class="back" data-astro-cid-eomsrdgo><a class="more" href="/tableau-field-notes/articles/" data-astro-cid-eomsrdgo>All articles</a></p> <h1 data-astro-cid-eomsrdgo>Identity, SSO and private data</h1> <p class="lede" data-astro-cid-eomsrdgo>Design how people sign in to Tableau with SAML or OIDC, how users and groups arrive with SCIM and how Tableau Cloud reaches data behind the firewall with Tableau Bridge. Three decisions, one identity provider.</p> <p class="facts" data-astro-cid-eomsrdgo> <span class="meta" data-astro-cid-eomsrdgo>12 Oct 2026</span>  <span class="badge asof" data-astro-cid-eomsrdgo>Tableau as of October 2026</span> <span class="badge docs" data-astro-cid-eomsrdgo>Checked against Tableau Help</span> <span class="badge lvl" data-astro-cid-eomsrdgo>Level 4</span> <span class="sep" aria-hidden="true" data-astro-cid-eomsrdgo></span> <span class="byline" data-astro-cid-eomsrdgo><img class="avatar" src="/tableau-field-notes/ankur.jpg" alt="" width="28" height="28" data-astro-cid-eomsrdgo> Ankur Napa</span> <span class="sep" aria-hidden="true" data-astro-cid-eomsrdgo></span> <a class="pill" href="/tableau-field-notes/articles/?tag=Server" data-astro-cid-eomsrdgo>Server</a><a class="pill" href="/tableau-field-notes/articles/?tag=Cloud" data-astro-cid-eomsrdgo>Cloud</a><a class="pill" href="/tableau-field-notes/articles/?tag=Security" data-astro-cid-eomsrdgo>Security</a><a class="pill" href="/tableau-field-notes/articles/?tag=Certification" data-astro-cid-eomsrdgo>Certification</a> </p> </div> </header> <div class="wrap layout" data-astro-cid-eomsrdgo> <article class="body" data-astro-cid-eomsrdgo>  <h2 id="short-answer">Short answer</h2>
+<p>Make the company's identity provider (IdP) the single source of truth for three things:</p>
+<ol>
+<li><strong>Who can sign in.</strong> Single sign-on with <strong>SAML</strong> or <strong>OIDC</strong>. MFA is enforced at the IdP. On Tableau Cloud, MFA is a contractual requirement, so if you do not use SSO you use Tableau with MFA.</li>
+<li><strong>Who exists and which groups they are in.</strong> <strong>SCIM</strong> provisioning pushes users and group membership from the IdP. Tableau Cloud supports it. Tableau Server does from 2025.3.</li>
+<li><strong>What attributes travel with them.</strong> SAML attributes or OIDC claims can feed <strong>USERATTRIBUTE()</strong> for row-level security.</li>
+</ol>
+<p>Private data is a separate decision that only Cloud has to make. <strong>Tableau Bridge</strong> clients run inside your network, connect out to Tableau Cloud and carry live queries and extract refreshes for sources Cloud cannot reach. Run them in pools, never alone.</p>
+<h2 id="the-decision">The decision</h2>
+<h3 id="sign-in-protocol">Sign-in protocol</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th>SAML</th><th>OIDC</th></tr></thead><tbody><tr><td>Tableau Cloud</td><td>Yes, per site, several configurations allowed</td><td>Yes, plus Google and Salesforce, which use OIDC underneath</td></tr><tr><td>Tableau Server</td><td>Server-wide or site-specific</td><td>Server-wide through TSM</td></tr><tr><td>Embedded views</td><td>Pop-up or iframe sign-in, depending on the IdP</td><td>Pop-up is the safer default</td></tr><tr><td>Typical fit</td><td>Enterprises with an existing SAML estate</td><td>Newer IdPs, Google Workspace shops</td></tr><tr><td>Watch out for</td><td>NameID must be present, certificate expiry</td><td>Claim names and scopes differ by IdP</td></tr></tbody></table>
+<p>On Tableau Server you also have Active Directory or LDAP as the identity store, Kerberos for delegation to databases, mutual SSL and identity pools that let different groups of users sign in different ways. The identity store is chosen at install and is hard to change later, so decide before you install.</p>
+<h3 id="user-provisioning">User provisioning</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th>Manual or CSV</th><th>AD group sync (Server)</th><th>SCIM</th></tr></thead><tbody><tr><td>Joiners</td><td>Someone adds them</td><td>On sync</td><td>Pushed by the IdP</td></tr><tr><td>Leavers</td><td>Someone remembers</td><td>On sync</td><td>Pushed by the IdP</td></tr><tr><td>Groups</td><td>Hand-maintained</td><td>Mirrors AD groups</td><td>Mirrors IdP groups</td></tr><tr><td>Where</td><td>Both</td><td>Server with AD</td><td>Cloud. Server 2025.3 and later</td></tr></tbody></table>
+<h3 id="private-data-on-cloud">Private data on Cloud</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Option</th><th>How it works</th><th>Fit</th></tr></thead><tbody><tr><td>Direct connection</td><td>Cloud reaches a cloud warehouse over the internet with allow-listed IPs</td><td>Cloud data platforms</td></tr><tr><td>Tableau Bridge</td><td>Clients inside the network connect outbound to Cloud</td><td>On-premises databases, file shares</td></tr><tr><td>Move the data</td><td>Land it in a cloud warehouse first</td><td>When Bridge becomes the bottleneck</td></tr></tbody></table>
+<h2 id="reference-design">Reference design</h2>
+<p><a href="/tableau-field-notes/diagrams/sso-scim-bridge-identity-design.svg" class="diagram"><picture><source media="(max-width: 40rem)" srcset="/tableau-field-notes/diagrams/sso-scim-bridge-identity-design-m.svg"><img src="/tableau-field-notes/diagrams/sso-scim-bridge-identity-design.svg" alt="The identity provider sends sign-in, SCIM users and groups and user attributes for RLS to a Tableau Cloud site. A Bridge pool in the private network connects out over HTTPS and reaches the ERP database and file share" width="1200" height="473" loading="lazy" decoding="async"></picture></a></p>
+<p>Bridge planning numbers from Tableau's guide: 16 live queries per client, 10 concurrent refreshes per client on Bridge schedules (configurable), one client per computer and no more than 10 clients under one Windows service account. For up to 10 parallel refreshes Tableau suggests 8 vCPU, 32 GB RAM and 300 GB NVMe disk per client. Live queries through Bridge time out after 15 minutes. Bridge also runs as a Linux container on Red Hat and Amazon Linux.</p>
+<p>Map each pool to the network domains it serves, so a client in the plant network is never asked to reach the head office database.</p>
+<h2 id="questions-to-ask-the-client">Questions to ask the client</h2>
+<ol>
+<li>Which IdP do you use? Who can change its applications and claims?</li>
+<li>Is MFA enforced at the IdP for every user who will reach Tableau?</li>
+<li>Do you need row-level security from IdP attributes, or from tables in the data?</li>
+<li>Do contractors or partners sign in through a different IdP? On Server, that is an identity pools question.</li>
+<li>Will you embed Tableau in a portal? How do those users sign in? Does the IdP allow iframes?</li>
+<li>Which data sources sit inside the network? What are their sizes and refresh windows?</li>
+<li>Who owns the Bridge machines, their patches and their drivers?</li>
+<li>Who is the break-glass admin if the IdP is down?</li>
+</ol>
+<h2 id="review-checklist">Review checklist</h2>
+<ul>
+<li>At least one site admin can sign in with Tableau with MFA, as a documented break-glass account.</li>
+<li>SSO has been tested with one provisioned user before switching everyone's authentication type.</li>
+<li>The username attribute matches the username format in your entitlement tables.</li>
+<li>SCIM owns users and groups. Nobody edits them by hand in Tableau, because the IdP overwrites the change.</li>
+<li>The SCIM secret is created by a long-lived admin account. On Cloud it stops working if that admin's role changes or they leave.</li>
+<li>On Server, SCIM has an on-premises connector in the IdP if the server is behind a firewall.</li>
+<li>Bridge runs at least two clients per pool, in service mode, with drivers matched across clients.</li>
+<li>USERATTRIBUTE() is not used on any source that refreshes through Bridge. It does not work there.</li>
+</ul>
+<h2 id="anti-patterns">Anti-patterns</h2>
+<ul>
+<li><strong>SSO without SCIM.</strong> People sign in through the IdP but leavers keep their Tableau licence, because nobody removes them.</li>
+<li><strong>Hand-editing SCIM users.</strong> The next sync quietly undoes it.</li>
+<li><strong>One Bridge client on a laptop.</strong> It sleeps, it travels and it takes every refresh with it.</li>
+<li><strong>RLS on display names.</strong> Display names change at marriage, at typo fixes and at HR system migrations. Use a stable username or ID.</li>
+<li><strong>Service accounts as people.</strong> A shared login for a department breaks auditing, USERNAME()-based security and SCIM all at once.</li>
+</ul>
+<h2 id="on-the-certification">On the certification</h2>
+<p>This step maps to the <strong>Salesforce Certified Tableau Architect</strong> exam, whose Design a Tableau Infrastructure domain includes Tableau Cloud planning with Tableau Bridge. It also maps to the <strong>Salesforce Certified Tableau Consultant</strong> exam. Check the current guides on Trailhead Academy before you study.</p>
+<h2 id="next-on-the-roadmap">Next on the roadmap</h2>
+<p>With identity and private data designed, plan the move off Server: <a href="/tableau-field-notes/articles/migrate-tableau-server-to-cloud/">Migrate Server to Cloud</a>. For row-level security built on the usernames this design delivers, see <a href="/tableau-field-notes/articles/row-level-security-entitlements-data-policies/">Row-level security that holds</a>.</p>
+<h2 id="on-the-brewhouse-floor">On the brewhouse floor</h2>
+<p>A distillery's bonded warehouse records sit on a server in the site office, by law and by habit. Two Bridge clients on small VMs in that office carry the cask inventory to Tableau Cloud each night. The excise team signs in with the same company login and MFA prompt they use for email. When the warehouse manager retires, SCIM removes her access the day HR closes her record. Nobody has to remember. See <a href="https://ankurnapa.github.io/2023/tableau-whisky-cask-maturation-dashboard/">a cask maturation and angel's share dashboard</a> for the dashboard those records feed.</p>
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://help.tableau.com/current/online/en-us/security_auth.htm">Tableau Cloud authentication</a></li>
+<li><a href="https://help.tableau.com/current/online/en-us/saml_config_site.htm">Configure SAML with Tableau Cloud</a></li>
+<li><a href="https://help.tableau.com/current/online/en-us/scim_config_online.htm">Configure SCIM on Tableau Cloud</a></li>
+<li><a href="https://help.tableau.com/current/server/en-us/scim_config_online.htm">Configure SCIM on Tableau Server</a></li>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/functions_functions_user.htm">User functions, including USERATTRIBUTE</a></li>
+<li><a href="https://help.tableau.com/current/online/en-us/to_bridge_scale.htm">Plan your Bridge deployment</a></li>
+<li><a href="https://help.tableau.com/current/online/en-us/cloud_manager_auth.htm">Tableau Cloud Manager authentication</a></li>
+</ul>  <section class="author" data-astro-cid-eomsrdgo> <img src="/tableau-field-notes/ankur.jpg" alt="" width="64" height="64" data-astro-cid-eomsrdgo> <div data-astro-cid-eomsrdgo> <p class="name" data-astro-cid-eomsrdgo>Ankur Napa</p> <p data-astro-cid-eomsrdgo>Brewer turned Tableau developer and 2026 Tableau Ambassador. Co-leads the <a href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-eomsrdgo>Bengaluru Tableau User Group</a> and the Tableau Newbies User Group.</p> </div> </section> <section class="event-cta" aria-labelledby="event-cta-h" data-astro-cid-bhhcqpt4> <div class="txt" data-astro-cid-bhhcqpt4> <p class="kicker" data-astro-cid-bhhcqpt4>Next Tableau user group event, online</p> <h2 id="event-cta-h" data-astro-cid-bhhcqpt4>Wisconsin TUG Presents: AI Insights &amp; Latest Extensions</h2> <p class="when" data-astro-cid-bhhcqpt4>Tue, 13 October 2026, 11:30 CDT with the Wisconsin Tableau User Group. Free to join.</p> </div> <div class="acts" data-astro-cid-bhhcqpt4> <a class="btn" href="https://usergroups.tableau.com/events/details/tableau-wisconsin-tableau-user-group-presents-wisconsin-tug-presents-ai-insights-amp-latest-extensions/" data-astro-cid-bhhcqpt4>Join free</a> <a class="btn ghost" href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-bhhcqpt4>Join the Bengaluru Tableau User Group</a> <a class="more" href="/tableau-field-notes/events/#worldwide" data-astro-cid-bhhcqpt4>All events on the map</a> </div> </section>  </article> <aside class="side" data-astro-cid-eomsrdgo> <nav class="box" aria-label="On this page" data-astro-cid-eomsrdgo> <p class="meta" data-astro-cid-eomsrdgo>On this page</p> <ol data-astro-cid-eomsrdgo><li data-astro-cid-eomsrdgo><a href="#short-answer" data-astro-cid-eomsrdgo>Short answer</a></li><li data-astro-cid-eomsrdgo><a href="#the-decision" data-astro-cid-eomsrdgo>The decision</a></li><li data-astro-cid-eomsrdgo><a href="#reference-design" data-astro-cid-eomsrdgo>Reference design</a></li><li data-astro-cid-eomsrdgo><a href="#questions-to-ask-the-client" data-astro-cid-eomsrdgo>Questions to ask the client</a></li><li data-astro-cid-eomsrdgo><a href="#review-checklist" data-astro-cid-eomsrdgo>Review checklist</a></li><li data-astro-cid-eomsrdgo><a href="#anti-patterns" data-astro-cid-eomsrdgo>Anti-patterns</a></li><li data-astro-cid-eomsrdgo><a href="#on-the-certification" data-astro-cid-eomsrdgo>On the certification</a></li><li data-astro-cid-eomsrdgo><a href="#next-on-the-roadmap" data-astro-cid-eomsrdgo>Next on the roadmap</a></li><li data-astro-cid-eomsrdgo><a href="#on-the-brewhouse-floor" data-astro-cid-eomsrdgo>On the brewhouse floor</a></li><li data-astro-cid-eomsrdgo><a href="#sources" data-astro-cid-eomsrdgo>Sources</a></li></ol> </nav> <div class="box" data-astro-cid-eomsrdgo> <p class="meta" data-astro-cid-eomsrdgo>On the roadmap</p> <ul data-astro-cid-eomsrdgo><li data-astro-cid-eomsrdgo><a href="/tableau-field-notes/roadmap/#level-4" data-astro-cid-eomsrdgo>Level 4: Identity, SSO and private data</a></li></ul> </div>  </aside> </div> </main> <footer class="site-foot" data-astro-cid-5hce7sga> <div class="wrap cols" data-astro-cid-5hce7sga> <section data-astro-cid-5hce7sga> <h2 data-astro-cid-5hce7sga>Follow the notes</h2> <p data-astro-cid-5hce7sga>New walkthroughs and a monthly note on what changed in Tableau, posted on LinkedIn first.</p> <p data-astro-cid-5hce7sga><a class="btn" href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>Follow on LinkedIn</a></p> </section> <section data-astro-cid-5hce7sga> <h2 data-astro-cid-5hce7sga>What is next</h2> <p data-astro-cid-5hce7sga>The next session is announced on the <a href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-5hce7sga>user group page</a>.</p> </section> <section data-astro-cid-5hce7sga> <h2 data-astro-cid-5hce7sga>Tools and more</h2> <ul class="next" data-astro-cid-5hce7sga> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/certifications/" data-astro-cid-5hce7sga>Road to Tableau certification</a></li> <li data-astro-cid-5hce7sga><a href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>LinkedIn</a></li> <li data-astro-cid-5hce7sga><a href="https://github.com/AnkurNapa" data-astro-cid-5hce7sga>GitHub</a></li> <li data-astro-cid-5hce7sga><a href="https://ankurnapa.github.io/" data-astro-cid-5hce7sga>Blog: beer, wine, whisky and AI</a></li> <li data-astro-cid-5hce7sga><a href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-5hce7sga>Bengaluru Tableau User Group</a></li> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/people/" data-astro-cid-5hce7sga>Tableau people to follow</a></li> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/beverage/" data-astro-cid-5hce7sga>Tableau in beer, whisky and wine</a></li> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/videos/" data-astro-cid-5hce7sga>Videos and user group recordings</a></li> <li data-astro-cid-5hce7sga><a href="https://ankurnapa.github.io/btug/" data-astro-cid-5hce7sga>Bengaluru Tableau User Group site</a></li> <li data-astro-cid-5hce7sga><a href="https://ankurnapa.github.io/fabric-field-notes/" data-astro-cid-5hce7sga>Fabric Field Notes, the sister site</a></li> </ul> </section> </div> <div class="legal" data-astro-cid-5hce7sga> <div class="wrap" data-astro-cid-5hce7sga> <p data-astro-cid-5hce7sga>Written by Ankur Napa for the Bengaluru Tableau User Group and everyone learning Tableau.</p> <p data-astro-cid-5hce7sga>Independent community site. Not affiliated with or endorsed by Tableau or Salesforce. Tableau is a trademark of Salesforce, Inc.</p> </div> </div> </footer> <script type="module">const a=["auto","light","dark"],t=document.querySelector(".theme"),c=t?.querySelector(".theme-label"),o=()=>{try{return localStorage.getItem("tfn-theme")||"auto"}catch{return"auto"}},r=e=>{e==="auto"?delete document.documentElement.dataset.theme:document.documentElement.dataset.theme=e,t&&(t.dataset.mode=e,t.setAttribute("aria-label",`Colour theme: ${e}`)),c&&(c.textContent=e[0].toUpperCase()+e.slice(1))};r(o());const n=document.querySelector(".menu-btn"),l=e=>{n?.setAttribute("aria-expanded",String(e)),n?.closest(".bar")?.classList.toggle("open",e)};n?.addEventListener("click",()=>l(n.getAttribute("aria-expanded")!=="true"));document.addEventListener("keydown",e=>{e.key==="Escape"&&l(!1)});t?.addEventListener("click",()=>{const e=a[(a.indexOf(o())+1)%a.length];try{e==="auto"?localStorage.removeItem("tfn-theme"):localStorage.setItem("tfn-theme",e)}catch{}r(e)});</script> </body></html> <script type="module">document.querySelectorAll(".body pre").forEach(e=>{const t=document.createElement("button");t.type="button",t.className="copy",t.textContent="Copy",t.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(e.innerText.replace(/Copy$/,"")),t.textContent="Copied"}catch{t.textContent="Select and copy"}setTimeout(()=>t.textContent="Copy",1600)}),e.append(t)});</script> 

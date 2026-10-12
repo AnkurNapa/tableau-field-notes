@@ -1,0 +1,7 @@
+store_id,store_name,city,state,country,region,latitude,longitude
+ST-003,Bengaluru South,Bengaluru,Karnataka,India,South,12.9141,77.596
+ST-007,Chennai South,Chennai,Tamil Nadu,India,South,12.9815,80.218
+ST-011,Mumbai West,Mumbai,Maharashtra,India,West,19.1136,72.8697
+ST-014,Pune West,Pune,Maharashtra,India,West,18.559,73.7868
+ST-019,Delhi North,Delhi,Delhi,India,North,28.7041,77.1025
+ST-022,Kolkata East,Kolkata,West Bengal,India,East,22.5726,88.3639

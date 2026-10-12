@@ -1,0 +1,243 @@
+<!DOCTYPE html><html lang="en-GB" data-astro-cid-5hce7sga> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Your first Prep flow: clean, union and join two order exports | Tableau Field Notes</title><meta name="description" content="Build your first Tableau Prep flow: union two messy CSVs, fix mixed dates, remove duplicate rows, join a store list and output a Hyper extract."><link rel="canonical" href="https://ankurnapa.github.io/tableau-field-notes/articles/first-prep-flow-clean-union-join/"><meta property="og:type" content="article"><meta property="og:site_name" content="Tableau Field Notes"><meta property="og:title" content="Your first Prep flow: clean, union and join two order exports"><meta property="og:description" content="Build your first Tableau Prep flow: union two messy CSVs, fix mixed dates, remove duplicate rows, join a store list and output a Hyper extract."><meta property="og:url" content="https://ankurnapa.github.io/tableau-field-notes/articles/first-prep-flow-clean-union-join/"><meta property="og:image" content="https://ankurnapa.github.io/tableau-field-notes/og/first-prep-flow-clean-union-join.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="author" content="Ankur Napa"><script>
+      try { var t = localStorage.getItem('tfn-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+    </script><meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#16191d" media="(prefers-color-scheme: dark)"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><script async src="https://www.googletagmanager.com/gtag/js?id=G-1ZHW47YJDC"></script><script>(function(){const gaId = "G-1ZHW47YJDC";
+
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag('js', new Date());
+          gtag('config', gaId, { anonymize_ip: true });
+        })();</script><link rel="icon" type="image/svg+xml" href="/tableau-field-notes/logo.svg"><link rel="apple-touch-icon" href="/tableau-field-notes/apple-touch-icon.png"><link rel="stylesheet" href="/tableau-field-notes/_astro/about.CXXElhQ4.css">
+<style>.event-cta[data-astro-cid-bhhcqpt4]{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.25rem 2rem;align-items:center;background:var(--footer);color:#fff;border-radius:6px;padding:1.5rem 1.6rem;margin:2.5rem 0 0;border-top:4px solid;border-image:linear-gradient(to right,#4e79a7 0 20%,#f28e2b 20% 40%,#e15759 40% 60%,#76b7b2 60% 80%,#59a14f 80%) 1}.kicker[data-astro-cid-bhhcqpt4]{margin:0 0 .3rem;font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#9cc4ff}h2[data-astro-cid-bhhcqpt4]{color:#fff;font-size:1.3rem;margin:0 0 .35rem}.when[data-astro-cid-bhhcqpt4]{margin:0;color:#c7d9ef;font-size:.95rem}.acts[data-astro-cid-bhhcqpt4]{display:flex;flex-direction:column;align-items:stretch;gap:.6rem;text-align:center}.btn[data-astro-cid-bhhcqpt4].ghost{background:transparent;box-shadow:inset 0 0 0 1.5px #9cc4ff;color:#fff}.btn[data-astro-cid-bhhcqpt4].ghost:hover{background:#ffffff1f}.acts[data-astro-cid-bhhcqpt4] .more[data-astro-cid-bhhcqpt4]{color:#9cc4ff}.btn[data-astro-cid-bhhcqpt4]:focus-visible,.more[data-astro-cid-bhhcqpt4]:focus-visible{outline:2px solid #fff;outline-offset:3px}@media(max-width:44rem){.event-cta[data-astro-cid-bhhcqpt4]{grid-template-columns:1fr;padding:1.25rem 1.1rem}}
+</style>
+<link rel="stylesheet" href="/tableau-field-notes/_astro/_id_.D9IVC1gq.css"></head> <body data-astro-cid-5hce7sga> <a class="skip" href="#main" data-astro-cid-5hce7sga>Skip to content</a> <header class="site-head" data-astro-cid-5hce7sga> <div class="wrap bar" data-astro-cid-5hce7sga> <a class="brand" href="/tableau-field-notes/" aria-label="Tableau Field Notes home" data-astro-cid-5hce7sga> <img src="/tableau-field-notes/logo.svg" width="28" height="28" alt="" data-astro-cid-5hce7sga> <span data-astro-cid-5hce7sga>Tableau <strong data-astro-cid-5hce7sga>Field Notes</strong></span> </a> <nav id="site-nav" aria-label="Main" data-astro-cid-5hce7sga> <a href="/tableau-field-notes/" class="home" aria-label="Home" data-astro-cid-5hce7sga> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z" data-astro-cid-5hce7sga></path></svg> </a> <a href="/tableau-field-notes/roadmap/" data-astro-cid-5hce7sga>Roadmap</a><a href="/tableau-field-notes/certifications/" data-astro-cid-5hce7sga>Certifications</a><a href="/tableau-field-notes/chart-chooser/" data-astro-cid-5hce7sga>Which chart</a><a href="/tableau-field-notes/careers/" data-astro-cid-5hce7sga>Careers</a><a href="/tableau-field-notes/articles/" aria-current="page" data-astro-cid-5hce7sga>Articles</a><a href="/tableau-field-notes/community/" data-astro-cid-5hce7sga>Community</a><a href="/tableau-field-notes/resources/" data-astro-cid-5hce7sga>Resources</a><a href="/tableau-field-notes/beverage/" data-astro-cid-5hce7sga>Beer, whisky, wine</a><a href="/tableau-field-notes/events/" data-astro-cid-5hce7sga>Events</a><a href="/tableau-field-notes/about/" data-astro-cid-5hce7sga>About</a> <a class="nav-follow" href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>Follow on LinkedIn</a> </nav> <a class="find" href="/tableau-field-notes/search/" aria-label="Search" data-astro-cid-5hce7sga> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><circle cx="11" cy="11" r="7" data-astro-cid-5hce7sga></circle><path d="M20 20l-3.5-3.5" data-astro-cid-5hce7sga></path></svg> </a> <button class="theme" type="button" aria-label="Colour theme: auto" title="Colour theme" data-astro-cid-5hce7sga> <svg class="i-auto" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><circle cx="12" cy="12" r="9" data-astro-cid-5hce7sga></circle><path d="M12 3v18" data-astro-cid-5hce7sga></path><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" data-astro-cid-5hce7sga></path></svg> <svg class="i-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><circle cx="12" cy="12" r="4" data-astro-cid-5hce7sga></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" data-astro-cid-5hce7sga></path></svg> <svg class="i-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" data-astro-cid-5hce7sga></path></svg> <span class="theme-label" data-astro-cid-5hce7sga>Auto</span> </button> <a class="follow" href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>Follow</a> <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu" data-astro-cid-5hce7sga> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><path class="m-open" d="M4 7h16M4 12h16M4 17h16" data-astro-cid-5hce7sga></path><path class="m-close" d="M6 6l12 12M18 6L6 18" data-astro-cid-5hce7sga></path></svg> <span class="menu-label" data-astro-cid-5hce7sga>Menu</span> </button> </div> <div class="promo" data-astro-cid-5hce7sga> <div class="wrap promo-in" data-astro-cid-5hce7sga> <span class="promo-tag" data-astro-cid-5hce7sga>Next Tableau user group event, online:</span> <span class="promo-date" data-astro-cid-5hce7sga>Tue, 13 October 2026, 11:30 CDT</span> <span class="promo-title" title="Wisconsin TUG Presents: AI Insights &#38; Latest Extensions (Wisconsin Tableau User Group)" data-astro-cid-5hce7sga>Wisconsin TUG Presents: AI Insights &amp; Latest Extensions<span class="promo-group" data-astro-cid-5hce7sga> (Wisconsin Tableau User Group)</span></span> <a class="promo-map" href="/tableau-field-notes/events/#worldwide" data-astro-cid-5hce7sga>All events on the map</a> <a class="btn" href="https://usergroups.tableau.com/events/details/tableau-wisconsin-tableau-user-group-presents-wisconsin-tug-presents-ai-insights-amp-latest-extensions/" data-astro-cid-5hce7sga>Join free</a> </div> </div> </header> <main id="main" data-pagefind-body data-astro-cid-5hce7sga> <header class="head" data-astro-cid-eomsrdgo> <div class="wrap" data-astro-cid-eomsrdgo> <p class="back" data-astro-cid-eomsrdgo><a class="more" href="/tableau-field-notes/articles/" data-astro-cid-eomsrdgo>All articles</a></p> <h1 data-astro-cid-eomsrdgo>Your first Prep flow: clean, union and join two order exports</h1> <p class="lede" data-astro-cid-eomsrdgo>Take two messy order exports, union them, fix store IDs and three date formats, remove duplicates, join the store list and write a Hyper extract. Every row count is checked.</p> <p class="facts" data-astro-cid-eomsrdgo> <span class="meta" data-astro-cid-eomsrdgo>12 Oct 2026</span>  <span class="badge asof" data-astro-cid-eomsrdgo>Tableau as of October 2026</span> <span class="badge docs" data-astro-cid-eomsrdgo>Checked against Tableau Help</span> <span class="badge lvl" data-astro-cid-eomsrdgo>Level 1</span> <span class="sep" aria-hidden="true" data-astro-cid-eomsrdgo></span> <span class="byline" data-astro-cid-eomsrdgo><img class="avatar" src="/tableau-field-notes/ankur.jpg" alt="" width="28" height="28" data-astro-cid-eomsrdgo> Ankur Napa</span> <span class="sep" aria-hidden="true" data-astro-cid-eomsrdgo></span> <a class="pill" href="/tableau-field-notes/articles/?tag=Prep" data-astro-cid-eomsrdgo>Prep</a> </p> </div> </header> <div class="wrap layout" data-astro-cid-eomsrdgo> <article class="body" data-astro-cid-eomsrdgo>  <h2 id="short-answer">Short answer</h2>
+<p>A Prep flow is a chain of steps you can see. Two inputs go into a Union step, a Clean step fixes what is wrong, a Join step adds the store details and an Output step writes a .hyper file. The order matters more than the steps. Clean the values before you look for duplicates, or Prep will tell you two copies of the same order are different rows. In this walkthrough 61 raw rows become 56 clean ones and you will know where every one of the five went.</p>
+<h2 id="what-you-will-build">What you will build</h2>
+<p>One flow, saved as <code>harbour_orders_q3.tfl</code>, that turns two quarterly order exports from Harbour Goods into one extract called <code>harbour_orders_q3.hyper</code>.</p>
+<p>The files are deliberately messy, the way till exports usually are:</p>
+<ul>
+<li><a href="/tableau-field-notes/samples/first-prep-flow-orders-jul-aug.csv">first-prep-flow-orders-jul-aug.csv</a>: 39 rows for July and August.</li>
+<li><a href="/tableau-field-notes/samples/first-prep-flow-orders-sep.csv">first-prep-flow-orders-sep.csv</a>: 22 rows for September. Its quantity column is called <code>qty</code>, not <code>quantity</code>.</li>
+<li><a href="/tableau-field-notes/samples/harbour-goods-stores.csv">harbour-goods-stores.csv</a>: the six known stores with city and region.</li>
+</ul>
+<p>What is wrong with them, counted in Python before writing this:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Problem</th><th>Rows affected</th></tr></thead><tbody><tr><td><code>order_date</code> in three formats: <code>2026-07-02</code>, <code>06/07/2026</code> and <code>11 Jul 2026</code></td><td>32 ISO, 22 day/month/year, 7 day month-name year</td></tr><tr><td><code>store_id</code> in lower case or with a trailing space, such as <code>st-014</code> or <code>ST-003 </code></td><td>15</td></tr><tr><td>Exact duplicate rows, the same order exported twice</td><td>4 (three inside a file, one in both files)</td></tr><tr><td>A duplicate that only matches once dates and store IDs are cleaned</td><td>1</td></tr><tr><td>Store <code>ST-099</code>, which is not in the store list</td><td>2</td></tr></tbody></table>
+<p>The September export also repeats the last August order, <code>HG-41036</code>. Export windows overlap. Somebody ran the August file at noon on the last day and the September file picked up the same order. That is the duplicate that sits in both files.</p>
+<h2 id="before-you-start">Before you start</h2>
+<ul>
+<li><strong>Tableau Prep Builder 2024.1 or later.</strong> The Identify Duplicate Rows feature arrived in 2024.1. Prep Builder comes with the Creator licence; a trial works for this walkthrough.</li>
+<li><strong>Windows or Mac.</strong> The menus below are the same on both unless noted.</li>
+<li><strong>The three CSV files</strong> saved in one folder.</li>
+</ul>
+<h2 id="steps">Steps</h2>
+<h3 id="1-connect-both-order-files">1. Connect both order files</h3>
+<ol>
+<li>Open Prep Builder and select <strong>Connect to Data</strong> (the plus button in the Connections pane) > <strong>Text file</strong>.</li>
+<li>Choose <code>first-prep-flow-orders-jul-aug.csv</code>. An Input step appears in the Flow pane.</li>
+<li>Repeat for <code>first-prep-flow-orders-sep.csv</code>.</li>
+<li>Select the first Input step. In the Input pane, find <code>order_date</code> in the field list. If its type shows as Date, select the type icon and change it to <strong>String</strong>. Do the same in the second input.</li>
+</ol>
+<p>That last step is the one people skip. Prep infers a type from a sample of rows. If it decides <code>order_date</code> is a date, the values in the other formats can arrive as nulls before you have seen them. Keep the column as text and parse it yourself.</p>
+<h3 id="2-union-the-two-inputs">2. Union the two inputs</h3>
+<ol>
+<li>Drag the September Input step onto the July and August one until <strong>Union</strong> appears, then drop it.</li>
+<li>Select the Union step. The Union pane lists both tables and a <strong>Mismatched Fields</strong> list. <code>quantity</code> and <code>qty</code> are shown apart.</li>
+<li>Select <code>qty</code>, then hold Ctrl (Command on Mac) and select <code>quantity</code>. Right-click and choose <strong>Merge Fields</strong>. Rename the result <code>quantity</code> if Prep kept the other name.</li>
+</ol>
+<p>The union now has 61 rows. Prep also adds a field that records which input each row came from (it usually reads <strong>Table Names</strong>). Keep it for now; it is useful when you trace a bad row.</p>
+<p>You could also union the files in the first Input step with <strong>Union multiple tables</strong> on the <strong>Tables</strong> tab. That suits a folder of files with the same columns. Here the column names differ, so the Union step is clearer.</p>
+<h3 id="3-clean-the-store-ids">3. Clean the store IDs</h3>
+<ol>
+<li>Select the plus icon on the Union step and add a <strong>Clean Step</strong>. Name it <code>Clean values</code>.</li>
+<li>In the Profile pane, open the More options menu (the three dots) on the <code>store_id</code> card.</li>
+<li>Select <strong>Clean</strong> > <strong>Trim Spaces</strong>.</li>
+<li>Select <strong>Clean</strong> > <strong>Make Uppercase</strong>.</li>
+</ol>
+<p>The <code>store_id</code> card now shows seven values: the six real stores and <code>ST-099</code>. Leave <code>ST-099</code> alone. Hiding it here would hide a question someone needs to answer.</p>
+<h3 id="4-parse-the-three-date-formats">4. Parse the three date formats</h3>
+<p>In the same Clean step, open the More options menu on any card and select <strong>Create Calculated Field</strong>. Name it <code>order_day</code>:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">IFNULL</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  IFNULL</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    DATEPARSE(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"yyyy-MM-dd"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">, [order_date]),</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    DATEPARSE(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"dd/MM/yyyy"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">, [order_date])</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  ),</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  DATEPARSE(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"dd MMM yyyy"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">, [order_date])</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span></span></code></pre>
+<p>Each DATEPARSE returns null when the text does not fit its pattern, so the IFNULL chain tries them in turn. Capital <code>MM</code> is month; lower-case <code>mm</code> is minutes, a mistake that produces dates with the month stuck on January.</p>
+<p>Then check the <code>order_day</code> card. It should show no null bar. If it does, filter to the nulls and read the raw <code>order_date</code> values; there is a fourth format. When the card is clean, remove the original <code>order_date</code> field and rename <code>order_day</code> to <code>order_date</code>.</p>
+<h3 id="5-find-and-remove-the-duplicates">5. Find and remove the duplicates</h3>
+<ol>
+<li>Add a second Clean Step after <code>Clean values</code>. Name it <code>Remove duplicates</code>.</li>
+<li>In the Profile pane, select every field except the source field (<strong>Table Names</strong>). Ctrl-click (Command-click on Mac) to multi-select.</li>
+<li>Select <strong>Identify Duplicate Rows</strong> on the toolbar. Prep adds a field called <strong>Is Duplicate Row?</strong> with two values, <strong>Unique</strong> and <strong>Duplicate</strong>.</li>
+<li>On the <strong>Is Duplicate Row?</strong> card, select <strong>Unique</strong>, then select <strong>Keep Only</strong> on the toolbar.</li>
+</ol>
+<p>Prep marks the first row of each matching group Unique and the rest Duplicate, so one copy of each order survives. You should see 5 Duplicate and 56 Unique.</p>
+<p>Why leave out <strong>Table Names</strong>? The overlapping order <code>HG-41036</code> sits in both files. Its Table Names value differs, so if you include that field Prep treats the two copies as different rows. You would keep 57 rows and double count one order.</p>
+<h3 id="6-join-the-store-list">6. Join the store list</h3>
+<ol>
+<li>Connect <code>harbour-goods-stores.csv</code> as a third input.</li>
+<li>Drag it onto the <code>Remove duplicates</code> step until <strong>Join</strong> appears, then drop it.</li>
+<li>In the Join pane, check that the clause is <code>store_id = store_id</code>.</li>
+<li>Look at <strong>Summary of Join Results</strong> before you change anything. With the default inner join, 54 rows are included and the two <code>ST-099</code> rows are excluded on the left.</li>
+<li>Change the join type to <strong>Left</strong> by selecting the left circle segment in the Venn diagram. All 56 rows are now kept; the two <code>ST-099</code> rows have null <code>city</code> and <code>region</code>.</li>
+<li>Add a Clean Step after the join. Remove the duplicate <code>store_id-1</code> field and the <code>opened</code> field. Create two calculated fields. Name the first <code>region_label</code>:</li>
+</ol>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">IFNULL</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">([region], </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"Unmapped"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span></span></code></pre>
+<p>Name the second <code>net_amount</code>:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">[quantity] </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> [unit_price] </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">1</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> [discount])</span></span></code></pre>
+<p>The inner join was not wrong. It was silent. A Left join plus an <code>Unmapped</code> label turns a missing store into a row someone can see on a dashboard and chase.</p>
+<h3 id="7-output-a-hyper-extract">7. Output a Hyper extract</h3>
+<ol>
+<li>Select the plus icon on the last step and add an <strong>Output</strong> step.</li>
+<li>In <strong>Save output to</strong>, choose <strong>File</strong>.</li>
+<li>Set <strong>Output type</strong> to <strong>Tableau Data Extract (.hyper)</strong> and name it <code>harbour_orders_q3</code>.</li>
+<li>Leave the write option as <strong>Create table</strong>.</li>
+<li>Select <strong>Run Flow</strong>.</li>
+<li>Save the flow with <strong>File</strong> > <strong>Save</strong> as <code>harbour_orders_q3.tfl</code>.</li>
+</ol>
+<p>To share the flow with the data inside it, use <strong>File</strong> > <strong>Export Packaged Flow</strong>, which writes a .tflx with the CSVs included.</p>
+<h2 id="check-it-worked">Check it worked</h2>
+<p>Open <code>harbour_orders_q3.hyper</code> in Tableau Desktop. Use the count field Desktop adds for the table (it may read <code>harbour_orders_q3 (Count)</code> or, in older versions, Number of Records). Build the view below with <code>region_label</code> on Rows. The expected numbers, computed in Python from the same CSVs:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Stage</th><th>Rows</th></tr></thead><tbody><tr><td>July and August input</td><td>39</td></tr><tr><td>September input</td><td>22</td></tr><tr><td>After Union</td><td>61</td></tr><tr><td>Duplicates if you skip the cleaning (Table Names excluded)</td><td>4</td></tr><tr><td>Duplicates after cleaning</td><td>5</td></tr><tr><td>After Keep Only Unique</td><td>56</td></tr><tr><td>Inner join (what you would have got)</td><td>54</td></tr><tr><td>Left join (what you output)</td><td>56</td></tr></tbody></table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>region_label</th><th>Orders</th><th>SUM(quantity)</th><th>SUM(net_amount)</th></tr></thead><tbody><tr><td>South</td><td>22</td><td>50</td><td>75288.75</td></tr><tr><td>East</td><td>10</td><td>21</td><td>33725.00</td></tr><tr><td>West</td><td>12</td><td>22</td><td>28196.20</td></tr><tr><td>North</td><td>10</td><td>13</td><td>25277.40</td></tr><tr><td>Unmapped</td><td>2</td><td>5</td><td>5845.50</td></tr><tr><td>Total</td><td>56</td><td>111</td><td>168332.85</td></tr></tbody></table>
+<p>The <code>order_date</code> range should run from 2 July 2026 to 23 September 2026 and 56 distinct <code>order_id</code> values should match 56 rows. If you see 57 rows, the source field was in your duplicate check. If you see 58, the duplicates were identified before the cleaning step.</p>
+<h2 id="where-this-breaks">Where this breaks</h2>
+<ul>
+<li><strong>Ambiguous dates.</strong> <code>06/07/2026</code> is 6 July here because the exports come from an Indian till system and the file only covers July to September. In a file that mixes US and Indian sources the same text means 7 June. No calculation fixes that. Ask whoever owns the export.</li>
+<li><strong>The sample hides things.</strong> Prep profiles a sample by default. On 61 rows it sees everything; on a few million it may not. Keep Only still applies to every row when the flow runs, but a value you never saw in the profile can still be wrong.</li>
+<li><strong>Duplicates that differ in one field.</strong> Identify Duplicate Rows only catches rows that match on every selected field. If an export resends an order with a corrected quantity, both rows look unique. For that, pick only <code>order_id</code> and decide which copy wins.</li>
+<li><strong>Merged fields with different types.</strong> If <code>qty</code> arrived as text and <code>quantity</code> as a number, the merged field shows a Change Data Type icon. Fix the type in each input first.</li>
+<li><strong>Hyper write options.</strong> A .hyper output supports Create table and Append to table only. Running this flow twice with Append doubles every row.</li>
+</ul>
+<h2 id="next-on-the-roadmap">Next on the roadmap</h2>
+<p>Next, reshape wide data, aggregate it and write fixed LOD and rank calculations inside a flow: <a href="/tableau-field-notes/articles/prep-pivots-aggregates-lod-rank/">Pivots, aggregates and calculations in Prep</a>. When this flow needs to run every night without you, read <a href="/tableau-field-notes/articles/schedule-flows-prep-conductor/">Schedule flows with Prep Conductor</a>. The full track is on the <a href="/tableau-field-notes/roadmap/">roadmap</a>.</p>
+<h2 id="on-the-brewhouse-floor">On the brewhouse floor</h2>
+<p>A brewery that runs two shifts often keeps two brew logs: one typed up by the morning brewer, one by the night shift. Union them and the same batch can appear twice, once as <code>03/09/2026</code> and once as <code>2026-09-03</code>, with the fermenter written <code>fv-03</code> by one shift and <code>FV-03</code> by the other. Clean the dates and the fermenter IDs first, then check for duplicates and the hectolitres brewed stop being counted twice. A fermenter that is not in the equipment list belongs under Unmapped, not in the bin. The same habit sits under <a href="https://ankurnapa.github.io/2023/tableau-brewery-production-yield-dashboard/">a brewery production and yield dashboard</a>.</p>
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://help.tableau.com/current/prep/en-us/prep_clean.htm">Clean and shape data</a></li>
+<li><a href="https://help.tableau.com/current/prep/en-us/prep_remove_duplicates.htm">Remove duplicate rows</a></li>
+<li><a href="https://help.tableau.com/current/prep/en-us/prep_combine.htm">Aggregate, join or union data</a></li>
+<li><a href="https://help.tableau.com/current/prep/en-us/prep_add_input_data.htm">Add more data in the Input step</a></li>
+<li><a href="https://help.tableau.com/current/prep/en-us/prep_save_share.htm">Save and share your work</a></li>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/data_dateparse.htm">Convert a field to a date field</a></li>
+<li><a href="https://help.tableau.com/current/prep/en-us/prep_get_started.htm">Get started with Tableau Prep Builder</a></li>
+<li><a href="https://help.tableau.com/current/server/en-us/license_product_keys.htm">Role-based licences: Creator includes Prep Builder</a></li>
+</ul>  <section class="author" data-astro-cid-eomsrdgo> <img src="/tableau-field-notes/ankur.jpg" alt="" width="64" height="64" data-astro-cid-eomsrdgo> <div data-astro-cid-eomsrdgo> <p class="name" data-astro-cid-eomsrdgo>Ankur Napa</p> <p data-astro-cid-eomsrdgo>Brewer turned Tableau developer and 2026 Tableau Ambassador. Co-leads the <a href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-eomsrdgo>Bengaluru Tableau User Group</a> and the Tableau Newbies User Group.</p> </div> </section> <section class="event-cta" aria-labelledby="event-cta-h" data-astro-cid-bhhcqpt4> <div class="txt" data-astro-cid-bhhcqpt4> <p class="kicker" data-astro-cid-bhhcqpt4>Next Tableau user group event, online</p> <h2 id="event-cta-h" data-astro-cid-bhhcqpt4>Wisconsin TUG Presents: AI Insights &amp; Latest Extensions</h2> <p class="when" data-astro-cid-bhhcqpt4>Tue, 13 October 2026, 11:30 CDT with the Wisconsin Tableau User Group. Free to join.</p> </div> <div class="acts" data-astro-cid-bhhcqpt4> <a class="btn" href="https://usergroups.tableau.com/events/details/tableau-wisconsin-tableau-user-group-presents-wisconsin-tug-presents-ai-insights-amp-latest-extensions/" data-astro-cid-bhhcqpt4>Join free</a> <a class="btn ghost" href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-bhhcqpt4>Join the Bengaluru Tableau User Group</a> <a class="more" href="/tableau-field-notes/events/#worldwide" data-astro-cid-bhhcqpt4>All events on the map</a> </div> </section>  </article> <aside class="side" data-astro-cid-eomsrdgo> <nav class="box" aria-label="On this page" data-astro-cid-eomsrdgo> <p class="meta" data-astro-cid-eomsrdgo>On this page</p> <ol data-astro-cid-eomsrdgo><li data-astro-cid-eomsrdgo><a href="#short-answer" data-astro-cid-eomsrdgo>Short answer</a></li><li data-astro-cid-eomsrdgo><a href="#what-you-will-build" data-astro-cid-eomsrdgo>What you will build</a></li><li data-astro-cid-eomsrdgo><a href="#before-you-start" data-astro-cid-eomsrdgo>Before you start</a></li><li data-astro-cid-eomsrdgo><a href="#steps" data-astro-cid-eomsrdgo>Steps</a></li><li data-astro-cid-eomsrdgo><a href="#check-it-worked" data-astro-cid-eomsrdgo>Check it worked</a></li><li data-astro-cid-eomsrdgo><a href="#where-this-breaks" data-astro-cid-eomsrdgo>Where this breaks</a></li><li data-astro-cid-eomsrdgo><a href="#next-on-the-roadmap" data-astro-cid-eomsrdgo>Next on the roadmap</a></li><li data-astro-cid-eomsrdgo><a href="#on-the-brewhouse-floor" data-astro-cid-eomsrdgo>On the brewhouse floor</a></li><li data-astro-cid-eomsrdgo><a href="#sources" data-astro-cid-eomsrdgo>Sources</a></li></ol> </nav> <div class="box" data-astro-cid-eomsrdgo> <p class="meta" data-astro-cid-eomsrdgo>On the roadmap</p> <ul data-astro-cid-eomsrdgo><li data-astro-cid-eomsrdgo><a href="/tableau-field-notes/roadmap/#level-1" data-astro-cid-eomsrdgo>Level 1: Your first Prep flow</a></li></ul> </div>  </aside> </div> </main> <footer class="site-foot" data-astro-cid-5hce7sga> <div class="wrap cols" data-astro-cid-5hce7sga> <section data-astro-cid-5hce7sga> <h2 data-astro-cid-5hce7sga>Follow the notes</h2> <p data-astro-cid-5hce7sga>New walkthroughs and a monthly note on what changed in Tableau, posted on LinkedIn first.</p> <p data-astro-cid-5hce7sga><a class="btn" href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>Follow on LinkedIn</a></p> </section> <section data-astro-cid-5hce7sga> <h2 data-astro-cid-5hce7sga>What is next</h2> <p data-astro-cid-5hce7sga>The next session is announced on the <a href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-5hce7sga>user group page</a>.</p> </section> <section data-astro-cid-5hce7sga> <h2 data-astro-cid-5hce7sga>Tools and more</h2> <ul class="next" data-astro-cid-5hce7sga> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/certifications/" data-astro-cid-5hce7sga>Road to Tableau certification</a></li> <li data-astro-cid-5hce7sga><a href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>LinkedIn</a></li> <li data-astro-cid-5hce7sga><a href="https://github.com/AnkurNapa" data-astro-cid-5hce7sga>GitHub</a></li> <li data-astro-cid-5hce7sga><a href="https://ankurnapa.github.io/" data-astro-cid-5hce7sga>Blog: beer, wine, whisky and AI</a></li> <li data-astro-cid-5hce7sga><a href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-5hce7sga>Bengaluru Tableau User Group</a></li> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/people/" data-astro-cid-5hce7sga>Tableau people to follow</a></li> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/beverage/" data-astro-cid-5hce7sga>Tableau in beer, whisky and wine</a></li> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/videos/" data-astro-cid-5hce7sga>Videos and user group recordings</a></li> <li data-astro-cid-5hce7sga><a href="https://ankurnapa.github.io/btug/" data-astro-cid-5hce7sga>Bengaluru Tableau User Group site</a></li> <li data-astro-cid-5hce7sga><a href="https://ankurnapa.github.io/fabric-field-notes/" data-astro-cid-5hce7sga>Fabric Field Notes, the sister site</a></li> </ul> </section> </div> <div class="legal" data-astro-cid-5hce7sga> <div class="wrap" data-astro-cid-5hce7sga> <p data-astro-cid-5hce7sga>Written by Ankur Napa for the Bengaluru Tableau User Group and everyone learning Tableau.</p> <p data-astro-cid-5hce7sga>Independent community site. Not affiliated with or endorsed by Tableau or Salesforce. Tableau is a trademark of Salesforce, Inc.</p> </div> </div> </footer> <script type="module">const a=["auto","light","dark"],t=document.querySelector(".theme"),c=t?.querySelector(".theme-label"),o=()=>{try{return localStorage.getItem("tfn-theme")||"auto"}catch{return"auto"}},r=e=>{e==="auto"?delete document.documentElement.dataset.theme:document.documentElement.dataset.theme=e,t&&(t.dataset.mode=e,t.setAttribute("aria-label",`Colour theme: ${e}`)),c&&(c.textContent=e[0].toUpperCase()+e.slice(1))};r(o());const n=document.querySelector(".menu-btn"),l=e=>{n?.setAttribute("aria-expanded",String(e)),n?.closest(".bar")?.classList.toggle("open",e)};n?.addEventListener("click",()=>l(n.getAttribute("aria-expanded")!=="true"));document.addEventListener("keydown",e=>{e.key==="Escape"&&l(!1)});t?.addEventListener("click",()=>{const e=a[(a.indexOf(o())+1)%a.length];try{e==="auto"?localStorage.removeItem("tfn-theme"):localStorage.setItem("tfn-theme",e)}catch{}r(e)});</script> </body></html> <script type="module">document.querySelectorAll(".body pre").forEach(e=>{const t=document.createElement("button");t.type="button",t.className="copy",t.textContent="Copy",t.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(e.innerText.replace(/Copy$/,"")),t.textContent="Copied"}catch{t.textContent="Select and copy"}setTimeout(()=>t.textContent="Copy",1600)}),e.append(t)});</script> 

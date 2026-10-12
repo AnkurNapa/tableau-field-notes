@@ -1,0 +1,41 @@
+workbook_id,workbook,project,owner,views_90d,distinct_users_90d,last_viewed,size_mb
+WB-001,Region review,Sales,owner2@harbour.example,542,48,2026-08-03,1.6
+WB-002,Target tracker,Sales,owner3@harbour.example,895,13,2026-08-10,7.9
+WB-003,Store scorecard,Sales,owner4@harbour.example,31,17,2026-09-18,2.9
+WB-004,Basket mix,Sales,owner5@harbour.example,249,49,2026-08-25,3.2
+WB-005,Category deep dive v2,Sales,owner6@harbour.example,560,27,2026-08-09,1.5
+WB-006,Margin bridge v3,Sales,owner7@harbour.example,365,58,2026-09-02,40.4
+WB-007,Supplier OTIF v4,Sales,owner8@harbour.example,532,27,2026-08-10,55.2
+WB-008,Price ladder v5,Sales,owner9@harbour.example,0,0,2025-10-03,10.8
+WB-009,Stock cover,Stores,owner1@harbour.example,525,2,2026-08-07,4.2
+WB-010,Daily flash,Stores,owner2@harbour.example,190,39,2026-10-01,7.1
+WB-011,Markdown plan,Stores,owner3@harbour.example,156,12,2026-09-22,4.5
+WB-012,Promo lift,Stores,owner4@harbour.example,745,8,2026-08-27,0.9
+WB-013,Shrinkage v2,Stores,owner5@harbour.example,701,34,2026-08-29,5.2
+WB-014,New store ramp v3,Stores,owner6@harbour.example,0,0,2026-05-09,53.2
+WB-015,Returns watch v4,Stores,owner7@harbour.example,0,0,2026-03-27,18.1
+WB-016,Rota cost v5,Stores,owner8@harbour.example,0,0,2025-10-16,28.2
+WB-017,Customer feedback,Finance,owner9@harbour.example,31,31,2026-08-05,8.2
+WB-018,Footfall by hour,Finance,owner1@harbour.example,456,21,2026-08-23,8.8
+WB-019,Delivery slots,Finance,owner2@harbour.example,623,33,2026-09-19,6.4
+WB-020,Weekly sales,Finance,owner3@harbour.example,466,33,2026-08-28,7.3
+WB-021,Region review v2,Finance,owner4@harbour.example,522,16,2026-08-18,4.9
+WB-022,Target tracker v3,Finance,owner5@harbour.example,268,60,2026-08-27,53.8
+WB-023,Store scorecard v4,Finance,owner6@harbour.example,0,0,2025-11-15,10.0
+WB-024,Basket mix v5,Finance,owner7@harbour.example,0,0,2025-11-18,20.3
+WB-025,Category deep dive,Supply chain,owner8@harbour.example,690,16,2026-09-04,1.0
+WB-026,Margin bridge,Supply chain,owner9@harbour.example,688,20,2026-08-12,1.5
+WB-027,Supplier OTIF,Supply chain,owner1@harbour.example,798,10,2026-08-02,6.6
+WB-028,Price ladder,Supply chain,owner2@harbour.example,679,24,2026-09-22,2.6
+WB-029,Stock cover v2,Supply chain,owner3@harbour.example,143,30,2026-09-17,6.8
+WB-030,Daily flash v3,Supply chain,owner4@harbour.example,0,0,2025-10-26,11.4
+WB-031,Markdown plan v4,Supply chain,owner5@harbour.example,0,0,2026-03-10,11.4
+WB-032,Promo lift v5,Supply chain,owner6@harbour.example,0,0,2025-10-12,25.4
+WB-033,Shrinkage,Sandbox,owner7@harbour.example,0,0,2026-01-01,20.5
+WB-034,New store ramp,Sandbox,owner8@harbour.example,0,0,2026-06-23,21.6
+WB-035,Returns watch,Sandbox,owner9@harbour.example,0,0,2026-06-23,24.3
+WB-036,Rota cost,Sandbox,owner1@harbour.example,0,0,2026-02-01,31.7
+WB-037,Customer feedback v2,Sandbox,owner2@harbour.example,0,0,2026-03-07,58.4
+WB-038,Footfall by hour v3,Sandbox,owner3@harbour.example,0,0,2026-02-17,17.8
+WB-039,Delivery slots v4,Sandbox,owner4@harbour.example,188,18,2026-08-14,9.5
+WB-040,Weekly sales v5,Sandbox,owner5@harbour.example,0,0,2026-02-20,25.5

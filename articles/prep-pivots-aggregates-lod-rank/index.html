@@ -1,0 +1,205 @@
+<!DOCTYPE html><html lang="en-GB" data-astro-cid-5hce7sga> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Pivots, aggregates and calculations in Prep | Tableau Field Notes</title><meta name="description" content="Pivot wide data to rows in Tableau Prep, then write a FIXED LOD, an Aggregate step and a RANK calculation to find the top three products per store."><link rel="canonical" href="https://ankurnapa.github.io/tableau-field-notes/articles/prep-pivots-aggregates-lod-rank/"><meta property="og:type" content="article"><meta property="og:site_name" content="Tableau Field Notes"><meta property="og:title" content="Pivots, aggregates and calculations in Prep"><meta property="og:description" content="Pivot wide data to rows in Tableau Prep, then write a FIXED LOD, an Aggregate step and a RANK calculation to find the top three products per store."><meta property="og:url" content="https://ankurnapa.github.io/tableau-field-notes/articles/prep-pivots-aggregates-lod-rank/"><meta property="og:image" content="https://ankurnapa.github.io/tableau-field-notes/og/prep-pivots-aggregates-lod-rank.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="author" content="Ankur Napa"><script>
+      try { var t = localStorage.getItem('tfn-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+    </script><meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#16191d" media="(prefers-color-scheme: dark)"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><script async src="https://www.googletagmanager.com/gtag/js?id=G-1ZHW47YJDC"></script><script>(function(){const gaId = "G-1ZHW47YJDC";
+
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag('js', new Date());
+          gtag('config', gaId, { anonymize_ip: true });
+        })();</script><link rel="icon" type="image/svg+xml" href="/tableau-field-notes/logo.svg"><link rel="apple-touch-icon" href="/tableau-field-notes/apple-touch-icon.png"><link rel="stylesheet" href="/tableau-field-notes/_astro/about.CXXElhQ4.css">
+<style>.event-cta[data-astro-cid-bhhcqpt4]{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.25rem 2rem;align-items:center;background:var(--footer);color:#fff;border-radius:6px;padding:1.5rem 1.6rem;margin:2.5rem 0 0;border-top:4px solid;border-image:linear-gradient(to right,#4e79a7 0 20%,#f28e2b 20% 40%,#e15759 40% 60%,#76b7b2 60% 80%,#59a14f 80%) 1}.kicker[data-astro-cid-bhhcqpt4]{margin:0 0 .3rem;font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#9cc4ff}h2[data-astro-cid-bhhcqpt4]{color:#fff;font-size:1.3rem;margin:0 0 .35rem}.when[data-astro-cid-bhhcqpt4]{margin:0;color:#c7d9ef;font-size:.95rem}.acts[data-astro-cid-bhhcqpt4]{display:flex;flex-direction:column;align-items:stretch;gap:.6rem;text-align:center}.btn[data-astro-cid-bhhcqpt4].ghost{background:transparent;box-shadow:inset 0 0 0 1.5px #9cc4ff;color:#fff}.btn[data-astro-cid-bhhcqpt4].ghost:hover{background:#ffffff1f}.acts[data-astro-cid-bhhcqpt4] .more[data-astro-cid-bhhcqpt4]{color:#9cc4ff}.btn[data-astro-cid-bhhcqpt4]:focus-visible,.more[data-astro-cid-bhhcqpt4]:focus-visible{outline:2px solid #fff;outline-offset:3px}@media(max-width:44rem){.event-cta[data-astro-cid-bhhcqpt4]{grid-template-columns:1fr;padding:1.25rem 1.1rem}}
+</style>
+<link rel="stylesheet" href="/tableau-field-notes/_astro/_id_.D9IVC1gq.css"></head> <body data-astro-cid-5hce7sga> <a class="skip" href="#main" data-astro-cid-5hce7sga>Skip to content</a> <header class="site-head" data-astro-cid-5hce7sga> <div class="wrap bar" data-astro-cid-5hce7sga> <a class="brand" href="/tableau-field-notes/" aria-label="Tableau Field Notes home" data-astro-cid-5hce7sga> <img src="/tableau-field-notes/logo.svg" width="28" height="28" alt="" data-astro-cid-5hce7sga> <span data-astro-cid-5hce7sga>Tableau <strong data-astro-cid-5hce7sga>Field Notes</strong></span> </a> <nav id="site-nav" aria-label="Main" data-astro-cid-5hce7sga> <a href="/tableau-field-notes/" class="home" aria-label="Home" data-astro-cid-5hce7sga> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z" data-astro-cid-5hce7sga></path></svg> </a> <a href="/tableau-field-notes/roadmap/" data-astro-cid-5hce7sga>Roadmap</a><a href="/tableau-field-notes/certifications/" data-astro-cid-5hce7sga>Certifications</a><a href="/tableau-field-notes/chart-chooser/" data-astro-cid-5hce7sga>Which chart</a><a href="/tableau-field-notes/careers/" data-astro-cid-5hce7sga>Careers</a><a href="/tableau-field-notes/articles/" aria-current="page" data-astro-cid-5hce7sga>Articles</a><a href="/tableau-field-notes/community/" data-astro-cid-5hce7sga>Community</a><a href="/tableau-field-notes/resources/" data-astro-cid-5hce7sga>Resources</a><a href="/tableau-field-notes/beverage/" data-astro-cid-5hce7sga>Beer, whisky, wine</a><a href="/tableau-field-notes/events/" data-astro-cid-5hce7sga>Events</a><a href="/tableau-field-notes/about/" data-astro-cid-5hce7sga>About</a> <a class="nav-follow" href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>Follow on LinkedIn</a> </nav> <a class="find" href="/tableau-field-notes/search/" aria-label="Search" data-astro-cid-5hce7sga> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><circle cx="11" cy="11" r="7" data-astro-cid-5hce7sga></circle><path d="M20 20l-3.5-3.5" data-astro-cid-5hce7sga></path></svg> </a> <button class="theme" type="button" aria-label="Colour theme: auto" title="Colour theme" data-astro-cid-5hce7sga> <svg class="i-auto" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><circle cx="12" cy="12" r="9" data-astro-cid-5hce7sga></circle><path d="M12 3v18" data-astro-cid-5hce7sga></path><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" data-astro-cid-5hce7sga></path></svg> <svg class="i-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><circle cx="12" cy="12" r="4" data-astro-cid-5hce7sga></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" data-astro-cid-5hce7sga></path></svg> <svg class="i-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" data-astro-cid-5hce7sga></path></svg> <span class="theme-label" data-astro-cid-5hce7sga>Auto</span> </button> <a class="follow" href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>Follow</a> <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu" data-astro-cid-5hce7sga> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><path class="m-open" d="M4 7h16M4 12h16M4 17h16" data-astro-cid-5hce7sga></path><path class="m-close" d="M6 6l12 12M18 6L6 18" data-astro-cid-5hce7sga></path></svg> <span class="menu-label" data-astro-cid-5hce7sga>Menu</span> </button> </div> <div class="promo" data-astro-cid-5hce7sga> <div class="wrap promo-in" data-astro-cid-5hce7sga> <span class="promo-tag" data-astro-cid-5hce7sga>Next Tableau user group event, online:</span> <span class="promo-date" data-astro-cid-5hce7sga>Tue, 13 October 2026, 11:30 CDT</span> <span class="promo-title" title="Wisconsin TUG Presents: AI Insights &#38; Latest Extensions (Wisconsin Tableau User Group)" data-astro-cid-5hce7sga>Wisconsin TUG Presents: AI Insights &amp; Latest Extensions<span class="promo-group" data-astro-cid-5hce7sga> (Wisconsin Tableau User Group)</span></span> <a class="promo-map" href="/tableau-field-notes/events/#worldwide" data-astro-cid-5hce7sga>All events on the map</a> <a class="btn" href="https://usergroups.tableau.com/events/details/tableau-wisconsin-tableau-user-group-presents-wisconsin-tug-presents-ai-insights-amp-latest-extensions/" data-astro-cid-5hce7sga>Join free</a> </div> </div> </header> <main id="main" data-pagefind-body data-astro-cid-5hce7sga> <header class="head" data-astro-cid-eomsrdgo> <div class="wrap" data-astro-cid-eomsrdgo> <p class="back" data-astro-cid-eomsrdgo><a class="more" href="/tableau-field-notes/articles/" data-astro-cid-eomsrdgo>All articles</a></p> <h1 data-astro-cid-eomsrdgo>Pivots, aggregates and calculations in Prep</h1> <p class="lede" data-astro-cid-eomsrdgo>Turn a wide weekly stock sheet into rows, add a fixed LOD for each store&#39;s weekly total, aggregate to one row per product and rank the top three per store, all inside one flow.</p> <p class="facts" data-astro-cid-eomsrdgo> <span class="meta" data-astro-cid-eomsrdgo>12 Oct 2026</span>  <span class="badge asof" data-astro-cid-eomsrdgo>Tableau as of October 2026</span> <span class="badge docs" data-astro-cid-eomsrdgo>Checked against Tableau Help</span> <span class="badge lvl" data-astro-cid-eomsrdgo>Level 2</span> <span class="sep" aria-hidden="true" data-astro-cid-eomsrdgo></span> <span class="byline" data-astro-cid-eomsrdgo><img class="avatar" src="/tableau-field-notes/ankur.jpg" alt="" width="28" height="28" data-astro-cid-eomsrdgo> Ankur Napa</span> <span class="sep" aria-hidden="true" data-astro-cid-eomsrdgo></span> <a class="pill" href="/tableau-field-notes/articles/?tag=Prep" data-astro-cid-eomsrdgo>Prep</a><a class="pill" href="/tableau-field-notes/articles/?tag=LOD" data-astro-cid-eomsrdgo>LOD</a> </p> </div> </header> <div class="wrap layout" data-astro-cid-eomsrdgo> <article class="body" data-astro-cid-eomsrdgo>  <h2 id="short-answer">Short answer</h2>
+<p>Most spreadsheets arrive wide: one row per thing and one column per week. Tableau wants them tall: one row per thing per week. In Prep a Pivot step does that with a wildcard, so next month's new column is picked up without editing the flow. After that, Prep gives you three tools that look like Desktop but behave differently. A FIXED LOD in Prep writes a value onto every row. An Aggregate step collapses rows and throws away every field you did not group or aggregate. A rank calculation partitions and orders rows inside the flow. Prep allows only one of these per calculation: you cannot divide by an LOD in the same expression, so you build it in two fields.</p>
+<h2 id="what-you-will-build">What you will build</h2>
+<p>One flow that answers a stock question for Harbour Goods: which three products does each store hold most of, on average, over the last four weeks and what share of each store's week does each product take?</p>
+<p>The input is <a href="/tableau-field-notes/samples/prep-pivots-aggregates-lod-rank.csv">prep-pivots-aggregates-lod-rank.csv</a>, a synthetic stock count with 54 rows (six stores times nine products) and four week columns, <code>wk36</code> to <code>wk39</code>, holding units on hand at the end of each week in September 2026. It looks like this:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>store_id</th><th>product_id</th><th>wk36</th><th>wk37</th><th>wk38</th><th>wk39</th></tr></thead><tbody><tr><td>ST-003</td><td>P-101</td><td>20</td><td>24</td><td>28</td><td>18</td></tr><tr><td>ST-003</td><td>P-102</td><td>10</td><td>3</td><td>7</td><td>11</td></tr><tr><td>ST-003</td><td>P-103</td><td>9</td><td>4</td><td>1</td><td>2</td></tr></tbody></table>
+<p>You will join <a href="/tableau-field-notes/samples/harbour-goods-products.csv">harbour-goods-products.csv</a> at the end for product names.</p>
+<h2 id="before-you-start">Before you start</h2>
+<ul>
+<li>Tableau Prep Builder 2020.1.3 or later for FIXED LOD and rank calculations. Any current version is fine.</li>
+<li>The <a href="/tableau-field-notes/articles/first-prep-flow-clean-union-join/">Your first Prep flow</a> walkthrough, or the same comfort with Input, Clean and Output steps.</li>
+</ul>
+<h2 id="steps">Steps</h2>
+<h3 id="1-pivot-the-week-columns-to-rows">1. Pivot the week columns to rows</h3>
+<ol>
+<li>Connect the stock CSV with <strong>Connect to Data</strong> > <strong>Text file</strong>.</li>
+<li>Select the plus icon on the Input step and choose <strong>Pivot</strong>.</li>
+<li>In the <strong>Pivoted Fields</strong> pane, check the drop-down at the top reads <strong>Columns to Rows</strong>.</li>
+<li>Select <strong>Use wildcard search to pivot</strong>, type <code>wk</code> and press Enter. All four week columns move into the pivot.</li>
+<li>Rename the two new fields. The names field (it usually reads <strong>Pivot1 Names</strong>) becomes <code>week</code>. <strong>Pivot1 Values</strong> becomes <code>on_hand</code>.</li>
+<li>Rename the step <code>Pivot weeks</code>.</li>
+</ol>
+<p>The wildcard is the point. When the October file arrives with <code>wk40</code> to <code>wk43</code>, the same flow picks them up. Dragging four named fields into the pivot would quietly ignore every new week.</p>
+<h3 id="2-add-a-fixed-lod-for-the-stores-weekly-total">2. Add a fixed LOD for the store's weekly total</h3>
+<ol>
+<li>Add a <strong>Clean Step</strong> after the pivot and name it <code>Store share</code>.</li>
+<li>On the <code>on_hand</code> card, open the More options menu and select <strong>Create Calculated Field</strong> > <strong>Fixed LOD</strong>.</li>
+<li>In the visual editor, choose <code>store_id</code> and <code>week</code> as the fields to group by (the label may read Group by), set the computation to SUM of <code>on_hand</code> and name the result <code>store_week_units</code>.</li>
+</ol>
+<p>The same thing typed in the calculation editor:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{FIXED [store_id], [week] : </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">SUM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">([on_hand])}</span></span></code></pre>
+<p>Now create a second, ordinary calculated field called <code>share_of_store_week</code>:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">[on_hand] </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> [store_week_units]</span></span></code></pre>
+<p>Prep does not accept <code>[on_hand] / {FIXED [store_id], [week] : SUM([on_hand])}</code> in one field. Combining an LOD with another expression is not supported and neither is nesting. Two fields is the pattern and it also leaves <code>store_week_units</code> visible for checking.</p>
+<h3 id="3-aggregate-to-one-row-per-store-and-product">3. Aggregate to one row per store and product</h3>
+<ol>
+<li>Add an <strong>Aggregate</strong> step after <code>Store share</code>.</li>
+<li>Drag <code>store_id</code> and <code>product_id</code> to <strong>Grouped Fields</strong>.</li>
+<li>Drag <code>on_hand</code> to <strong>Aggregated Fields</strong>. It defaults to SUM; select the aggregation and change it to <strong>AVG</strong>. Rename it <code>avg_on_hand</code>.</li>
+</ol>
+<p>Every field you did not drag in is gone after this step, including <code>week</code>, <code>store_week_units</code> and <code>share_of_store_week</code>. That is by design. If you need the share later, branch the flow after <code>Store share</code> and send that branch to its own output.</p>
+<h3 id="4-rank-products-inside-each-store">4. Rank products inside each store</h3>
+<ol>
+<li>Add a <strong>Clean Step</strong> after the Aggregate step and name it <code>Rank</code>.</li>
+<li>On the <code>avg_on_hand</code> card, open More options and select <strong>Create Calculated Field</strong> > <strong>Rank</strong>.</li>
+<li>Group by <code>store_id</code>, order by <code>avg_on_hand</code> and keep the rank function as RANK. Name the field <code>stock_rank</code>. The editor labels may differ slightly between versions.</li>
+</ol>
+<p>In the calculation editor it reads:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">PARTITION</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> [store_id] : {ORDERBY [avg_on_hand] : </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">RANK</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">()}}</span></span></code></pre>
+<p>Prep orders descending by default, so the largest average gets rank 1. Add <code>ASC</code> after the field to reverse it. RANK gives tied rows the same number and skips the next; RANK_DENSE does not skip. ROW_NUMBER is available in the calculation editor but not in the visual one.</p>
+<ol start="4">
+<li>On the <code>stock_rank</code> card, open More options and select <strong>Filter</strong> > <strong>Calculation</strong>, then enter <code>[stock_rank] &#x3C;= 3</code>.</li>
+</ol>
+<h3 id="5-add-names-and-write-the-output">5. Add names and write the output</h3>
+<ol>
+<li>Connect <code>harbour-goods-products.csv</code> and join it to the <code>Rank</code> step on <code>product_id</code>. An inner join is right here: every product ID in the stock file is in the product list.</li>
+<li>Add an <strong>Output</strong> step, save to <strong>File</strong> as <strong>Tableau Data Extract (.hyper)</strong> named <code>top3_stock_by_store</code> and run the flow.</li>
+</ol>
+<h2 id="check-it-worked">Check it worked</h2>
+<p>Numbers below were computed in Python from the CSV.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Step</th><th>Rows</th></tr></thead><tbody><tr><td>Input (wide)</td><td>54</td></tr><tr><td>After Pivot</td><td>216</td></tr><tr><td>After Aggregate</td><td>54</td></tr><tr><td>After rank filter</td><td>18</td></tr></tbody></table>
+<p>Total <code>on_hand</code> after the pivot is 4572 units. In <code>Store share</code>, filter to ST-003 and <code>wk39</code>: every row carries <code>store_week_units</code> of 157 and P-107 shows 37 units, a share of 0.2357.</p>
+<p>The top three per store after the rank filter:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>store_id</th><th>Rank 1</th><th>Rank 2</th><th>Rank 3</th></tr></thead><tbody><tr><td>ST-003</td><td>P-107 (38.50)</td><td>P-105 (37.00)</td><td>P-104 (27.75)</td></tr><tr><td>ST-007</td><td>P-102 (38.75)</td><td>P-101 (38.50)</td><td>P-103 (38.25)</td></tr><tr><td>ST-011</td><td>P-107 (42.00)</td><td>P-104 (36.25)</td><td>P-108 (27.50)</td></tr><tr><td>ST-014</td><td>P-109 (39.00)</td><td>P-105 (30.00)</td><td>P-102 (18.00)</td></tr><tr><td>ST-019</td><td>P-103 (39.00)</td><td>P-109 (27.25)</td><td>P-108 (24.25)</td></tr><tr><td>ST-022</td><td>P-109 (40.75)</td><td>P-106 (38.00)</td><td>P-102 (31.75)</td></tr></tbody></table>
+<p>There are no ties in this data, so you get exactly 18 rows. With ties you would get more, which is correct behaviour for RANK and a surprise for whoever expected a top three.</p>
+<h2 id="where-this-breaks">Where this breaks</h2>
+<ul>
+<li><strong>A wildcard that matches too much.</strong> <code>wk</code> also matches a column called <code>wk_notes</code> if someone adds one. Use a tighter pattern or rename the columns at the source.</li>
+<li><strong>Pivoting rows to columns is one way.</strong> In <strong>Rows to Columns</strong> mode you cannot drag fields back out to undo it. Use Undo or delete the step. Date fields must be strings before they can become column names.</li>
+<li><strong>The Aggregate step drops fields.</strong> People add one after a long Clean step and then wonder where their calculations went. Branch first.</li>
+<li><strong>LOD limits in Prep.</strong> Only FIXED. No INCLUDE or EXCLUDE, no nesting and no combining an LOD with other arithmetic in one field. Desktop allows all of these, so a calculation copied from a workbook may not paste.</li>
+<li><strong>Prep's LOD ignores dashboard filters.</strong> It is computed once when the flow runs. A share of the store's week is right for the whole store; it will not recompute when a reader filters to one category. That kind of share belongs in Desktop.</li>
+<li><strong>Do not name a field Number of Records.</strong> The help notes it causes a permission-related error in Prep.</li>
+</ul>
+<h2 id="next-on-the-roadmap">Next on the roadmap</h2>
+<p>Your flow works on your laptop. Next, publish it and run it every night with <a href="/tableau-field-notes/articles/schedule-flows-prep-conductor/">Schedule flows with Prep Conductor</a>. For the Desktop side of LOD expressions, see the Practitioner row of the <a href="/tableau-field-notes/roadmap/">roadmap</a>.</p>
+<h2 id="on-the-brewhouse-floor">On the brewhouse floor</h2>
+<p>A winery's cellar team often keeps barrel top-up records in a wide sheet: one row per barrel, one column per week. Pivot the weeks to rows with a wildcard, add a fixed LOD for the litres topped up per cellar per week and each barrel's share of the week's work shows which barrels are losing the most wine. Aggregate to one row per barrel, rank inside each cellar and the three thirstiest barrels per cellar are the ones to inspect first. The <a href="https://ankurnapa.github.io/2023/tableau-wine-cellar-barrel-ageing-dashboard/">cellar and barrel-ageing inventory dashboard</a> reads well from a table shaped like this.</p>
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://help.tableau.com/current/prep/en-us/prep_pivot.htm">Pivot your data</a></li>
+<li><a href="https://help.tableau.com/current/prep/en-us/prep_calculations.htm">Create level of detail, rank and tile calculations</a></li>
+<li><a href="https://help.tableau.com/current/prep/en-us/prep_combine.htm">Aggregate, join or union data</a></li>
+<li><a href="https://help.tableau.com/current/prep/en-us/prep_save_share.htm">Save and share your work</a></li>
+</ul>  <section class="author" data-astro-cid-eomsrdgo> <img src="/tableau-field-notes/ankur.jpg" alt="" width="64" height="64" data-astro-cid-eomsrdgo> <div data-astro-cid-eomsrdgo> <p class="name" data-astro-cid-eomsrdgo>Ankur Napa</p> <p data-astro-cid-eomsrdgo>Brewer turned Tableau developer and 2026 Tableau Ambassador. Co-leads the <a href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-eomsrdgo>Bengaluru Tableau User Group</a> and the Tableau Newbies User Group.</p> </div> </section> <section class="event-cta" aria-labelledby="event-cta-h" data-astro-cid-bhhcqpt4> <div class="txt" data-astro-cid-bhhcqpt4> <p class="kicker" data-astro-cid-bhhcqpt4>Next Tableau user group event, online</p> <h2 id="event-cta-h" data-astro-cid-bhhcqpt4>Wisconsin TUG Presents: AI Insights &amp; Latest Extensions</h2> <p class="when" data-astro-cid-bhhcqpt4>Tue, 13 October 2026, 11:30 CDT with the Wisconsin Tableau User Group. Free to join.</p> </div> <div class="acts" data-astro-cid-bhhcqpt4> <a class="btn" href="https://usergroups.tableau.com/events/details/tableau-wisconsin-tableau-user-group-presents-wisconsin-tug-presents-ai-insights-amp-latest-extensions/" data-astro-cid-bhhcqpt4>Join free</a> <a class="btn ghost" href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-bhhcqpt4>Join the Bengaluru Tableau User Group</a> <a class="more" href="/tableau-field-notes/events/#worldwide" data-astro-cid-bhhcqpt4>All events on the map</a> </div> </section>  </article> <aside class="side" data-astro-cid-eomsrdgo> <nav class="box" aria-label="On this page" data-astro-cid-eomsrdgo> <p class="meta" data-astro-cid-eomsrdgo>On this page</p> <ol data-astro-cid-eomsrdgo><li data-astro-cid-eomsrdgo><a href="#short-answer" data-astro-cid-eomsrdgo>Short answer</a></li><li data-astro-cid-eomsrdgo><a href="#what-you-will-build" data-astro-cid-eomsrdgo>What you will build</a></li><li data-astro-cid-eomsrdgo><a href="#before-you-start" data-astro-cid-eomsrdgo>Before you start</a></li><li data-astro-cid-eomsrdgo><a href="#steps" data-astro-cid-eomsrdgo>Steps</a></li><li data-astro-cid-eomsrdgo><a href="#check-it-worked" data-astro-cid-eomsrdgo>Check it worked</a></li><li data-astro-cid-eomsrdgo><a href="#where-this-breaks" data-astro-cid-eomsrdgo>Where this breaks</a></li><li data-astro-cid-eomsrdgo><a href="#next-on-the-roadmap" data-astro-cid-eomsrdgo>Next on the roadmap</a></li><li data-astro-cid-eomsrdgo><a href="#on-the-brewhouse-floor" data-astro-cid-eomsrdgo>On the brewhouse floor</a></li><li data-astro-cid-eomsrdgo><a href="#sources" data-astro-cid-eomsrdgo>Sources</a></li></ol> </nav> <div class="box" data-astro-cid-eomsrdgo> <p class="meta" data-astro-cid-eomsrdgo>On the roadmap</p> <ul data-astro-cid-eomsrdgo><li data-astro-cid-eomsrdgo><a href="/tableau-field-notes/roadmap/#level-2" data-astro-cid-eomsrdgo>Level 2: Pivots, aggregates and calculations in Prep</a></li></ul> </div>  </aside> </div> </main> <footer class="site-foot" data-astro-cid-5hce7sga> <div class="wrap cols" data-astro-cid-5hce7sga> <section data-astro-cid-5hce7sga> <h2 data-astro-cid-5hce7sga>Follow the notes</h2> <p data-astro-cid-5hce7sga>New walkthroughs and a monthly note on what changed in Tableau, posted on LinkedIn first.</p> <p data-astro-cid-5hce7sga><a class="btn" href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>Follow on LinkedIn</a></p> </section> <section data-astro-cid-5hce7sga> <h2 data-astro-cid-5hce7sga>What is next</h2> <p data-astro-cid-5hce7sga>The next session is announced on the <a href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-5hce7sga>user group page</a>.</p> </section> <section data-astro-cid-5hce7sga> <h2 data-astro-cid-5hce7sga>Tools and more</h2> <ul class="next" data-astro-cid-5hce7sga> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/certifications/" data-astro-cid-5hce7sga>Road to Tableau certification</a></li> <li data-astro-cid-5hce7sga><a href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>LinkedIn</a></li> <li data-astro-cid-5hce7sga><a href="https://github.com/AnkurNapa" data-astro-cid-5hce7sga>GitHub</a></li> <li data-astro-cid-5hce7sga><a href="https://ankurnapa.github.io/" data-astro-cid-5hce7sga>Blog: beer, wine, whisky and AI</a></li> <li data-astro-cid-5hce7sga><a href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-5hce7sga>Bengaluru Tableau User Group</a></li> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/people/" data-astro-cid-5hce7sga>Tableau people to follow</a></li> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/beverage/" data-astro-cid-5hce7sga>Tableau in beer, whisky and wine</a></li> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/videos/" data-astro-cid-5hce7sga>Videos and user group recordings</a></li> <li data-astro-cid-5hce7sga><a href="https://ankurnapa.github.io/btug/" data-astro-cid-5hce7sga>Bengaluru Tableau User Group site</a></li> <li data-astro-cid-5hce7sga><a href="https://ankurnapa.github.io/fabric-field-notes/" data-astro-cid-5hce7sga>Fabric Field Notes, the sister site</a></li> </ul> </section> </div> <div class="legal" data-astro-cid-5hce7sga> <div class="wrap" data-astro-cid-5hce7sga> <p data-astro-cid-5hce7sga>Written by Ankur Napa for the Bengaluru Tableau User Group and everyone learning Tableau.</p> <p data-astro-cid-5hce7sga>Independent community site. Not affiliated with or endorsed by Tableau or Salesforce. Tableau is a trademark of Salesforce, Inc.</p> </div> </div> </footer> <script type="module">const a=["auto","light","dark"],t=document.querySelector(".theme"),c=t?.querySelector(".theme-label"),o=()=>{try{return localStorage.getItem("tfn-theme")||"auto"}catch{return"auto"}},r=e=>{e==="auto"?delete document.documentElement.dataset.theme:document.documentElement.dataset.theme=e,t&&(t.dataset.mode=e,t.setAttribute("aria-label",`Colour theme: ${e}`)),c&&(c.textContent=e[0].toUpperCase()+e.slice(1))};r(o());const n=document.querySelector(".menu-btn"),l=e=>{n?.setAttribute("aria-expanded",String(e)),n?.closest(".bar")?.classList.toggle("open",e)};n?.addEventListener("click",()=>l(n.getAttribute("aria-expanded")!=="true"));document.addEventListener("keydown",e=>{e.key==="Escape"&&l(!1)});t?.addEventListener("click",()=>{const e=a[(a.indexOf(o())+1)%a.length];try{e==="auto"?localStorage.removeItem("tfn-theme"):localStorage.setItem("tfn-theme",e)}catch{}r(e)});</script> </body></html> <script type="module">document.querySelectorAll(".body pre").forEach(e=>{const t=document.createElement("button");t.type="button",t.className="copy",t.textContent="Copy",t.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(e.innerText.replace(/Copy$/,"")),t.textContent="Copied"}catch{t.textContent="Select and copy"}setTimeout(()=>t.textContent="Copy",1600)}),e.append(t)});</script> 

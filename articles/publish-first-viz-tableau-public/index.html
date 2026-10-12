@@ -1,0 +1,157 @@
+<!DOCTYPE html><html lang="en-GB" data-astro-cid-5hce7sga> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Publish to Tableau Public: your first viz and a profile people follow | Tableau Field Notes</title><meta name="description" content="Publish your first viz to Tableau Public: build it in Desktop Public Edition, write the description, set download access and finish your profile."><link rel="canonical" href="https://ankurnapa.github.io/tableau-field-notes/articles/publish-first-viz-tableau-public/"><meta property="og:type" content="article"><meta property="og:site_name" content="Tableau Field Notes"><meta property="og:title" content="Publish to Tableau Public: your first viz and a profile people follow"><meta property="og:description" content="Publish your first viz to Tableau Public: build it in Desktop Public Edition, write the description, set download access and finish your profile."><meta property="og:url" content="https://ankurnapa.github.io/tableau-field-notes/articles/publish-first-viz-tableau-public/"><meta property="og:image" content="https://ankurnapa.github.io/tableau-field-notes/og/publish-first-viz-tableau-public.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="author" content="Ankur Napa"><script>
+      try { var t = localStorage.getItem('tfn-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+    </script><meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#16191d" media="(prefers-color-scheme: dark)"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><script async src="https://www.googletagmanager.com/gtag/js?id=G-1ZHW47YJDC"></script><script>(function(){const gaId = "G-1ZHW47YJDC";
+
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag('js', new Date());
+          gtag('config', gaId, { anonymize_ip: true });
+        })();</script><link rel="icon" type="image/svg+xml" href="/tableau-field-notes/logo.svg"><link rel="apple-touch-icon" href="/tableau-field-notes/apple-touch-icon.png"><link rel="stylesheet" href="/tableau-field-notes/_astro/about.CXXElhQ4.css">
+<style>.event-cta[data-astro-cid-bhhcqpt4]{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.25rem 2rem;align-items:center;background:var(--footer);color:#fff;border-radius:6px;padding:1.5rem 1.6rem;margin:2.5rem 0 0;border-top:4px solid;border-image:linear-gradient(to right,#4e79a7 0 20%,#f28e2b 20% 40%,#e15759 40% 60%,#76b7b2 60% 80%,#59a14f 80%) 1}.kicker[data-astro-cid-bhhcqpt4]{margin:0 0 .3rem;font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#9cc4ff}h2[data-astro-cid-bhhcqpt4]{color:#fff;font-size:1.3rem;margin:0 0 .35rem}.when[data-astro-cid-bhhcqpt4]{margin:0;color:#c7d9ef;font-size:.95rem}.acts[data-astro-cid-bhhcqpt4]{display:flex;flex-direction:column;align-items:stretch;gap:.6rem;text-align:center}.btn[data-astro-cid-bhhcqpt4].ghost{background:transparent;box-shadow:inset 0 0 0 1.5px #9cc4ff;color:#fff}.btn[data-astro-cid-bhhcqpt4].ghost:hover{background:#ffffff1f}.acts[data-astro-cid-bhhcqpt4] .more[data-astro-cid-bhhcqpt4]{color:#9cc4ff}.btn[data-astro-cid-bhhcqpt4]:focus-visible,.more[data-astro-cid-bhhcqpt4]:focus-visible{outline:2px solid #fff;outline-offset:3px}@media(max-width:44rem){.event-cta[data-astro-cid-bhhcqpt4]{grid-template-columns:1fr;padding:1.25rem 1.1rem}}
+</style>
+<link rel="stylesheet" href="/tableau-field-notes/_astro/_id_.D9IVC1gq.css"></head> <body data-astro-cid-5hce7sga> <a class="skip" href="#main" data-astro-cid-5hce7sga>Skip to content</a> <header class="site-head" data-astro-cid-5hce7sga> <div class="wrap bar" data-astro-cid-5hce7sga> <a class="brand" href="/tableau-field-notes/" aria-label="Tableau Field Notes home" data-astro-cid-5hce7sga> <img src="/tableau-field-notes/logo.svg" width="28" height="28" alt="" data-astro-cid-5hce7sga> <span data-astro-cid-5hce7sga>Tableau <strong data-astro-cid-5hce7sga>Field Notes</strong></span> </a> <nav id="site-nav" aria-label="Main" data-astro-cid-5hce7sga> <a href="/tableau-field-notes/" class="home" aria-label="Home" data-astro-cid-5hce7sga> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z" data-astro-cid-5hce7sga></path></svg> </a> <a href="/tableau-field-notes/roadmap/" data-astro-cid-5hce7sga>Roadmap</a><a href="/tableau-field-notes/certifications/" data-astro-cid-5hce7sga>Certifications</a><a href="/tableau-field-notes/chart-chooser/" data-astro-cid-5hce7sga>Which chart</a><a href="/tableau-field-notes/careers/" data-astro-cid-5hce7sga>Careers</a><a href="/tableau-field-notes/articles/" aria-current="page" data-astro-cid-5hce7sga>Articles</a><a href="/tableau-field-notes/community/" data-astro-cid-5hce7sga>Community</a><a href="/tableau-field-notes/resources/" data-astro-cid-5hce7sga>Resources</a><a href="/tableau-field-notes/beverage/" data-astro-cid-5hce7sga>Beer, whisky, wine</a><a href="/tableau-field-notes/events/" data-astro-cid-5hce7sga>Events</a><a href="/tableau-field-notes/about/" data-astro-cid-5hce7sga>About</a> <a class="nav-follow" href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>Follow on LinkedIn</a> </nav> <a class="find" href="/tableau-field-notes/search/" aria-label="Search" data-astro-cid-5hce7sga> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><circle cx="11" cy="11" r="7" data-astro-cid-5hce7sga></circle><path d="M20 20l-3.5-3.5" data-astro-cid-5hce7sga></path></svg> </a> <button class="theme" type="button" aria-label="Colour theme: auto" title="Colour theme" data-astro-cid-5hce7sga> <svg class="i-auto" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><circle cx="12" cy="12" r="9" data-astro-cid-5hce7sga></circle><path d="M12 3v18" data-astro-cid-5hce7sga></path><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" data-astro-cid-5hce7sga></path></svg> <svg class="i-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><circle cx="12" cy="12" r="4" data-astro-cid-5hce7sga></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" data-astro-cid-5hce7sga></path></svg> <svg class="i-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" data-astro-cid-5hce7sga></path></svg> <span class="theme-label" data-astro-cid-5hce7sga>Auto</span> </button> <a class="follow" href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>Follow</a> <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu" data-astro-cid-5hce7sga> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-5hce7sga><path class="m-open" d="M4 7h16M4 12h16M4 17h16" data-astro-cid-5hce7sga></path><path class="m-close" d="M6 6l12 12M18 6L6 18" data-astro-cid-5hce7sga></path></svg> <span class="menu-label" data-astro-cid-5hce7sga>Menu</span> </button> </div> <div class="promo" data-astro-cid-5hce7sga> <div class="wrap promo-in" data-astro-cid-5hce7sga> <span class="promo-tag" data-astro-cid-5hce7sga>Next Tableau user group event, online:</span> <span class="promo-date" data-astro-cid-5hce7sga>Tue, 13 October 2026, 11:30 CDT</span> <span class="promo-title" title="Wisconsin TUG Presents: AI Insights &#38; Latest Extensions (Wisconsin Tableau User Group)" data-astro-cid-5hce7sga>Wisconsin TUG Presents: AI Insights &amp; Latest Extensions<span class="promo-group" data-astro-cid-5hce7sga> (Wisconsin Tableau User Group)</span></span> <a class="promo-map" href="/tableau-field-notes/events/#worldwide" data-astro-cid-5hce7sga>All events on the map</a> <a class="btn" href="https://usergroups.tableau.com/events/details/tableau-wisconsin-tableau-user-group-presents-wisconsin-tug-presents-ai-insights-amp-latest-extensions/" data-astro-cid-5hce7sga>Join free</a> </div> </div> </header> <main id="main" data-pagefind-body data-astro-cid-5hce7sga> <header class="head" data-astro-cid-eomsrdgo> <div class="wrap" data-astro-cid-eomsrdgo> <p class="back" data-astro-cid-eomsrdgo><a class="more" href="/tableau-field-notes/articles/" data-astro-cid-eomsrdgo>All articles</a></p> <h1 data-astro-cid-eomsrdgo>Publish to Tableau Public: your first viz and a profile people follow</h1> <p class="lede" data-astro-cid-eomsrdgo>Build a sorted bar chart of net sales by store from a fictional retailer&#39;s CSV, publish it to Tableau Public, write a description that gets found and set up a profile worth following.</p> <p class="facts" data-astro-cid-eomsrdgo> <span class="meta" data-astro-cid-eomsrdgo>12 Oct 2026</span>  <span class="badge asof" data-astro-cid-eomsrdgo>Tableau as of October 2026</span> <span class="badge docs" data-astro-cid-eomsrdgo>Checked against Tableau Help</span> <span class="badge lvl" data-astro-cid-eomsrdgo>Level 1</span> <span class="sep" aria-hidden="true" data-astro-cid-eomsrdgo></span> <span class="byline" data-astro-cid-eomsrdgo><img class="avatar" src="/tableau-field-notes/ankur.jpg" alt="" width="28" height="28" data-astro-cid-eomsrdgo> Ankur Napa</span> <span class="sep" aria-hidden="true" data-astro-cid-eomsrdgo></span> <a class="pill" href="/tableau-field-notes/articles/?tag=Public" data-astro-cid-eomsrdgo>Public</a><a class="pill" href="/tableau-field-notes/articles/?tag=Desktop" data-astro-cid-eomsrdgo>Desktop</a> </p> </div> </header> <div class="wrap layout" data-astro-cid-eomsrdgo> <article class="body" data-astro-cid-eomsrdgo>  <h2 id="short-answer">Short answer</h2>
+<p>Build in Tableau Desktop Public Edition, save a local copy first, then publish to Tableau Public. Before you share the link, do three things on the viz page: write a description that says what the reader learns, set a permalink and decide whether others may download it. Then spend ten minutes on your profile. People follow profiles, not single vizzes.</p>
+<h2 id="what-you-will-build">What you will build</h2>
+<p>One worksheet: net sales by store for Harbour Goods, a fictional retailer and distributor with six stores across India. The data covers 55 orders placed between 2 July and 29 September 2026. You will add one calculated field, sort the bars and publish the result to your own Tableau Public profile.</p>
+<p>Download the data: <a href="/tableau-field-notes/samples/harbour-goods-orders-clean.csv">harbour-goods-orders-clean.csv</a>. Each row is one order with <code>order_id</code>, <code>order_date</code>, <code>store_id</code>, <code>product_id</code>, <code>quantity</code>, <code>unit_price</code> in rupees and <code>discount</code> as a fraction (0.05 is five per cent).</p>
+<p>Harbour Goods is invented, which is the point. This is data you are allowed to make public. Your employer's data is not, however tidy it looks.</p>
+<h2 id="before-you-start">Before you start</h2>
+<ul>
+<li><strong>Tableau Desktop Public Edition</strong>, free from the Tableau Public site, on Windows or Mac. Desktop Professional Edition works too. Desktop Free Edition does not: it cannot save to Tableau Public.</li>
+<li><strong>A Tableau Public account.</strong> Sign up on <a href="https://public.tableau.com/app/discover">public.tableau.com</a> and verify your email. The activation link is valid for 48 hours; after that, use <strong>Forgot your password</strong> to activate.</li>
+<li><strong>Ten minutes of honesty about the data.</strong> Anything you publish can be found by search and downloaded by default.</li>
+</ul>
+<h2 id="steps">Steps</h2>
+<h3 id="1-connect-to-the-csv">1. Connect to the CSV</h3>
+<ol>
+<li>Open Tableau Desktop Public Edition.</li>
+<li>In the <strong>Connect</strong> pane, under <strong>To a File</strong>, select <strong>Text file</strong>.</li>
+<li>Choose <code>harbour-goods-orders-clean.csv</code> and select <strong>Open</strong>.</li>
+<li>Check the preview grid on the Data Source page. You should see seven columns. <code>quantity</code>, <code>unit_price</code> and <code>discount</code> should show a number icon (#). If any of them shows Abc, select the icon above the column and choose <strong>Number (decimal)</strong>.</li>
+<li>Select <strong>Sheet 1</strong> at the bottom left.</li>
+</ol>
+<h3 id="2-create-net-sales">2. Create Net Sales</h3>
+<ol>
+<li>Select <strong>Analysis</strong> > <strong>Create Calculated Field</strong>.</li>
+<li>Name it <code>Net Sales</code> and enter:</li>
+</ol>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">[quantity] </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> [unit_price] </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">1</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> -</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> [discount])</span></span></code></pre>
+<ol start="3">
+<li>Select <strong>OK</strong>. Net Sales appears under the measures in the Data pane.</li>
+</ol>
+<p>This is a row-level calculation. Tableau works out net sales for each order, then the view adds them up as SUM(Net Sales).</p>
+<h3 id="3-build-the-chart">3. Build the chart</h3>
+<ol>
+<li>Drag <code>store_id</code> to <strong>Rows</strong>. It is a discrete dimension, so it shows as a blue pill and gives one header per store.</li>
+<li>Drag <code>Net Sales</code> to <strong>Columns</strong>. It becomes the continuous green pill SUM(Net Sales) and draws one horizontal bar per store.</li>
+<li>Select <strong>Sort Descending</strong> on the toolbar so the biggest store is at the top.</li>
+<li>Drag <code>Net Sales</code> from the Data pane onto <strong>Label</strong> on the Marks card to print the value on each bar.</li>
+<li>Double-click the sheet title and write a title that states the finding, not the chart type: <code>Bengaluru South led Harbour Goods sales in July to September 2026</code>.</li>
+<li>Rename the sheet tab to <code>Net sales by store</code>. Sheet names show on Tableau Public and in view counts.</li>
+</ol>
+<h3 id="4-save-a-local-copy-first">4. Save a local copy first</h3>
+<p>Select <strong>File</strong> > <strong>Save As</strong> and save a packaged workbook (.twbx) on your machine. Tableau Public is not a backup. If you ever delete the online copy, nobody can restore it.</p>
+<h3 id="5-publish-to-tableau-public">5. Publish to Tableau Public</h3>
+<ol>
+<li>Select <strong>Server</strong> > <strong>Tableau Public</strong> > <strong>Save to Tableau Public</strong>. In some Public Edition builds the label may read <strong>File</strong> > <strong>Save to Tableau Public As</strong>.</li>
+<li>Sign in with your Tableau Public account.</li>
+<li>Name the workbook something a stranger would search for: <code>Harbour Goods net sales by store, Q3 2026</code>. Avoid <code>Book1</code> and <code>test final</code>.</li>
+<li>Select <strong>Save</strong>. Tableau creates an extract of the data, uploads it and opens the viz in your browser.</li>
+</ol>
+<h3 id="6-finish-the-viz-page">6. Finish the viz page</h3>
+<ol>
+<li>On the viz page, select <strong>Edit Details</strong>.</li>
+<li>Write a description of two or three sentences. Say what the data is, where it came from and what the reader should notice. For this one: "Fictional retail data for practice. Net sales by store for 55 orders, July to September 2026. Bengaluru South sold a quarter of the total."</li>
+<li>Add a permalink if offered, so the URL stays readable.</li>
+<li>Select the <strong>Settings</strong> icon in the viz toolbar. Under <strong>Allow Access</strong>, decide whether to keep <strong>Let others download or make a copy of this viz</strong> on. For practice data, leave it on. Downloads also expose the View Data table that screen-reader users rely on.</li>
+<li>Select <strong>Share</strong> under the viz to copy the link or the embed code.</li>
+</ol>
+<h3 id="7-set-up-the-profile">7. Set up the profile</h3>
+<ol>
+<li>Select your profile icon > <strong>My Profile</strong> > <strong>Edit Profile</strong>.</li>
+<li>Add a bio of one line that names your audience, for example "Retail and supply chain analytics in Tableau". Add your title, location and LinkedIn link.</li>
+<li>Tick <strong>Available for Hire</strong> if you are looking. It adds a <strong>Hire Me</strong> button that emails you enquiries.</li>
+<li>Hover over a picture placeholder to select <strong>Update profile picture</strong>, then select <strong>Customize Banner</strong> to set a colour and pattern.</li>
+<li>Hover over your best viz on the profile and select it as your featured viz.</li>
+<li>Follow ten authors whose work you admire. Their new vizzes then appear in your <strong>Recent Activity</strong> channel on the home page.</li>
+</ol>
+<h2 id="check-it-worked">Check it worked</h2>
+<p>On your published viz, hover over each bar. The values must match this table, computed in Python from the CSV:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>store_id</th><th>Store</th><th>Orders</th><th>Units</th><th>SUM(Net Sales)</th></tr></thead><tbody><tr><td>ST-003</td><td>Bengaluru South</td><td>14</td><td>29</td><td>40,872.00</td></tr><tr><td>ST-019</td><td>Delhi North</td><td>11</td><td>20</td><td>32,640.90</td></tr><tr><td>ST-014</td><td>Pune West</td><td>11</td><td>19</td><td>29,266.75</td></tr><tr><td>ST-007</td><td>Chennai South</td><td>4</td><td>10</td><td>19,070.45</td></tr><tr><td>ST-011</td><td>Mumbai West</td><td>8</td><td>15</td><td>18,930.35</td></tr><tr><td>ST-022</td><td>Kolkata East</td><td>7</td><td>10</td><td>12,285.35</td></tr></tbody></table>
+<p>The total is 153,065.80 across 55 orders and 103 units. To check the total in Desktop, select <strong>Analysis</strong> > <strong>Totals</strong> > <strong>Show Column Grand Totals</strong>.</p>
+<p>Then sign out, or open the viz in a private browser window. If you can see it there, so can everyone else. That is the real test.</p>
+<h2 id="where-this-breaks">Where this breaks</h2>
+<ul>
+<li><strong>The numbers are text.</strong> If Tableau reads <code>discount</code> as a string, Net Sales errors. Change the data type on the Data Source page, not with a calculation.</li>
+<li><strong>Duplicate names overwrite.</strong> Publishing again with the same name and choosing to overwrite makes Tableau Public treat it as a new workbook. Its view count goes back to zero.</li>
+<li><strong>Renaming sheets lowers views.</strong> Views are counted per sheet. Rename or delete a sheet people have seen and the total drops.</li>
+<li><strong>Live connections do not publish.</strong> Tableau Public keeps extracts only. The one exception is Google Sheets, refreshed once every 24 hours.</li>
+<li><strong>The 15 million row cap.</strong> Public Edition and Tableau Public stop at 15 million rows. Aggregate before you publish if you are near it.</li>
+<li><strong>Web authoring on a phone.</strong> Creating or editing vizzes in the browser needs a desktop or laptop. Mobile devices are not supported for authoring.</li>
+</ul>
+<h2 id="next-on-the-roadmap">Next on the roadmap</h2>
+<p>You have one viz on a profile. Next, put it in front of people with <a href="/tableau-field-notes/articles/first-community-challenge-makeover-monday-workout-wednesday/">your first community challenge</a>. When you have a handful of vizzes, <a href="/tableau-field-notes/articles/tableau-public-portfolio-that-gets-hired/">A portfolio that gets you hired</a> turns the profile into something a hiring manager reads in two minutes.</p>
+<h2 id="on-the-brewhouse-floor">On the brewhouse floor</h2>
+<p>The same chart answers a question every small brewery asks: which taproom or account sold the most this quarter? Swap stores for outlets and net sales for litres sold. The sorted bar shows the outlet carrying the brewery. Publish that only with invented or public numbers; real outlet volumes are commercial secrets. For the private version with yield and loss built in, see <a href="https://ankurnapa.github.io/2023/tableau-brewery-production-yield-dashboard/">a brewery production and yield dashboard</a>.</p>
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/publish_workbooks_tableaupublic.htm">Save workbooks with Tableau Public</a></li>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/public_faq.htm">Tableau Public FAQ</a></li>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/desktop_comparison.htm">Tableau Desktop Public Edition, Free Edition and Professional Edition feature comparison</a></li>
+<li><a href="https://help.tableau.com/current/pro/desktop/en-us/calculations_calculatedfields_create.htm">Create a calculated field</a></li>
+<li><a href="https://public.tableau.com/app/discover">Tableau Public</a></li>
+</ul>  <section class="author" data-astro-cid-eomsrdgo> <img src="/tableau-field-notes/ankur.jpg" alt="" width="64" height="64" data-astro-cid-eomsrdgo> <div data-astro-cid-eomsrdgo> <p class="name" data-astro-cid-eomsrdgo>Ankur Napa</p> <p data-astro-cid-eomsrdgo>Brewer turned Tableau developer and 2026 Tableau Ambassador. Co-leads the <a href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-eomsrdgo>Bengaluru Tableau User Group</a> and the Tableau Newbies User Group.</p> </div> </section> <section class="event-cta" aria-labelledby="event-cta-h" data-astro-cid-bhhcqpt4> <div class="txt" data-astro-cid-bhhcqpt4> <p class="kicker" data-astro-cid-bhhcqpt4>Next Tableau user group event, online</p> <h2 id="event-cta-h" data-astro-cid-bhhcqpt4>Wisconsin TUG Presents: AI Insights &amp; Latest Extensions</h2> <p class="when" data-astro-cid-bhhcqpt4>Tue, 13 October 2026, 11:30 CDT with the Wisconsin Tableau User Group. Free to join.</p> </div> <div class="acts" data-astro-cid-bhhcqpt4> <a class="btn" href="https://usergroups.tableau.com/events/details/tableau-wisconsin-tableau-user-group-presents-wisconsin-tug-presents-ai-insights-amp-latest-extensions/" data-astro-cid-bhhcqpt4>Join free</a> <a class="btn ghost" href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-bhhcqpt4>Join the Bengaluru Tableau User Group</a> <a class="more" href="/tableau-field-notes/events/#worldwide" data-astro-cid-bhhcqpt4>All events on the map</a> </div> </section>  </article> <aside class="side" data-astro-cid-eomsrdgo> <nav class="box" aria-label="On this page" data-astro-cid-eomsrdgo> <p class="meta" data-astro-cid-eomsrdgo>On this page</p> <ol data-astro-cid-eomsrdgo><li data-astro-cid-eomsrdgo><a href="#short-answer" data-astro-cid-eomsrdgo>Short answer</a></li><li data-astro-cid-eomsrdgo><a href="#what-you-will-build" data-astro-cid-eomsrdgo>What you will build</a></li><li data-astro-cid-eomsrdgo><a href="#before-you-start" data-astro-cid-eomsrdgo>Before you start</a></li><li data-astro-cid-eomsrdgo><a href="#steps" data-astro-cid-eomsrdgo>Steps</a></li><li data-astro-cid-eomsrdgo><a href="#check-it-worked" data-astro-cid-eomsrdgo>Check it worked</a></li><li data-astro-cid-eomsrdgo><a href="#where-this-breaks" data-astro-cid-eomsrdgo>Where this breaks</a></li><li data-astro-cid-eomsrdgo><a href="#next-on-the-roadmap" data-astro-cid-eomsrdgo>Next on the roadmap</a></li><li data-astro-cid-eomsrdgo><a href="#on-the-brewhouse-floor" data-astro-cid-eomsrdgo>On the brewhouse floor</a></li><li data-astro-cid-eomsrdgo><a href="#sources" data-astro-cid-eomsrdgo>Sources</a></li></ol> </nav> <div class="box" data-astro-cid-eomsrdgo> <p class="meta" data-astro-cid-eomsrdgo>On the roadmap</p> <ul data-astro-cid-eomsrdgo><li data-astro-cid-eomsrdgo><a href="/tableau-field-notes/roadmap/#level-1" data-astro-cid-eomsrdgo>Level 1: Publish to Tableau Public</a></li></ul> </div>  </aside> </div> </main> <footer class="site-foot" data-astro-cid-5hce7sga> <div class="wrap cols" data-astro-cid-5hce7sga> <section data-astro-cid-5hce7sga> <h2 data-astro-cid-5hce7sga>Follow the notes</h2> <p data-astro-cid-5hce7sga>New walkthroughs and a monthly note on what changed in Tableau, posted on LinkedIn first.</p> <p data-astro-cid-5hce7sga><a class="btn" href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>Follow on LinkedIn</a></p> </section> <section data-astro-cid-5hce7sga> <h2 data-astro-cid-5hce7sga>What is next</h2> <p data-astro-cid-5hce7sga>The next session is announced on the <a href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-5hce7sga>user group page</a>.</p> </section> <section data-astro-cid-5hce7sga> <h2 data-astro-cid-5hce7sga>Tools and more</h2> <ul class="next" data-astro-cid-5hce7sga> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/certifications/" data-astro-cid-5hce7sga>Road to Tableau certification</a></li> <li data-astro-cid-5hce7sga><a href="https://www.linkedin.com/in/ankur-napa" data-astro-cid-5hce7sga>LinkedIn</a></li> <li data-astro-cid-5hce7sga><a href="https://github.com/AnkurNapa" data-astro-cid-5hce7sga>GitHub</a></li> <li data-astro-cid-5hce7sga><a href="https://ankurnapa.github.io/" data-astro-cid-5hce7sga>Blog: beer, wine, whisky and AI</a></li> <li data-astro-cid-5hce7sga><a href="https://usergroups.tableau.com/bengaluru-tableau-user-group" data-astro-cid-5hce7sga>Bengaluru Tableau User Group</a></li> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/people/" data-astro-cid-5hce7sga>Tableau people to follow</a></li> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/beverage/" data-astro-cid-5hce7sga>Tableau in beer, whisky and wine</a></li> <li data-astro-cid-5hce7sga><a href="/tableau-field-notes/videos/" data-astro-cid-5hce7sga>Videos and user group recordings</a></li> <li data-astro-cid-5hce7sga><a href="https://ankurnapa.github.io/btug/" data-astro-cid-5hce7sga>Bengaluru Tableau User Group site</a></li> <li data-astro-cid-5hce7sga><a href="https://ankurnapa.github.io/fabric-field-notes/" data-astro-cid-5hce7sga>Fabric Field Notes, the sister site</a></li> </ul> </section> </div> <div class="legal" data-astro-cid-5hce7sga> <div class="wrap" data-astro-cid-5hce7sga> <p data-astro-cid-5hce7sga>Written by Ankur Napa for the Bengaluru Tableau User Group and everyone learning Tableau.</p> <p data-astro-cid-5hce7sga>Independent community site. Not affiliated with or endorsed by Tableau or Salesforce. Tableau is a trademark of Salesforce, Inc.</p> </div> </div> </footer> <script type="module">const a=["auto","light","dark"],t=document.querySelector(".theme"),c=t?.querySelector(".theme-label"),o=()=>{try{return localStorage.getItem("tfn-theme")||"auto"}catch{return"auto"}},r=e=>{e==="auto"?delete document.documentElement.dataset.theme:document.documentElement.dataset.theme=e,t&&(t.dataset.mode=e,t.setAttribute("aria-label",`Colour theme: ${e}`)),c&&(c.textContent=e[0].toUpperCase()+e.slice(1))};r(o());const n=document.querySelector(".menu-btn"),l=e=>{n?.setAttribute("aria-expanded",String(e)),n?.closest(".bar")?.classList.toggle("open",e)};n?.addEventListener("click",()=>l(n.getAttribute("aria-expanded")!=="true"));document.addEventListener("keydown",e=>{e.key==="Escape"&&l(!1)});t?.addEventListener("click",()=>{const e=a[(a.indexOf(o())+1)%a.length];try{e==="auto"?localStorage.removeItem("tfn-theme"):localStorage.setItem("tfn-theme",e)}catch{}r(e)});</script> </body></html> <script type="module">document.querySelectorAll(".body pre").forEach(e=>{const t=document.createElement("button");t.type="button",t.className="copy",t.textContent="Copy",t.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(e.innerText.replace(/Copy$/,"")),t.textContent="Copied"}catch{t.textContent="Select and copy"}setTimeout(()=>t.textContent="Copy",1600)}),e.append(t)});</script> 
